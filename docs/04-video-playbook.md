@@ -73,6 +73,18 @@ service itself (the 80/20 model).
 - **$600/month**, paid 50% upfront / 50% on launch. "80% of my business is automated; the 20% is
   creating the service."
 
+### 7. "AI agency from zero, A to Z" (Noah)
+- Niche filter: 50k+ in the US, high ticket, other agencies already selling to them. HVAC ≈ 115k.
+  Don't spend more than 15–30 minutes picking; then stop niche-hopping.
+- Offer = outcome first. Easy-yes for beginners: small setup + pay per booked appointment, a refund
+  guarantee, 6-month prepay discount ($6,500 vs $2,000/mo in his call).
+- Fastest channels for local businesses: **cold calls and cold SMS** (owners live on their phones).
+  Free leads: Google Maps + Instant Data Scraper. (Cold SMS needs A2P registration and TCPA care.)
+- Full live sales call shown: rapport → frame → problem → goal → current state → bridge → urgency →
+  pitch (outcome, service, price) → tie-down → close; $500 deposit taken on the call.
+- Retention comes from delivery systems (instant SMS + AI qualifier on every form, review campaign,
+  weekly reports) and communication, not only leads.
+
 ---
 
 ## What this means for Scalepath

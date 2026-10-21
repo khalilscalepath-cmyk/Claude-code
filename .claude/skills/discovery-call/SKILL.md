@@ -23,6 +23,30 @@ Pull the lead's evidence, website status, hours, review count; have their demo o
 6. Pitch ONE package that matches what they said (not a menu).
 7. Close: price, what's included, 7–10 day launch, **50% upfront / 50% at go-live**, then monthly.
 
+## Noah's call framework (use as the backbone; it works even at 19–20 years old)
+1. Rapport (1–2 min, real conversation).
+2. Frame: "I'll ask a few questions to see if we're even a fit; if we are I'll show you how it works,
+   if not I'll tell you. Sound good?" Get a verbal yes.
+3. Problem: "What made you want to jump on this call?"
+4. Goal: "What does a great next 12 months look like for the business?"
+5. Current state: "How are you getting jobs now? What have you tried? Why didn't it work?" Probe.
+   Closers win on follow-up questions, not on the script.
+6. Bridge: "If referrals work so well, why not just do more of that?" Let them say why they need a change.
+7. Urgency: "What happens if nothing changes in the next 6 months?" / "Why is this a priority now?"
+8. Pre-pitch with confidence → pitch **outcome first, service second, price last** → tie-down
+   ("100% good on how it works?") → assume the close.
+9. Objections: reassure → tie-down → isolate ("So it's just the money?"). The first objection is
+   usually a smokescreen.
+
+## Offer framing
+Sell the trip, not the plane: "you stop losing the 9pm and Saturday jobs", not "AI voice agent".
+Easy-yes structures for your first clients:
+- Setup + performance: e.g. $500 setup + $X per booked job from after-hours calls.
+- Risk reversal: "If it doesn't book at least {n} jobs in 30 days, I refund the setup."
+- Commitment discount: monthly, or 6 months prepaid at a discount.
+No results yet? Say so honestly: "That's why the offer is built so you only pay when it works,
+and you'd be one of my only clients, so you get me directly."
+
 ## Pricing guide (by size)
 | Size | Package | Setup | Monthly |
 |---|---|---|---|

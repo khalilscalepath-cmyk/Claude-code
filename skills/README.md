@@ -1,6 +1,6 @@
 # Scalepath Claude Skills
 
-Six skills that run the agency workflow from the videos (see `docs/04-video-playbook.md`):
+Eight skills that run the agency workflow from the videos (see `docs/04-video-playbook.md`):
 
 | Skill | Use it when you say things like |
 |---|---|
@@ -10,6 +10,8 @@ Six skills that run the agency workflow from the videos (see `docs/04-video-play
 | `cold-outreach` | "write the email for this lead", "Loom script for Emergency Air" |
 | `discovery-call` | "prep me for my call with X", "write the proposal", "how much should I charge?" |
 | `weekly-client-report` | "make this week's report for my client" |
+| `client-delivery-agents` | "set up the follow-up agent for my new client", "review campaign" |
+| `video-to-skill` | "watch this video and add what's useful" (any YouTube link) |
 
 ## Install
 - **Claude app / claude.ai (works from a phone browser):** Settings → Capabilities/Skills → Upload

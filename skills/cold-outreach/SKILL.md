@@ -27,6 +27,30 @@ Max 120 words. No AI jargon (LLM, agent, automation stack). Digits not words.
 answer, no site) → 0:40 call the demo receptionist live, book a job → 1:30 show the tech SMS +
 booking → 1:45 "If useful, grab 15 minutes or reply here."
 
+## Cold calls (Noah's script, adapted)
+Opener (pattern interrupt): "Hey, is this {name}? {name}, I'll be honest, this is a cold call. Do you
+have 15 seconds?" → "I work with a couple of {trade} companies, mostly helping them catch the calls
+they miss after hours and when the guys are on jobs. Usually it's an extra 3–4 jobs a month, nothing
+crazy. I haven't worked with anyone in {city} yet, which is why I'm calling. Are you even able to
+take on more jobs right now?" → if yes: 2–3 sentence pitch → "How does that sound?" → "Which part do
+you like?" (they sell themselves) → book: "I've got Tuesday 10am or Wednesday 2pm, which works?"
+Never ask "when are you free?"; offer two times. Log every call (called / booked / not interested).
+
+## Cold SMS (high reply rate, but read the compliance box first)
+3-step sequence: "hey {first}, are you able to take on more jobs right now?" → 6h later "{first},
+are you fully booked out?" → next day "{first}??". Variation: "hey {first}, it's {you}, just saw
+{Business} on Google. Have you ever tried an AI receptionist for after-hours calls? Can I send you a
+quick demo?" Drip slowly (≈2/min), split-test openers, call within minutes of any reply.
+> **Compliance box (US):** texting business cell phones from a platform counts as marketing under
+> the TCPA, and carriers block unregistered senders. Only text numbers that are published as business
+> lines, register A2P 10DLC first, identify yourself, honour STOP immediately, and check current
+> rules (and your platform's terms) before sending. When unsure, call or email instead.
+
+## Free lead list (Noah's method)
+Google Maps search "{trade} in {city}" → scroll to the end of results → Instant Data Scraper
+(Chrome extension) → Copy all (name, phone, site, rating) → paste into a sheet by time zone so you
+call at local business hours → import to GoHighLevel/Instantly. Then run `lead-signals` to score.
+
 ## Compliance
 Real name, physical mailing address, working opt-out, honour opt-outs. Warm new domains 2–3 weeks;
 ≤ 30–50 sends per inbox per day. Send to the owner/manager address when found, not info@ if avoidable.

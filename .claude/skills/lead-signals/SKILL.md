@@ -22,6 +22,12 @@ test 10–12 first, then scale (Patrick Dang's rule).
 | 15–600 Google reviews (owner-operated sweet spot) | ×1.0 | |
 | Franchise or 1,500+ reviews (likely has a call center) | ×0.4 | |
 
+## Is the niche worth it? (Noah's 3-point filter)
+1. Size: 50,000+ businesses in the US (HVAC ≈ 115k, roofing ≈ 135–166k).
+2. High ticket: each customer job worth $500+ so a recovered job pays the retainer.
+3. Proof of demand: other agencies already sell to them (search Facebook Ad Library for
+   "more HVAC jobs", "plumbing leads"). Pick, then stop niche-hopping.
+
 ## Process
 1. Search with the trade + city + complaint wording ("never called back", "no answer", "voicemail")
    on BBB, Google reviews, Yelp, Angi, HomeAdvisor. Use the `leadengine` script when API keys exist
