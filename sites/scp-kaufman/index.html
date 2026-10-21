@@ -375,7 +375,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
 </div></footer>
 
 <button class="launcher" id="launcher" aria-expanded="false" aria-controls="chat"><span class="av"><svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#0d4672" stroke-width="4.5" stroke-linecap="round"/><path d="M29 35c-2.2 0-4-1.7-4-3.8 0-2.5 4-6.2 4-6.2s4 3.7 4 6.2c0 2.1-1.8 3.8-4 3.8z" fill="#1d6fa5"/></svg></span><span>Chat with us</span></button>
-<div class="teaser" id="teaser" hidden><button id="teaserX" aria-label="Dismiss">&times;</button>Hi! Something leaking or not draining? Tell me what's going on and I'll help.</div>
+<div class="teaser" id="teaser" hidden><button id="teaserX" aria-label="Dismiss">&times;</button>Hi, I'm Cara. I can answer questions and book a plumber for you. What's going on?</div>
 
 <div class="chat" id="chat" role="dialog" aria-label="Chat with Service Contractors Plumbing" hidden>
   <div class="chat-head">
@@ -403,6 +403,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
   var BUSINESS = "Service Contractors Plumbing";
   var CALENDLY = "https://calendly.com/strydegrowth";
   var VAPI_PUBLIC_KEY = "f38f75ff-8440-46fe-b16e-533da902881c";
+  var VAPI_ASSISTANT_ID = ""; // paste the ID of the "Cara" assistant saved in the Vapi dashboard
   document.getElementById("yr").textContent = new Date().getFullYear();
 
   /* ---------- Motion (GSAP) ---------- */
@@ -526,7 +527,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
       teaser = document.getElementById("teaser"), chatStatus = document.getElementById("chatStatus");
   var sessionId = null, busy = false, greeted = false;
   var SYSTEM = [
-    "You are the website chat assistant for " + BUSINESS + ", a local residential plumbing company at 6174 Raymond Rd, Kaufman, Texas 75142, phone (972) 232-2810.",
+    "You are Cara, the website chat assistant for " + BUSINESS + ", a local residential plumbing company at 6174 Raymond Rd, Kaufman, Texas 75142, phone (972) 232-2810.",
     "Write like a friendly, plain-spoken person from the office: short replies (1 to 3 sentences), no lists unless asked, no emojis, no markdown.",
     "Services: leaks and leak detection, water heaters (repair and replacement), drains and sewer lines, toilets, faucets, disposals, valves, water lines and low pressure.",
     "Service area: homes in Kaufman, Texas and nearby towns in Kaufman County (for example Terrell, Forney, Crandall, Kemp, Mabank, Oak Grove). If a town is nearby but you are not sure, say the office will confirm coverage.",
@@ -561,23 +562,23 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
   }
   function ask(text) {
     busy = true; sendBtn.disabled = true; typing(true); chatStatus.textContent = "Typing…";
-    var body = { input: text, assistant: assistant };
+    var body = VAPI_ASSISTANT_ID ? { input: text, assistantId: VAPI_ASSISTANT_ID } : { input: text, assistant: assistant };
     if (sessionId) body.sessionId = sessionId; else body.sessionExpirationSeconds = 3600;
     return fetch("https://api.vapi.ai/chat/web", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + VAPI_PUBLIC_KEY },
       body: JSON.stringify(body)
     }).then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
+      if (!r.ok) return r.text().then(function (t) { console.warn("Vapi chat error", r.status, t); throw new Error(String(r.status)); });
       return r.json();
     }).then(function (data) {
       if (data.sessionId) sessionId = data.sessionId;
       var reply = outputText(data);
       typing(false);
       bubble(reply || "Sorry, I didn't catch that. Could you say it another way?", "bot");
-    }).catch(function () {
+    }).catch(function (err) {
       typing(false);
-      bubble("I can't connect right now. Please call (972) 232-2810. The phone is answered day and night.", "err");
+      bubble("I can't connect right now. Please call (972) 232-2810. The phone is answered day and night. (code " + (err && err.message || "network") + ")", "err");
     }).then(function () {
       busy = false; chatStatus.textContent = "Online now, replies in seconds"; sendBtn.disabled = !msg.value.trim(); msg.focus();
     });
@@ -585,7 +586,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
   function openChat() {
     chat.hidden = false; launcher.hidden = true; teaser.hidden = true; launcher.setAttribute("aria-expanded", "true");
     if (hasGsap) gsap.from(chat, { scale: .92, autoAlpha: 0, duration: .25, ease: "power2.out" });
-    if (!greeted) { greeted = true; bubble("Hi, thanks for reaching out to " + BUSINESS + ". What's going on with your plumbing?", "bot"); }
+    if (!greeted) { greeted = true; bubble("Hi, I'm Cara from " + BUSINESS + ". I can answer questions about our plumbing services, help you figure out what's going on, and book a plumber to come out. How can I help?", "bot"); }
     setTimeout(function () { msg.focus(); }, 60);
   }
   function closeChat() { chat.hidden = true; launcher.hidden = false; launcher.setAttribute("aria-expanded", "false"); launcher.focus(); }
@@ -624,7 +625,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
         vapi.on("message", function (m) { if (m && m.type === "transcript" && m.transcriptType === "final") bubble(m.transcript, m.role === "user" ? "me" : "bot"); });
         vapi.on("error", function () { live = false; mic.classList.remove("live"); mic.disabled = false; chatStatus.textContent = "Voice couldn't connect. Type instead, or call (972) 232-2810."; });
       }
-      return vapi.start(voiceAssistant);
+      return vapi.start(VAPI_ASSISTANT_ID || voiceAssistant);
     }).catch(function () { mic.disabled = false; chatStatus.textContent = "Voice couldn't load here. Type instead."; });
   });
 })();
