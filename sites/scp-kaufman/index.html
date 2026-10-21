@@ -82,7 +82,7 @@ nav a:hover { color: var(--water); }
 .answered .ok::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #2fa36b; }
 
 /* After-hours story */
-.story { position: relative; height: 330vh; background: var(--ink); color: #eaf1f5; }
+.story { position: relative; height: 250vh; background: var(--ink); color: #eaf1f5; }
 .pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); overflow: hidden; }
 .frames { position: relative; overflow: hidden; }
 .frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
@@ -141,6 +141,15 @@ form { background: var(--ticket); border: 1px solid var(--line); border-radius: 
 label { display: grid; gap: 6px; font-size: 15px; font-weight: 600; }
 input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--steel); border: 1px solid var(--line); border-radius: 6px; padding: 13px 14px; min-height: 52px; width: 100%; }
 textarea { min-height: 96px; resize: vertical; }
+.consent { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.about { padding-block: clamp(72px, 9vw, 120px); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.about p { color: var(--ink-2); font-size: 18px; margin: 0 0 16px; max-width: 60ch; }
+.facts { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.facts div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.facts dt { font-weight: 700; } .facts dd { margin: 0; color: var(--ink-2); text-align: right; }
+.legal a { color: #c9d8e2; }
+@media (max-width: 920px) { .about-grid { grid-template-columns: minmax(0, 1fr); } }
 .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 .phone-ui { background: var(--ink); color: #eaf1f5; border-radius: 28px; padding: 18px 18px 22px; display: grid; gap: 12px; box-shadow: 0 30px 60px -30px rgba(12,33,50,.7); }
 .phone-ui .top { display: flex; justify-content: space-between; font-size: 13.5px; color: #93adbf; }
@@ -159,33 +168,41 @@ textarea { min-height: 96px; resize: vertical; }
 footer { background: #081724; color: #8ea6b6; font-size: 14px; }
 footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 10px 36px; justify-content: space-between; }
 
-/* Assistant */
-.fab { position: fixed; z-index: 70; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 20px 0 16px; border-radius: 999px; border: 0; background: var(--deep); color: #fff; font-weight: 700; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(12,33,50,.7); }
-.fab svg { width: 24px; height: 24px; }
-.chat { position: fixed; z-index: 80; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: min(400px, calc(100vw - 36px)); height: min(640px, calc(100svh - 110px)); background: var(--ticket); border-radius: 14px; box-shadow: 0 30px 70px -20px rgba(12,33,50,.6); display: flex; flex-direction: column; overflow: hidden; }
-.chat-head { background: var(--deep); color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+/* Chat */
+.launcher { position: fixed; z-index: 70; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; border: 0; cursor: pointer; background: var(--deep); color: #fff; border-radius: 999px; padding: 8px 20px 8px 8px; box-shadow: 0 16px 34px -14px rgba(12,33,50,.75); font-weight: 700; font-size: 16px; }
+.launcher .av { position: relative; width: 44px; height: 44px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
+.launcher .av::after { content: ""; position: absolute; right: 1px; bottom: 1px; width: 11px; height: 11px; border-radius: 50%; background: #2fa36b; border: 2px solid var(--deep); }
+.teaser { position: fixed; z-index: 69; right: max(18px, env(safe-area-inset-right)); bottom: calc(86px + env(safe-area-inset-bottom)); max-width: 280px; background: var(--ticket); color: var(--ink); border-radius: 16px 16px 4px 16px; padding: 12px 36px 12px 14px; font-size: 15px; box-shadow: 0 16px 34px -16px rgba(12,33,50,.55); cursor: pointer; }
+.teaser button { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border: 0; background: transparent; font-size: 18px; color: var(--ink-2); cursor: pointer; border-radius: 6px; }
+.chat { position: fixed; z-index: 80; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: min(410px, calc(100vw - 36px)); height: min(660px, calc(100svh - 100px)); background: var(--ticket); border-radius: 20px; box-shadow: 0 30px 80px -20px rgba(12,33,50,.6); display: flex; flex-direction: column; overflow: hidden; transform-origin: bottom right; }
+.chat-head { background: var(--deep); color: #fff; padding: 14px 14px 14px 16px; display: flex; align-items: center; gap: 12px; }
+.chat-head .av { position: relative; width: 40px; height: 40px; border-radius: 50%; background: #fff; display: grid; place-items: center; flex: none; }
+.chat-head .av::after { content: ""; position: absolute; right: 0; bottom: 0; width: 10px; height: 10px; border-radius: 50%; background: #2fa36b; border: 2px solid var(--deep); }
 .chat-head .t { flex: 1; min-width: 0; }
-.chat-head b { display: block; font-size: 16px; }
+.chat-head b { display: block; font-size: 16px; line-height: 1.2; }
 .chat-head span { font-size: 13px; color: #bcd3e3; }
-.chat-head button { background: transparent; border: 0; color: #fff; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 22px; line-height: 1; }
-.chat-head button:hover { background: rgba(255,255,255,.12); }
-.log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--steel); }
-.m { max-width: 86%; padding: 10px 13px; border-radius: 12px; font-size: 15.5px; line-height: 1.45; }
-.m.bot { background: var(--ticket); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
-.m.me { background: var(--deep); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-.m.sum { background: #fff8db; border: 1px solid #ecd27a; }
-.m.cta { background: var(--ink); color: #eaf1f5; max-width: 100%; }
-.m.cta a { color: var(--caution); font-weight: 700; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--line); background: var(--ticket); }
-.chips button { border: 1px solid var(--line); background: var(--steel); border-radius: 999px; padding: 8px 12px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink); }
-.chips button:hover { border-color: var(--water); color: var(--water); }
-.composer { display: flex; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--ticket); }
-.composer input { min-height: 46px; background: var(--steel); }
-.composer button { min-width: 46px; border: 0; border-radius: 6px; background: var(--caution); color: var(--ink); font-weight: 700; cursor: pointer; padding: 0 14px; }
-.voice { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: #e5eef4; border-top: 1px solid var(--line); font-size: 14px; }
-.voice button { border: 0; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; background: var(--ink); color: #fff; }
-.voice .lvl { width: 10px; height: 10px; border-radius: 50%; background: #9fb3c1; }
-.voice.live .lvl { background: #2fa36b; box-shadow: 0 0 0 6px rgba(47,163,107,.25); }
+.chat-head a, .chat-head button { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 0; background: transparent; color: #fff; cursor: pointer; }
+.chat-head a:hover, .chat-head button:hover { background: rgba(255,255,255,.12); }
+.chat-head svg { width: 20px; height: 20px; }
+.log { flex: 1; overflow-y: auto; padding: 18px 14px; display: flex; flex-direction: column; gap: 8px; background: #f4f7f9; scroll-behavior: smooth; }
+.day { align-self: center; font-size: 12.5px; color: var(--ink-2); margin-bottom: 6px; }
+.m { max-width: 82%; padding: 10px 14px; border-radius: 18px; font-size: 15.5px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.m.bot { background: var(--ticket); border: 1px solid #e1e8ed; border-bottom-left-radius: 6px; align-self: flex-start; }
+.m.me { background: var(--deep); color: #fff; border-bottom-right-radius: 6px; align-self: flex-end; }
+.m.err { background: #fff4f2; border: 1px solid #f2c9c0; align-self: flex-start; }
+.typing { align-self: flex-start; background: var(--ticket); border: 1px solid #e1e8ed; border-radius: 18px; border-bottom-left-radius: 6px; padding: 12px 14px; display: flex; gap: 4px; }
+.typing i { width: 7px; height: 7px; border-radius: 50%; background: #93a7b6; animation: blink 1.2s infinite; }
+.typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+.composer { display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid #e1e8ed; background: var(--ticket); }
+.composer textarea { flex: 1; min-height: 46px; max-height: 120px; resize: none; border-radius: 22px; padding: 12px 16px; background: #f4f7f9; border: 1px solid #e1e8ed; font-size: 16px; line-height: 1.35; }
+.composer .ic { width: 46px; height: 46px; flex: none; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; }
+.composer .send { background: var(--caution); color: var(--ink); }
+.composer .send:disabled { opacity: .45; cursor: default; }
+.composer .mic { background: #e6eef3; color: var(--deep); }
+.composer .mic.live { background: #2fa36b; color: #fff; }
+.composer svg { width: 20px; height: 20px; }
+.fine { text-align: center; font-size: 11.5px; color: var(--ink-2); padding: 0 12px 8px; background: var(--ticket); }
 
 .callbar { display: none; }
 
@@ -216,9 +233,10 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
   .row2 { grid-template-columns: minmax(0, 1fr); }
   .callbar { display: flex; gap: 10px; position: fixed; z-index: 65; left: 0; right: 0; bottom: 0; background: rgba(238,242,244,.97); border-top: 1px solid var(--line); padding: 10px max(14px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
   .callbar .btn { flex: 1; min-height: 50px; padding: 0 10px; }
-  .fab { bottom: calc(84px + env(safe-area-inset-bottom)); padding: 0 16px 0 14px; min-height: 50px; }
-  .fab .txt { display: none; }
-  .chat { right: 0; bottom: 0; width: 100vw; height: 100svh; border-radius: 0; }
+  .launcher { bottom: calc(84px + env(safe-area-inset-bottom)); padding: 6px 16px 6px 6px; font-size: 15px; }
+  .launcher .av { width: 38px; height: 38px; }
+  .teaser { bottom: calc(146px + env(safe-area-inset-bottom)); }
+  .chat { right: 0; bottom: 0; width: 100vw; height: 100dvh; border-radius: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
@@ -232,7 +250,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
     <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#0c2132"/><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#f3c234" stroke-width="4" stroke-linecap="round"/><path d="M29 33c-2.2 0-4-1.7-4-3.8 0-2.5 4-6.2 4-6.2s4 3.7 4 6.2c0 2.1-1.8 3.8-4 3.8z" fill="#4fa3d9"/></svg>
     <span class="brand-name">Service Contractors Plumbing<small>Kaufman, Texas</small></span>
   </a>
-  <nav aria-label="Main"><a href="#services">Services</a><a href="#after-hours">After hours</a><a href="#how">Booking</a><a href="#request">Request service</a></nav>
+  <nav aria-label="Main"><a href="#services">Services</a><a href="#after-hours">After hours</a><a href="#about">About</a><a href="#request">Request service</a></nav>
   <a class="btn btn-caution hdr-call" href="tel:+19722322810" aria-label="Call (972) 232-2810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="num">(972) 232-2810</span></a>
 </div></header>
 
@@ -320,6 +338,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
         <label for="f-issue">What's going on?<select id="f-issue"><option>Leak</option><option>Water heater</option><option>Clogged drain or toilet</option><option>Low water pressure</option><option>Something else</option></select></label>
         <label for="f-notes">Details (optional)<textarea id="f-notes">Water under the kitchen sink since this morning.</textarea></label>
         <button class="btn btn-caution" type="submit">Send request</button>
+        <p class="consent">By sending this request you agree that Service Contractors Plumbing may call or text you at the number you entered about your service request. Message and data rates may apply. Reply STOP to opt out. See our <a href="privacy.html">Privacy Policy</a>.</p>
       </form>
       <div class="phone-ui" aria-live="polite">
         <div class="top"><span>Text to your phone</span><b id="timer">0:00</b></div>
@@ -329,29 +348,49 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
     </div>
   </div></section>
 
+  <section class="about" id="about" aria-labelledby="about-h"><div class="wrap about-grid">
+    <div>
+      <div class="sec-head" style="margin-bottom:20px"><h2 id="about-h">About us</h2></div>
+      <p>Service Contractors Plumbing is a local plumbing company on Raymond Road in Kaufman. We work on homes across Kaufman and the nearby towns: water heaters, leaks, drains, toilets and the rest of the plumbing that keeps a house running.</p>
+      <p>When you call, you get an answer, a time, and a plumber who already knows what's wrong before the van pulls up. That's the whole idea.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Location</dt><dd>6174 Raymond Rd, Kaufman, TX 75142</dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:+19722322810">(972) 232-2810</a>, answered 24/7</dd></div>
+      <div><dt>Service area</dt><dd>Kaufman and nearby towns</dd></div>
+      <div><dt>Texas plumbing license</dt><dd>License no. to be added</dd></div>
+    </dl>
+  </div></section>
+
   <section class="where" aria-labelledby="where-h"><div class="wrap">
-    <div><h2 id="where-h">A local plumber on Raymond Road</h2><p>Serving homes in Kaufman and the surrounding area. Not sure we cover your street? Call and ask, or open the assistant in the corner.</p></div>
+    <div><h2 id="where-h">A local plumber on Raymond Road</h2><p>Serving homes in Kaufman and the surrounding area. Not sure we cover your street? Call and ask, or chat with us using the button in the corner.</p></div>
     <div class="addr"><strong>Service Contractors Plumbing</strong><span>6174 Raymond Rd</span><span>Kaufman, TX 75142</span><a href="tel:+19722322810">(972) 232-2810</a></div>
   </div></section>
 </main>
 
 <footer><div class="wrap">
-  <span>Service Contractors Plumbing, 6174 Raymond Rd, Kaufman, TX 75142</span>
-  <span>Preview by Scalepath Partnership. Photos are illustrative until replaced with the company's own. Services and hours to be confirmed with the owner.</span>
+  <span>&copy; <span id="yr">2026</span> Service Contractors Plumbing. 6174 Raymond Rd, Kaufman, TX 75142. Licensed by the Texas State Board of Plumbing Examiners, license no. to be added.</span>
+  <span class="legal"><a href="privacy.html">Privacy Policy</a> &nbsp; <a href="terms.html">Terms of Use</a> &nbsp; <a href="accessibility.html">Accessibility</a></span>
+  <span>Website preview by Scalepath Partnership. Photos are illustrative until replaced with the company's own.</span>
 </div></footer>
 
-<button class="fab" id="fab" aria-expanded="false" aria-controls="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg><span class="txt">Ask a plumbing question</span></button>
+<button class="launcher" id="launcher" aria-expanded="false" aria-controls="chat"><span class="av"><svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#0d4672" stroke-width="4.5" stroke-linecap="round"/><path d="M29 35c-2.2 0-4-1.7-4-3.8 0-2.5 4-6.2 4-6.2s4 3.7 4 6.2c0 2.1-1.8 3.8-4 3.8z" fill="#1d6fa5"/></svg></span><span>Chat with us</span></button>
+<div class="teaser" id="teaser" hidden><button id="teaserX" aria-label="Dismiss">&times;</button>Hi! Something leaking or not draining? Tell me what's going on and I'll help.</div>
 
-<div class="chat" id="chat" role="dialog" aria-label="Plumbing assistant" hidden>
+<div class="chat" id="chat" role="dialog" aria-label="Chat with Service Contractors Plumbing" hidden>
   <div class="chat-head">
-    <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0c2132"/><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#f3c234" stroke-width="4" stroke-linecap="round"/></svg>
-    <div class="t"><b>Service Contractors Plumbing</b><span>Assistant, answers any time</span></div>
-    <button id="chatClose" aria-label="Close assistant">&times;</button>
+    <span class="av"><svg width="26" height="26" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#0d4672" stroke-width="4.5" stroke-linecap="round"/><path d="M29 35c-2.2 0-4-1.7-4-3.8 0-2.5 4-6.2 4-6.2s4 3.7 4 6.2c0 2.1-1.8 3.8-4 3.8z" fill="#1d6fa5"/></svg></span>
+    <div class="t"><b>Service Contractors Plumbing</b><span id="chatStatus">Online now, replies in seconds</span></div>
+    <a href="tel:+19722322810" aria-label="Call (972) 232-2810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
+    <button id="chatClose" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
-  <div class="log" id="log" aria-live="polite"></div>
-  <div class="voice" id="voice"><span class="lvl"></span><span id="voiceText">Prefer to talk? Call the after-hours line from this page.</span><button id="voiceBtn" type="button">Talk</button></div>
-  <div class="chips" id="chips"></div>
-  <form class="composer" id="composer"><input id="msg" autocomplete="off" placeholder="Type your question" aria-label="Your message"><button type="submit" aria-label="Send">Send</button></form>
+  <div class="log" id="log" aria-live="polite"><span class="day">Today</span></div>
+  <form class="composer" id="composer">
+    <textarea id="msg" rows="1" placeholder="Type your message" aria-label="Your message"></textarea>
+    <button class="ic mic" id="mic" type="button" aria-label="Talk out loud instead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <button class="ic send" id="send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 20.5 21 12 3 3.5 3 10l12 2-12 2z"/></svg></button>
+  </form>
+  <div class="fine">AI assistant. For emergencies involving gas or fire, call 911.</div>
 </div>
 
 <div class="callbar"><a class="btn btn-caution" href="tel:+19722322810">Call now</a><a class="btn btn-line" style="color:var(--ink)" href="#request">Request</a></div>
@@ -364,6 +403,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
   var BUSINESS = "Service Contractors Plumbing";
   var CALENDLY = "https://calendly.com/strydegrowth";
   var VAPI_PUBLIC_KEY = "f38f75ff-8440-46fe-b16e-533da902881c";
+  document.getElementById("yr").textContent = new Date().getFullYear();
 
   /* ---------- Motion (GSAP) ---------- */
   var hasGsap = window.gsap && window.ScrollTrigger;
@@ -420,7 +460,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
 
       // Signature: water rises, the call is answered, the water drains
       gsap.to("#wave", { xPercent: -50, duration: 6, ease: "none", repeat: -1 });
-      var tl = gsap.timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "+=110%", scrub: .6, pin: true } });
+      var tl = gsap.timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "+=70%", scrub: .35, pin: true } });
       tl.to("#water", { yPercent: 38, ease: "power1.out", duration: 1 })
         .to(".hero-photo", { scale: 1.06, duration: 1, ease: "none" }, 0)
         .to(".hero-copy", { autoAlpha: .18, duration: .3 }, .62)
@@ -446,7 +486,7 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
       if (c.wide) {
         var track = document.getElementById("track");
         var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 40); };
-        gsap.to(track, { x: function () { return -dist(); }, ease: "none", scrollTrigger: { trigger: "#services", start: "top top", end: function () { return "+=" + dist(); }, scrub: .5, pin: true, invalidateOnRefresh: true } });
+        gsap.to(track, { x: function () { return -dist(); }, ease: "none", scrollTrigger: { trigger: "#services", start: "top top", end: function () { return "+=" + dist(); }, scrub: .3, pin: true, invalidateOnRefresh: true } });
       }
 
       // Process: the drop runs down/along the pipe
@@ -480,123 +520,112 @@ footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 1
     }, 1000);
   });
 
-  /* ---------- Assistant ---------- */
-  var fab = document.getElementById("fab"), chat = document.getElementById("chat"), log = document.getElementById("log"),
-      chips = document.getElementById("chips"), composer = document.getElementById("composer"), msg = document.getElementById("msg");
-  var started = false, booking = null;
+  /* ---------- Chat: real AI conversation via Vapi web chat ---------- */
+  var launcher = document.getElementById("launcher"), chat = document.getElementById("chat"), log = document.getElementById("log"),
+      composer = document.getElementById("composer"), msg = document.getElementById("msg"), sendBtn = document.getElementById("send"),
+      teaser = document.getElementById("teaser"), chatStatus = document.getElementById("chatStatus");
+  var sessionId = null, busy = false, greeted = false;
+  var SYSTEM = [
+    "You are the website chat assistant for " + BUSINESS + ", a local residential plumbing company at 6174 Raymond Rd, Kaufman, Texas 75142, phone (972) 232-2810.",
+    "Write like a friendly, plain-spoken person from the office: short replies (1 to 3 sentences), no lists unless asked, no emojis, no markdown.",
+    "Services: leaks and leak detection, water heaters (repair and replacement), drains and sewer lines, toilets, faucets, disposals, valves, water lines and low pressure.",
+    "Service area: homes in Kaufman, Texas and nearby towns in Kaufman County (for example Terrell, Forney, Crandall, Kemp, Mabank, Oak Grove). If a town is nearby but you are not sure, say the office will confirm coverage.",
+    "OUT OF AREA: if the person is outside this part of Texas, including any other US state or another country (for example Nigeria, Dubai, UAE, Bahrain, Qatar, the UK), politely explain that " + BUSINESS + " only works in the Kaufman, Texas area so it cannot send a plumber there, and suggest they contact a licensed plumber local to them. Do not take a booking for them. You may still answer a general plumbing safety question.",
+    "Understand the situation first: ask what is happening, where, and how urgent it is. Give practical safety steps when relevant: active leak or flooding means shut off the main water valve or the valve on the fixture; water heater leak means turn off the cold-water inlet valve on top and the power or gas; gas smell means leave the house and call the gas company or 911 from outside; sparks or burning smell means call 911.",
+    "Never quote prices or price ranges. Explain that the plumber gives an exact price on site before any work starts.",
+    "To book a visit, collect one at a time: first name, mobile number, service address (street and town), the problem, and a preferred time. Then repeat the details back and say the request is booked and the office will text to confirm. Do not invent appointment times or technician names.",
+    "If asked whether you are a person or an AI, say you are the company's AI assistant and a person will confirm the booking.",
+    "If the message is not about plumbing or this company, answer briefly and steer back to how you can help.",
+    "This website is a preview. If someone says they are the business owner or asks who built this, say it was built by Scalepath Partnership and they can book a 15-minute call at " + CALENDLY + "."
+  ].join(" ");
+  var assistant = { name: "SCP web chat", model: { provider: "openai", model: "gpt-4o-mini", temperature: 0.3, messages: [{ role: "system", content: SYSTEM }] } };
 
-  function say(text, cls) {
-    var d = document.createElement("div"); d.className = "m " + (cls || "bot"); d.textContent = text; log.appendChild(d);
+  function bubble(text, cls) {
+    var d = document.createElement("div"); d.className = "m " + cls; d.textContent = text; log.appendChild(d);
     log.scrollTop = log.scrollHeight; return d;
   }
-  function sayHTML(html, cls) { var d = say("", cls); d.innerHTML = html; log.scrollTop = log.scrollHeight; return d; }
-  function botSay(text, cls, delay) { setTimeout(function () { say(text, cls); }, delay || 450); }
-  function setChips(list) {
-    chips.innerHTML = "";
-    list.forEach(function (c) { var b = document.createElement("button"); b.type = "button"; b.textContent = c; b.addEventListener("click", function () { handle(c); }); chips.appendChild(b); });
+  function typing(on) {
+    var t = document.getElementById("typing");
+    if (on && !t) { t = document.createElement("div"); t.id = "typing"; t.className = "typing"; t.setAttribute("aria-label", "Typing"); t.innerHTML = "<i></i><i></i><i></i>"; log.appendChild(t); log.scrollTop = log.scrollHeight; }
+    if (!on && t) t.remove();
   }
-  var MAIN = ["Water heater leaking", "Clogged drain", "How much does it cost?", "Do you cover my area?", "Book a plumber"];
-
-  function open() {
-    chat.hidden = false; fab.hidden = true; fab.setAttribute("aria-expanded", "true");
-    if (!started) {
-      started = true;
-      say("Hi, this is the " + BUSINESS + " assistant. I can answer questions and get a plumber booked, any time of day. What's going on?");
-      setChips(MAIN);
-    }
-    setTimeout(function () { msg.focus(); }, 50);
+  function outputText(data) {
+    var out = (data && data.output) || [];
+    var parts = [];
+    out.forEach(function (o) {
+      if (o.role !== "assistant") return;
+      if (typeof o.content === "string") parts.push(o.content);
+      else if (Array.isArray(o.content)) o.content.forEach(function (c) { if (c && c.text) parts.push(c.text); });
+    });
+    return parts.join("\n").trim();
   }
-  function close() { chat.hidden = true; fab.hidden = false; fab.setAttribute("aria-expanded", "false"); fab.focus(); }
-  fab.addEventListener("click", open);
-  document.getElementById("chatClose").addEventListener("click", close);
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !chat.hidden) close(); });
-
-  var answers = [
-    { k: /\bgas\b|rotten egg/i, a: "If you smell gas, leave the house now and call the gas company or 911 from outside. Then call us and we'll get a plumber out." },
-    { k: /water heater|hot water|tank/i, a: "Water heater trouble is something we fix all the time. If it's leaking, turn the cold-water valve on top of the tank to off and switch off the power or gas. Want me to book a plumber?" },
-    { k: /leak|drip|wet|flood|burst|spray/i, a: "Shut off the main water valve if water is spreading (usually near the street or where the line enters the house). Then let's get a plumber out. Want me to book one?" },
-    { k: /clog|drain|backed|backing|toilet|sewer|slow/i, a: "Stop using that drain or toilet for now so it doesn't overflow. We clear drains and sewer lines and check them so they stay clear. Want me to book a time?" },
-    { k: /cost|price|how much|charge|estimate|quote/i, a: "It depends on what's wrong, so the plumber gives you an exact price on site before any work starts. No surprise bills." },
-    { k: /area|cover|come to|serve|kaufman|terrell|forney|crandall|kemp|mabank/i, a: "We're on Raymond Road in Kaufman and serve homes in Kaufman and the surrounding area. Tell me your town or zip and I'll check, or book and we'll confirm." },
-    { k: /hour|open|night|weekend|sunday|saturday|emergency|24/i, a: "The phone is answered day and night, weekends included. Urgent leaks get the first available plumber; everything else gets the next opening." },
-    { k: /human|person|someone|call me|talk/i, a: "You can call (972) 232-2810 any time, or tap Talk below to speak with the after-hours line right here." }
-  ];
-
-  var steps = [
-    { key: "name", q: "Sure. What's your first name?" },
-    { key: "phone", q: "Thanks, {name}. What's the best mobile number for the plumber to text?" },
-    { key: "zip", q: "And the street address or zip code?" },
-    { key: "issue", q: "In a few words, what's going on?" },
-    { key: "time", q: "When works best?", chips: ["As soon as possible", "Tomorrow morning", "Tomorrow afternoon", "Pick another day"] }
-  ];
-
-  function startBooking() { booking = { i: 0, data: {} }; ask(); }
-  function ask() {
-    var s = steps[booking.i];
-    botSay(s.q.replace("{name}", booking.data.name || ""));
-    setChips(s.chips || []);
+  function ask(text) {
+    busy = true; sendBtn.disabled = true; typing(true); chatStatus.textContent = "Typing…";
+    var body = { input: text, assistant: assistant };
+    if (sessionId) body.sessionId = sessionId; else body.sessionExpirationSeconds = 3600;
+    return fetch("https://api.vapi.ai/chat/web", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + VAPI_PUBLIC_KEY },
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (data.sessionId) sessionId = data.sessionId;
+      var reply = outputText(data);
+      typing(false);
+      bubble(reply || "Sorry, I didn't catch that. Could you say it another way?", "bot");
+    }).catch(function () {
+      typing(false);
+      bubble("I can't connect right now. Please call (972) 232-2810. The phone is answered day and night.", "err");
+    }).then(function () {
+      busy = false; chatStatus.textContent = "Online now, replies in seconds"; sendBtn.disabled = !msg.value.trim(); msg.focus();
+    });
   }
-  function finishBooking() {
-    var d = booking.data; booking = null;
-    setTimeout(function () {
-      say("Booked (preview). " + (d.name || "") + ", a plumber is scheduled for " + (/soon/i.test(d.time) ? "the first available slot" : d.time.toLowerCase()) + " at " + d.zip + " for: " + d.issue + ". You'll get a text at " + d.phone + " to confirm, and the plumber gets the same details.", "m sum");
-      setTimeout(function () {
-        sayHTML("<b>For the owner:</b> this assistant and the 24/7 phone line are the Scalepath service. Want them live on your real site? <a href=\"" + CALENDLY + "\" target=\"_blank\" rel=\"noopener\">Book a 15-minute call</a>.", "m cta");
-        setChips(MAIN);
-      }, 700);
-    }, 500);
+  function openChat() {
+    chat.hidden = false; launcher.hidden = true; teaser.hidden = true; launcher.setAttribute("aria-expanded", "true");
+    if (hasGsap) gsap.from(chat, { scale: .92, autoAlpha: 0, duration: .25, ease: "power2.out" });
+    if (!greeted) { greeted = true; bubble("Hi, thanks for reaching out to " + BUSINESS + ". What's going on with your plumbing?", "bot"); }
+    setTimeout(function () { msg.focus(); }, 60);
   }
+  function closeChat() { chat.hidden = true; launcher.hidden = false; launcher.setAttribute("aria-expanded", "false"); launcher.focus(); }
+  launcher.addEventListener("click", openChat);
+  teaser.addEventListener("click", function (e) { if (e.target.id === "teaserX") { teaser.hidden = true; return; } openChat(); });
+  document.getElementById("chatClose").addEventListener("click", closeChat);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !chat.hidden) closeChat(); });
+  setTimeout(function () { if (chat.hidden && !greeted) teaser.hidden = false; }, 4000);
 
-  function handle(text) {
-    text = (text || "").trim(); if (!text) return;
-    say(text, "me");
-    if (booking) {
-      var s = steps[booking.i];
-      booking.data[s.key] = text;
-      booking.i++;
-      if (booking.i < steps.length) ask(); else finishBooking();
-      return;
-    }
-    if (/book|schedule|appointment|send (a|someone)|come out|yes|sure|please/i.test(text)) { startBooking(); return; }
-    for (var i = 0; i < answers.length; i++) {
-      if (answers[i].k.test(text)) { botSay(answers[i].a); setChips(["Book a plumber", "How much does it cost?", "Do you cover my area?"]); return; }
-    }
-    botSay("I can help with leaks, water heaters, drains, toilets and booking a visit. Tell me what you're seeing, or I can book a plumber now.");
-    setChips(["Book a plumber", "Water heater leaking", "Clogged drain"]);
-  }
-  composer.addEventListener("submit", function (e) { e.preventDefault(); handle(msg.value); msg.value = ""; });
+  function grow() { msg.style.height = "auto"; msg.style.height = Math.min(120, msg.scrollHeight) + "px"; sendBtn.disabled = busy || !msg.value.trim(); }
+  msg.addEventListener("input", grow);
+  msg.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); composer.requestSubmit(); } });
+  composer.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = msg.value.trim(); if (!text || busy) return;
+    bubble(text, "me"); msg.value = ""; grow(); ask(text);
+  });
 
-  /* ---------- Voice: the after-hours line in the browser (Vapi) ---------- */
-  var voiceBtn = document.getElementById("voiceBtn"), voiceBox = document.getElementById("voice"), voiceText = document.getElementById("voiceText");
-  var vapi = null, live = false;
-  var assistant = {
+  /* ---------- Voice: talk to the same assistant out loud (Vapi web call) ---------- */
+  var mic = document.getElementById("mic"), vapi = null, live = false;
+  var voiceAssistant = {
     name: "SCP after-hours line",
-    firstMessage: "Thanks for calling " + BUSINESS + ", this is the after-hours line. Is water leaking right now, or would you like to schedule a visit?",
-    model: { provider: "openai", model: "gpt-4o-mini", messages: [{ role: "system", content:
-      "You are the friendly after-hours receptionist for " + BUSINESS + ", a local plumbing company at 6174 Raymond Rd, Kaufman, Texas. " +
-      "Keep sentences short and calm. First find out if it's urgent (active leak, flooding, sewage backup, no water). " +
-      "Safety: gas smell means leave the house and call the gas company or 911 first. Active leak: tell them to shut the main valve or the tank's cold valve. " +
-      "Collect first name, callback number (read it back), address, the problem, and preferred time, then confirm the booking out loud and say the plumber will get the details by text. " +
-      "Never quote prices: the plumber gives an exact price on site before work starts. If asked whether you are an AI, say yes. This is a demo line." }] },
+    firstMessage: "Thanks for calling " + BUSINESS + ". What's going on with your plumbing?",
+    model: { provider: "openai", model: "gpt-4o-mini", messages: [{ role: "system", content: SYSTEM + " You are speaking on a phone call now, so keep it conversational and read numbers back clearly." }] },
     voice: { provider: "vapi", voiceId: "Elliot" }
   };
-  voiceBtn.addEventListener("click", function () {
+  mic.addEventListener("click", function () {
     if (live && vapi) { vapi.stop(); return; }
-    voiceBtn.disabled = true; voiceText.textContent = "Connecting. Allow the microphone when asked.";
+    mic.disabled = true; chatStatus.textContent = "Connecting the call. Allow the microphone.";
     import("https://cdn.jsdelivr.net/npm/@vapi-ai/web@2.7.1/+esm").then(function (mod) {
       if (!vapi) {
         var Vapi = mod.default || mod.Vapi || mod;
         vapi = new Vapi(VAPI_PUBLIC_KEY);
-        vapi.on("call-start", function () { live = true; voiceBox.classList.add("live"); voiceText.textContent = "You're talking to the after-hours line."; voiceBtn.textContent = "End"; voiceBtn.disabled = false; });
-        vapi.on("call-end", function () { live = false; voiceBox.classList.remove("live"); voiceText.textContent = "Call ended. You can talk again any time."; voiceBtn.textContent = "Talk"; voiceBtn.disabled = false; });
-        vapi.on("message", function (m) { if (m && m.type === "transcript" && m.transcriptType === "final") say(m.transcript, m.role === "user" ? "me" : "bot"); });
-        vapi.on("error", function () { voiceText.textContent = "The voice line couldn't connect. Call (972) 232-2810 instead."; voiceBtn.textContent = "Talk"; voiceBtn.disabled = false; live = false; voiceBox.classList.remove("live"); });
+        vapi.on("call-start", function () { live = true; mic.classList.add("live"); mic.disabled = false; mic.setAttribute("aria-label", "End call"); chatStatus.textContent = "On a call. Tap the mic to hang up."; });
+        vapi.on("call-end", function () { live = false; mic.classList.remove("live"); mic.disabled = false; mic.setAttribute("aria-label", "Talk out loud instead"); chatStatus.textContent = "Online now, replies in seconds"; });
+        vapi.on("message", function (m) { if (m && m.type === "transcript" && m.transcriptType === "final") bubble(m.transcript, m.role === "user" ? "me" : "bot"); });
+        vapi.on("error", function () { live = false; mic.classList.remove("live"); mic.disabled = false; chatStatus.textContent = "Voice couldn't connect. Type instead, or call (972) 232-2810."; });
       }
-      return vapi.start(assistant);
-    }).catch(function () {
-      voiceText.textContent = "The voice line couldn't load here. Call (972) 232-2810 instead.";
-      voiceBtn.disabled = false;
-    });
+      return vapi.start(voiceAssistant);
+    }).catch(function () { mic.disabled = false; chatStatus.textContent = "Voice couldn't load here. Type instead."; });
   });
 })();
 </script>
