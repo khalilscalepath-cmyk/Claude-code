@@ -3,343 +3,600 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Service Contractors Plumbing · Kaufman, TX</title>
-<meta name="description" content="Plumbing repair, water heaters, drains and leak detection in Kaufman, Texas. Calls answered 24/7.">
+<title>Service Contractors Plumbing | Kaufman, TX</title>
+<meta name="description" content="Plumbing repair, water heaters, drains and leak detection in Kaufman, Texas. Calls answered day and night.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
 <style>
-/* Small-town Texas plumber, premium editorial. Photo-led hero, one pinned scroll scene
-   (10:14 PM → 8:00 AM) where photos cross-fade and the call types itself, photo service cards. */
+/* Design plan
+   Subject: a small-town Texas plumbing shop. Its world: work vans, galvanized pipe, job tickets,
+   rising water, caution yellow. Job of the page: get a phone call or a booked request.
+   Colour: steel (#eef2f4), ink blue (#0c2132), water (#1d6fa5), deep water (#0d4672),
+   caution yellow (#f3c234), ticket white (#ffffff).
+   Type: Barlow Condensed for headlines (road-sign / truck-lettering feel), Barlow for text.
+   Signature: in the hero, water rises over the house as you scroll, the call gets answered,
+   the water drains. Everything else stays calm. */
 :root {
-  --paper: #f5f1e8; --card: #fffdf8; --ink: #15232a; --ink-2: #4a585d;
-  --pine: #1d4a43; --water: #3a9db0; --brick: #b4462c; --line: #ddd3c1; --night: #0e171c;
-  --slab: "Zilla Slab", "Rockwell", Georgia, serif;
-  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --img-hero: url("https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230229_e8bdd669-2c21-4f4e-a063-d20c71ec78fa.png");
+  --steel: #eef2f4; --steel-2: #dfe6ea; --ink: #0c2132; --ink-2: #445a69;
+  --water: #1d6fa5; --deep: #0d4672; --caution: #f3c234; --ticket: #ffffff; --line: #c9d4da;
+  --cond: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --sans: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--steel); color: var(--ink); font-family: var(--sans); font-size: 17.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--water); outline-offset: 3px; border-radius: 4px; }
-.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left)); padding-right: max(18px, env(safe-area-inset-right)); }
-h1, h2, h3 { font-family: var(--slab); margin: 0; text-wrap: balance; }
-.kicker { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 24px; border-radius: 999px; font: inherit; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s, background .15s; }
-.btn:hover { transform: translateY(-1px); }
-.btn-call { background: var(--brick); color: #fff; }
-.btn-call:hover { background: #9d3a23; }
-.btn-ghost { border-color: rgba(255,255,255,.6); color: #fff; }
-.btn-ghost:hover { background: rgba(255,255,255,.12); }
-.btn-pine { border-color: var(--pine); color: var(--pine); }
-.btn-pine:hover { background: var(--pine); color: #fff; }
-.btn svg { width: 18px; height: 18px; }
-.tel { font-variant-numeric: tabular-nums; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--caution); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+h1, h2, h3 { font-family: var(--cond); font-weight: 800; margin: 0; letter-spacing: -0.005em; }
+.photo { filter: saturate(.78) contrast(1.06) brightness(.96); }
+.grain { position: absolute; inset: 0; background: var(--grain); opacity: .22; mix-blend-mode: overlay; pointer-events: none; }
 
-/* Preview ribbon + header */
-.ribbon { background: #fff7e6; color: #5a4520; font-size: 13px; text-align: center; padding: 8px 18px; border-bottom: 1px solid #f0dfb8; }
-header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; transition: background .25s, box-shadow .25s; padding-top: env(safe-area-inset-top); }
-header.solid { background: rgba(245,241,232,.94); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 14px; }
-.brand { text-decoration: none; display: grid; line-height: 1.05; color: #fff; }
-header.solid .brand { color: var(--ink); }
-.brand b { font-family: var(--slab); font-size: 21px; }
-.brand span { font-size: 11.5px; letter-spacing: .16em; opacity: .8; }
-nav { display: flex; gap: 26px; font-weight: 600; font-size: 15px; }
-nav a { text-decoration: none; color: #fff; opacity: .9; }
-header.solid nav a { color: var(--ink); }
-nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 5px; }
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 26px; border-radius: 6px; font-weight: 700; font-size: 17px; text-decoration: none; border: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: transform .15s ease, background-color .15s ease, color .15s ease; }
+.btn:active { transform: translateY(1px); }
+.btn-caution { background: var(--caution); color: var(--ink); }
+.btn-caution:hover { background: #ffd24d; }
+.btn-line { border-color: currentColor; color: inherit; background: transparent; }
+.btn-line:hover { background: rgba(255,255,255,.12); }
+.btn svg { width: 20px; height: 20px; flex: none; }
 
-/* Hero */
-.hero { position: relative; min-height: min(100svh, 860px); display: grid; align-items: end; color: #fff; overflow: hidden; background: var(--night); }
-.hero-img { position: absolute; inset: 0; background: var(--img-hero) center 60% / cover no-repeat; transform: scale(var(--zoom, 1.08)); transform-origin: 50% 70%; will-change: transform; }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,23,28,.55) 0%, rgba(14,23,28,.15) 35%, rgba(14,23,28,.82) 100%); }
-.hero .wrap { position: relative; z-index: 2; padding-block: 140px clamp(48px, 8vw, 96px); width: 100%; }
-.hero .kicker { color: #bfe3ea; }
-.hero h1 { font-size: clamp(44px, 7.6vw, 96px); line-height: .98; font-weight: 700; letter-spacing: -0.015em; margin: 14px 0 20px; max-width: 13ch; }
-.hero p { font-size: clamp(17px, 2vw, 20px); max-width: 50ch; color: rgba(255,255,255,.88); margin: 0 0 28px; }
-.ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero-strip { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 34px; font-size: 14.5px; color: rgba(255,255,255,.85); }
-.hero-strip span { display: flex; align-items: center; gap: 8px; }
-.hero-strip span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #7fd0dd; box-shadow: 0 0 0 4px rgba(127,208,221,.2); }
+/* Header */
+.preview-note { background: var(--ink); color: #c9d8e2; font-size: 13.5px; text-align: center; padding: 8px 20px; }
+.preview-note strong { color: #fff; }
+header { position: sticky; top: 0; z-index: 60; background: rgba(238,242,244,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.brand-mark { width: 40px; height: 40px; flex: none; }
+.brand-name { font-family: var(--cond); font-weight: 800; font-size: 22px; line-height: 1; }
+.brand-name small { display: block; font-family: var(--sans); font-weight: 500; font-size: 13px; color: var(--ink-2); margin-top: 3px; }
+nav { display: flex; gap: 28px; font-weight: 600; font-size: 15.5px; }
+nav a { text-decoration: none; }
+nav a:hover { color: var(--water); }
+.hdr-call { min-height: 46px; padding: 0 18px; }
 
-/* Pinned story */
-.story { position: relative; height: 340vh; background: var(--night); color: #f2ede4; }
-.pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
-.frames { position: relative; }
-.frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s ease; }
-.frames img.on { opacity: 1; }
-.frames::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,23,28,0) 60%, rgba(14,23,28,.9) 100%); }
-.panel { display: grid; align-content: center; gap: 22px; padding: 96px max(28px, 5vw) 48px; }
-.clock { font-family: var(--slab); font-weight: 700; font-size: clamp(56px, 8vw, 112px); line-height: .9; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-.clock small { font-size: .32em; margin-left: 8px; color: #9fb4b8; }
-.chapter { font-family: var(--slab); font-size: clamp(24px, 2.6vw, 34px); line-height: 1.12; min-height: 2.3em; }
-.chapter em { font-style: normal; color: #7fd0dd; }
-.call { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 18px; padding: 16px; display: grid; gap: 10px; max-width: 440px; }
-.call-top { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9fb4b8; }
-.call-top b { color: #7fd0dd; }
-.line { font-size: 15px; line-height: 1.45; padding: 9px 12px; border-radius: 12px; }
-.line small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .65; margin-bottom: 2px; }
-.line.ai { background: rgba(127,208,221,.14); }
-.line.you { background: rgba(255,255,255,.08); justify-self: end; max-width: 88%; }
-.ghost { opacity: .18; }
-.progress { display: flex; gap: 6px; }
-.progress i { height: 3px; flex: 1; border-radius: 3px; background: rgba(255,255,255,.15); overflow: hidden; position: relative; }
-.progress i b { position: absolute; inset: 0; width: var(--p, 0%); background: #7fd0dd; }
+/* Hero: pinned, water rises */
+.hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ink); color: #fff; }
+.hero-photo { position: absolute; inset: -4% 0 0 0; background: url("https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230229_e8bdd669-2c21-4f4e-a063-d20c71ec78fa.png") center 62% / cover no-repeat; }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,33,50,.5) 0%, rgba(12,33,50,.1) 40%, rgba(12,33,50,.75) 100%); }
+.water { position: absolute; left: 0; right: 0; bottom: 0; height: 75%; transform: translateY(100%); background: linear-gradient(180deg, rgba(29,111,165,.62) 0%, rgba(13,70,114,.92) 100%); backdrop-filter: blur(2px) saturate(1.2); }
+.wave { position: absolute; left: 0; top: -22px; width: 200%; height: 24px; }
+.wave path { fill: rgba(29,111,165,.62); }
+.hero-copy { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(36px, 7vh, 80px); }
+.hero h1 { font-size: clamp(54px, 10.5vw, 148px); line-height: .86; text-transform: none; max-width: 10.5ch; margin-bottom: 22px; }
+.hero h1 .hl { display: block; overflow: hidden; padding-bottom: .04em; }
+.hero h1 .hl span { display: inline-block; }
+.hero h1 .y { color: var(--caution); }
+.hero p { font-size: clamp(17px, 2vw, 21px); max-width: 46ch; color: rgba(255,255,255,.88); margin: 0 0 26px; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.answered { position: absolute; z-index: 4; right: max(20px, 5vw); top: 22%; width: min(340px, 82vw); background: var(--ticket); color: var(--ink); border-radius: 4px; padding: 16px 18px 18px; box-shadow: 0 24px 50px -20px rgba(0,0,0,.6); opacity: 0; transform: translateY(24px) rotate(-1.5deg); }
+.answered::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; height: 8px; background: radial-gradient(circle at 8px 8px, transparent 5px, var(--ticket) 5.5px) 0 0 / 16px 16px repeat-x; }
+.answered .row { display: flex; justify-content: space-between; font-size: 14px; color: var(--ink-2); }
+.answered b { display: block; font-family: var(--cond); font-size: 30px; line-height: 1.05; margin: 6px 0 4px; }
+.answered .ok { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--deep); }
+.answered .ok::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #2fa36b; }
 
-/* Sections */
-section.block { padding-block: clamp(64px, 9vw, 120px); }
-.head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 760px; }
-.head .kicker { color: var(--pine); }
-.head h2 { font-size: clamp(32px, 4.6vw, 54px); line-height: 1.04; letter-spacing: -0.01em; }
-.head p { color: var(--ink-2); margin: 0; font-size: 18px; }
+/* After-hours story */
+.story { position: relative; height: 330vh; background: var(--ink); color: #eaf1f5; }
+.pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); overflow: hidden; }
+.frames { position: relative; overflow: hidden; }
+.frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.frames img:first-child { opacity: 1; }
+.panel { display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: 100px clamp(24px, 4vw, 64px) 40px; min-width: 0; }
+.panel .when { font-size: 15px; color: #93adbf; }
+.clock { font-family: var(--cond); font-weight: 800; font-size: clamp(72px, 9vw, 132px); line-height: .85; font-variant-numeric: tabular-nums; }
+.clock small { font-size: .3em; margin-left: 10px; color: var(--caution); }
+.chapter { font-family: var(--cond); font-weight: 700; font-size: clamp(26px, 2.8vw, 38px); line-height: 1.08; }
+.call { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.call-top { display: flex; justify-content: space-between; font-size: 13.5px; color: #93adbf; }
+.call-top b { color: var(--caution); font-weight: 700; }
+.line { font-size: 15.5px; line-height: 1.45; padding: 9px 12px; border-radius: 8px; }
+.line .who { display: block; font-size: 12.5px; font-weight: 700; color: #93adbf; margin-bottom: 2px; }
+.line.ai { background: rgba(29,111,165,.28); }
+.line.you { background: rgba(255,255,255,.08); align-self: flex-end; max-width: 90%; }
+.ghost { opacity: .16; }
+.bars { display: flex; gap: 6px; }
+.bars i { flex: 1; height: 3px; background: rgba(255,255,255,.15); position: relative; overflow: hidden; border-radius: 2px; }
+.bars i b { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: var(--caution); }
 
-.svc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; }
-.svc article { grid-column: span 6; background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
-.svc article:nth-child(1) { grid-column: span 7; }
-.svc article:nth-child(2) { grid-column: span 5; }
-.svc article:nth-child(3) { grid-column: span 5; }
-.svc article:nth-child(4) { grid-column: span 7; }
-.svc figure { margin: 0; overflow: hidden; aspect-ratio: 16 / 10; background: #d9d0bd; }
-.svc figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-.svc article:hover img { transform: scale(1.04); }
-.svc .txt { padding: 22px 24px 26px; display: grid; gap: 8px; align-content: start; }
-.svc h3 { font-size: 25px; font-weight: 600; }
-.svc p { margin: 0; color: var(--ink-2); }
-.more { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-.more span { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-size: 14.5px; font-weight: 600; }
+/* Job tickets (services) */
+.services { position: relative; padding-block: clamp(72px, 9vw, 120px) 0; overflow: hidden; }
+.sec-head { display: grid; gap: 10px; max-width: 760px; margin-bottom: 36px; }
+.sec-head h2 { font-size: clamp(40px, 6vw, 76px); line-height: .92; }
+.sec-head p { color: var(--ink-2); font-size: 19px; margin: 0; }
+.swipe { display: none; font-weight: 600; color: var(--water); }
+.track-wrap { padding-bottom: clamp(72px, 9vw, 120px); }
+.track { display: flex; gap: 22px; padding-left: max(20px, calc((100vw - 1200px) / 2 + 20px)); padding-right: 20px; width: max-content; }
+.ticket { position: relative; width: min(400px, 80vw); flex: none; background: var(--ticket); border-radius: 3px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -28px rgba(12,33,50,.5); display: flex; flex-direction: column; }
+.ticket::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: radial-gradient(circle at 8px 0, transparent 5px, var(--ticket) 5.5px) 0 0 / 16px 8px repeat-x; }
+.ticket figure { margin: 0; height: 230px; overflow: hidden; position: relative; background: var(--steel-2); }
+.ticket figure img { width: 100%; height: 100%; object-fit: cover; }
+.ticket .body { padding: 20px 22px 26px; display: grid; gap: 12px; }
+.ticket .meta { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
+.ticket h3 { font-size: 32px; line-height: 1; }
+.ticket dl { margin: 0; display: grid; gap: 8px; font-size: 15.5px; }
+.ticket dt { font-weight: 700; }
+.ticket dd { margin: 0; color: var(--ink-2); }
 
-.promise { background: var(--pine); color: #eef5f3; }
-.promise .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding-block: 0; }
-.promise div { padding: clamp(28px, 4vw, 48px) clamp(16px, 3vw, 36px); border-left: 1px solid rgba(255,255,255,.14); display: grid; gap: 6px; }
-.promise div:first-child { border-left: 0; }
-.promise b { font-family: var(--slab); font-size: clamp(34px, 4.4vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; }
-.promise span { color: #c7dcd8; font-size: 15.5px; }
+/* Process with travelling drop */
+.process { background: var(--ticket); border-block: 1px solid var(--line); padding-block: clamp(72px, 9vw, 120px); }
+.pipe-row { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; margin-top: 16px; padding-top: 44px; }
+.pipe-row::before { content: ""; position: absolute; left: 0; right: 0; top: 14px; height: 6px; border-radius: 6px; background: var(--steel-2); }
+.pipe-fill { position: absolute; left: 0; top: 14px; height: 6px; width: 100%; border-radius: 6px; background: var(--water); transform-origin: left; transform: scaleX(0); }
+.drop { position: absolute; top: 2px; left: 0; width: 26px; height: 30px; transform: translateX(-50%); }
+.pipe-row [role="listitem"] { display: grid; gap: 8px; align-content: start; }
+.pipe-row h3 { font-size: 30px; line-height: 1; }
+.pipe-row p { margin: 0; color: var(--ink-2); }
 
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; padding: 0; margin: 0; list-style: none; counter-reset: s; }
-.steps li { display: grid; gap: 10px; align-content: start; border-top: 2px solid var(--ink); padding-top: 18px; }
-.steps li::before { counter-increment: s; content: "0" counter(s); font-family: var(--slab); font-weight: 700; font-size: 15px; color: var(--brick); letter-spacing: .1em; }
-.steps h3 { font-size: 23px; font-weight: 600; }
-.steps p { margin: 0; color: var(--ink-2); }
 
+/* Request */
+.request { padding-block: clamp(72px, 9vw, 120px); }
 .req { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
-form { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; }
-label { display: grid; gap: 6px; font-size: 14.5px; font-weight: 600; }
-input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: #fff; border: 1px solid #cbc0aa; border-radius: 12px; padding: 13px 14px; min-height: 50px; width: 100%; }
+form { background: var(--ticket); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; }
+label { display: grid; gap: 6px; font-size: 15px; font-weight: 600; }
+input, select, textarea { font: inherit; font-weight: 400; color: var(--ink); background: var(--steel); border: 1px solid var(--line); border-radius: 6px; padding: 13px 14px; min-height: 52px; width: 100%; }
 textarea { min-height: 96px; resize: vertical; }
 .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
-.sms { background: var(--night); color: #eef3f3; border-radius: 26px; padding: 18px; display: grid; gap: 12px; box-shadow: 0 30px 60px -30px rgba(14,23,28,.6); }
-.sms .top { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #9fb4b8; }
-.sms .top b { color: #7fd0dd; font-variant-numeric: tabular-nums; }
-.bubble { background: #1f3a40; border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15.5px; transition: opacity .3s; }
-.sms p { margin: 0; font-size: 13.5px; color: #9fb4b8; }
+.phone-ui { background: var(--ink); color: #eaf1f5; border-radius: 28px; padding: 18px 18px 22px; display: grid; gap: 12px; box-shadow: 0 30px 60px -30px rgba(12,33,50,.7); }
+.phone-ui .top { display: flex; justify-content: space-between; font-size: 13.5px; color: #93adbf; }
+.phone-ui .top b { color: var(--caution); font-variant-numeric: tabular-nums; }
+.bubble { background: #1b3a52; border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 16px; }
+.phone-ui p { margin: 0; font-size: 14px; color: #93adbf; }
 
-.where { background: var(--card); border-top: 1px solid var(--line); }
-.where .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; padding-block: clamp(48px, 7vw, 88px); }
-.addr { display: grid; gap: 4px; font-size: 18px; }
-.addr b { font-family: var(--slab); font-size: 28px; }
-.addr a.tel { font-size: 26px; font-weight: 700; text-decoration: none; color: var(--brick); margin-top: 8px; }
+/* Location + footer */
+.where { background: var(--ink); color: #eaf1f5; }
+.where .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 36px; align-items: end; padding-block: clamp(64px, 8vw, 104px); }
+.where h2 { font-size: clamp(40px, 6vw, 76px); line-height: .92; }
+.where p { color: #b3c6d3; max-width: 48ch; }
+.addr { font-size: 19px; display: grid; gap: 2px; }
+.addr strong { font-family: var(--cond); font-size: 30px; }
+.addr a { font-family: var(--cond); font-weight: 800; font-size: 40px; color: var(--caution); text-decoration: none; margin-top: 10px; }
+footer { background: #081724; color: #8ea6b6; font-size: 14px; }
+footer .wrap { padding-block: 28px 120px; display: flex; flex-wrap: wrap; gap: 10px 36px; justify-content: space-between; }
 
-footer { background: var(--night); color: #a9b7b9; font-size: 14px; }
-footer .wrap { padding-block: 36px 110px; display: flex; flex-wrap: wrap; gap: 14px 40px; justify-content: space-between; }
-footer b { color: #fff; }
+/* Assistant */
+.fab { position: fixed; z-index: 70; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 20px 0 16px; border-radius: 999px; border: 0; background: var(--deep); color: #fff; font-weight: 700; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(12,33,50,.7); }
+.fab svg { width: 24px; height: 24px; }
+.chat { position: fixed; z-index: 80; right: max(18px, env(safe-area-inset-right)); bottom: calc(18px + env(safe-area-inset-bottom)); width: min(400px, calc(100vw - 36px)); height: min(640px, calc(100svh - 110px)); background: var(--ticket); border-radius: 14px; box-shadow: 0 30px 70px -20px rgba(12,33,50,.6); display: flex; flex-direction: column; overflow: hidden; }
+.chat-head { background: var(--deep); color: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.chat-head .t { flex: 1; min-width: 0; }
+.chat-head b { display: block; font-size: 16px; }
+.chat-head span { font-size: 13px; color: #bcd3e3; }
+.chat-head button { background: transparent; border: 0; color: #fff; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 22px; line-height: 1; }
+.chat-head button:hover { background: rgba(255,255,255,.12); }
+.log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--steel); }
+.m { max-width: 86%; padding: 10px 13px; border-radius: 12px; font-size: 15.5px; line-height: 1.45; }
+.m.bot { background: var(--ticket); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.m.me { background: var(--deep); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.m.sum { background: #fff8db; border: 1px solid #ecd27a; }
+.m.cta { background: var(--ink); color: #eaf1f5; max-width: 100%; }
+.m.cta a { color: var(--caution); font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--line); background: var(--ticket); }
+.chips button { border: 1px solid var(--line); background: var(--steel); border-radius: 999px; padding: 8px 12px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink); }
+.chips button:hover { border-color: var(--water); color: var(--water); }
+.composer { display: flex; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--ticket); }
+.composer input { min-height: 46px; background: var(--steel); }
+.composer button { min-width: 46px; border: 0; border-radius: 6px; background: var(--caution); color: var(--ink); font-weight: 700; cursor: pointer; padding: 0 14px; }
+.voice { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: #e5eef4; border-top: 1px solid var(--line); font-size: 14px; }
+.voice button { border: 0; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; background: var(--ink); color: #fff; }
+.voice .lvl { width: 10px; height: 10px; border-radius: 50%; background: #9fb3c1; }
+.voice.live .lvl { background: #2fa36b; box-shadow: 0 0 0 6px rgba(47,163,107,.25); }
 
 .callbar { display: none; }
+
 @media (max-width: 920px) {
   nav { display: none; }
-  .pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: 46svh minmax(0, 1fr); }
-  .frames::after { background: linear-gradient(180deg, rgba(14,23,28,0) 55%, rgba(14,23,28,1) 100%); }
-  .panel { padding: 8px 20px 24px; align-content: start; gap: 14px; }
-  .clock { font-size: 56px; }
-  .chapter { font-size: 22px; min-height: 0; }
-  .svc article, .svc article:nth-child(n) { grid-column: span 12; }
-  .promise .wrap { grid-template-columns: minmax(0, 1fr); }
-  .promise div { border-left: 0; border-top: 1px solid rgba(255,255,255,.14); }
-  .promise div:first-child { border-top: 0; }
-  .steps, .req, .where .wrap { grid-template-columns: minmax(0, 1fr); }
+  .pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: 42svh minmax(0, 1fr); }
+  .panel { justify-content: flex-start; padding: 18px 20px 20px; gap: 12px; }
+  .clock { font-size: 64px; }
+  .chapter { font-size: 24px; }
+  .line.you, .call .line[data-step="0"] { display: none; }
+  .answered { top: 14%; left: 20px; right: auto; }
+  .pipe-row { grid-template-columns: minmax(0, 1fr); gap: 26px; padding-top: 0; padding-left: 44px; }
+  .pipe-row::before { left: 14px; right: auto; top: 0; bottom: 0; width: 6px; height: auto; }
+  .pipe-fill { left: 14px; top: 0; width: 6px; height: 100%; transform-origin: top; transform: scaleY(0); }
+  .drop { left: 17px; top: 0; transform: translate(-50%, -50%); }
+  .req, .where .wrap { grid-template-columns: minmax(0, 1fr); }
+  .track-wrap { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .track-wrap::-webkit-scrollbar { display: none; }
+  .ticket { scroll-snap-align: start; }
+  .swipe { display: block; }
 }
-@media (max-width: 560px) {
+@media (max-width: 600px) {
+  .preview-note { font-size: 12.5px; }
+  .brand-name { font-size: 19px; }
+  .brand-name small { font-size: 12px; }
+  .hdr-call .num { display: none; }
+  .hdr-call { width: 46px; padding: 0; }
   .row2 { grid-template-columns: minmax(0, 1fr); }
-  .call .line.you { display: none; }
-  .callbar { display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(245,241,232,.97); border-top: 1px solid var(--line); padding: 10px max(14px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
-  .callbar .btn { flex: 1; min-height: 48px; padding: 10px; }
-  header .btn-call .long { display: none; }
+  .callbar { display: flex; gap: 10px; position: fixed; z-index: 65; left: 0; right: 0; bottom: 0; background: rgba(238,242,244,.97); border-top: 1px solid var(--line); padding: 10px max(14px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
+  .callbar .btn { flex: 1; min-height: 50px; padding: 0 10px; }
+  .fab { bottom: calc(84px + env(safe-area-inset-bottom)); padding: 0 16px 0 14px; min-height: 50px; }
+  .fab .txt { display: none; }
+  .chat { right: 0; bottom: 0; width: 100vw; height: 100svh; border-radius: 0; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; } .hero-img { transform: none; } .frames img, .bubble, .svc figure img { transition: none; }
-}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
 <body>
 
-<div class="ribbon"><b>Free website preview</b> built for Service Contractors Plumbing by Scalepath Partnership. Yours to keep; the 24/7 call answering is the monthly service.</div>
+<div class="preview-note"><strong>Free website preview</strong> built for Service Contractors Plumbing by Scalepath Partnership. Yours to keep; the 24/7 answering is the monthly service.</div>
 
-<header id="hdr"><div class="wrap">
-  <a class="brand" href="#top"><b>Service Contractors Plumbing</b><span>KAUFMAN · TEXAS</span></a>
-  <nav aria-label="Main"><a href="#services">Services</a><a href="#night">After hours</a><a href="#how">How it works</a><a href="#request">Request</a></nav>
-  <a class="btn btn-call" href="tel:+19722322810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="long">Call&nbsp;</span><span class="tel">(972) 232-2810</span></a>
+<header><div class="wrap">
+  <a class="brand" href="#top" aria-label="Service Contractors Plumbing, home">
+    <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="6" fill="#0c2132"/><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#f3c234" stroke-width="4" stroke-linecap="round"/><path d="M29 33c-2.2 0-4-1.7-4-3.8 0-2.5 4-6.2 4-6.2s4 3.7 4 6.2c0 2.1-1.8 3.8-4 3.8z" fill="#4fa3d9"/></svg>
+    <span class="brand-name">Service Contractors Plumbing<small>Kaufman, Texas</small></span>
+  </a>
+  <nav aria-label="Main"><a href="#services">Services</a><a href="#after-hours">After hours</a><a href="#how">Booking</a><a href="#request">Request service</a></nav>
+  <a class="btn btn-caution hdr-call" href="tel:+19722322810" aria-label="Call (972) 232-2810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="num">(972) 232-2810</span></a>
 </div></header>
 
 <main id="top">
-  <section class="hero" aria-label="Introduction">
-    <div class="hero-img" id="heroImg" role="img" aria-label="Brick ranch home in Kaufman at dusk with a work van in the driveway"></div>
-    <div class="wrap">
-      <div class="kicker">Plumbing · Kaufman, Texas</div>
-      <h1>Your plumber in Kaufman. Answered day or night.</h1>
-      <p>Leaks, water heaters, drains and repairs for homes around Kaufman. Call at 2 PM or 2 AM and you get a real answer and a booked time, even when the crew is under a house.</p>
+  <section class="hero" id="hero" aria-label="Introduction">
+    <div class="hero-photo photo" role="img" aria-label="Brick ranch home at dusk with a work van in the driveway"></div>
+    <div class="hero-shade"></div>
+    <div class="grain"></div>
+    <div class="water" id="water" aria-hidden="true">
+      <svg class="wave" id="wave" viewBox="0 0 1200 24" preserveAspectRatio="none"><path d="M0 12 C 100 0, 200 24, 300 12 S 500 0, 600 12 S 800 24, 900 12 S 1100 0, 1200 12 V24 H0 Z"/></svg>
+    </div>
+    <div class="answered" id="answered" aria-hidden="true">
+      <div class="row"><span>After-hours line</span><span>Tue 10:14 PM</span></div>
+      <b>Water heater leak, garage</b>
+      <span class="ok">Answered on the first ring. Booked for 8:00 AM.</span>
+    </div>
+    <div class="wrap hero-copy">
+      <h1 id="headline"><span class="hl"><span>Water where</span></span><span class="hl"><span>it shouldn't be?</span></span><span class="hl y"><span>We pick up.</span></span></h1>
+      <p>Leaks, water heaters, drains and repairs for homes around Kaufman. Call at 2 in the afternoon or 2 in the morning and a real answer books you in, even when the crew is under a house.</p>
       <div class="ctas">
-        <a class="btn btn-call" href="tel:+19722322810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call <span class="tel">(972) 232-2810</span></a>
-        <a class="btn btn-ghost" href="#request">Request service online</a>
+        <a class="btn btn-caution" href="tel:+19722322810"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call (972) 232-2810</a>
+        <a class="btn btn-line" href="#request">Request service</a>
       </div>
-      <div class="hero-strip"><span>Shop on Raymond Rd, Kaufman</span><span>Calls answered 24/7</span><span>Text back within 60 seconds</span></div>
     </div>
   </section>
 
-  <section class="story" id="night" aria-label="What happens when you call after hours">
+  <section class="story" id="after-hours" aria-label="What happens when you call after hours">
     <div class="pin">
       <div class="frames" aria-hidden="true">
-        <img class="on" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_989d6d75-6cf9-41a8-a197-d2effe3472e4.png" alt="">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_8c3108c8-0093-48fd-929f-f4c584d9c6a1.png" alt="" loading="lazy">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230320_8e2ec2ba-cd7c-4937-b4ae-9eead3d45d21.png" alt="" loading="lazy">
+        <img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_989d6d75-6cf9-41a8-a197-d2effe3472e4.png" alt="">
+        <img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_8c3108c8-0093-48fd-929f-f4c584d9c6a1.png" alt="" loading="lazy">
+        <img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230320_8e2ec2ba-cd7c-4937-b4ae-9eead3d45d21.png" alt="" loading="lazy">
+        <div class="grain"></div>
       </div>
       <div class="panel">
-        <div class="kicker" style="color:#7fd0dd">After hours in Kaufman</div>
+        <span class="when">After hours in Kaufman</span>
         <div class="clock" id="clock">10:14<small>PM</small></div>
-        <div class="chapter" id="chapter">The water heater lets go. <em>Water is spreading across the garage.</em></div>
-        <div class="call" aria-live="off">
-          <div class="call-top"><span>Service Contractors Plumbing</span><b id="status">ringing</b></div>
-          <div class="line ai" data-at="0.55"><small>After-hours line</small><span class="tw">Thanks for calling Service Contractors Plumbing. Is water leaking right now?</span></div>
-          <div class="line you" data-at="0.85"><small>You</small><span class="tw">Yes, the water heater in the garage.</span></div>
-          <div class="line ai" data-at="1.15"><small>After-hours line</small><span class="tw">Turn the cold valve on top of the tank to off. A plumber can be there at 8 AM. What's the address?</span></div>
+        <div class="chapter" id="chapter">The water heater lets go in the garage.</div>
+        <div class="call">
+          <div class="call-top"><span>Service Contractors Plumbing</span><b id="status">Ringing</b></div>
+          <div class="line ai" data-step="0" data-at="0.45"><span class="who">After-hours line</span><span class="tw">Thanks for calling Service Contractors Plumbing. Is water leaking right now?</span></div>
+          <div class="line you" data-step="1" data-at="0.8"><span class="who">You</span><span class="tw">Yes, the water heater in the garage.</span></div>
+          <div class="line ai" data-step="2" data-at="1.15"><span class="who">After-hours line</span><span class="tw">Turn the cold valve on top of the tank to off. A plumber can be there at 8 AM. What's the address?</span></div>
         </div>
-        <div class="progress" aria-hidden="true"><i><b id="p0"></b></i><i><b id="p1"></b></i><i><b id="p2"></b></i></div>
+        <div class="bars" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
       </div>
     </div>
   </section>
 
-  <section class="block" id="services" aria-labelledby="svc-h"><div class="wrap">
-    <div class="head"><div class="kicker">Services</div><h2 id="svc-h">Home plumbing, fixed right the first time</h2><p>Tell us what's going on and you'll get a time on the schedule, day or night.</p></div>
-    <div class="svc">
-      <article><figure><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230347_8a4f1ea9-919d-4e49-91ec-fc475b0ab0c6.png" alt="Plumber installing a new water heater" loading="lazy"></figure><div class="txt"><h3>Water heaters</h3><p>Leaking tanks, no hot water, pilot and valve problems. Repairs and replacements.</p></div></article>
-      <article><figure><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230439_8ba4c321-e16b-470b-b858-7404a7e83ed3.png" alt="Plumber using a leak detector on a tile floor" loading="lazy"></figure><div class="txt"><h3>Leak detection</h3><p>Running meters, wet drywall, warm spots on the floor. Hidden leaks found before they spread.</p></div></article>
-      <article><figure><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_39082d1e-88a6-4e7d-8902-733137e92971.png" alt="Plumber checking pipes under a kitchen sink" loading="lazy"></figure><div class="txt"><h3>Repairs &amp; fixtures</h3><p>Dripping traps, faucets, toilets, disposals and shut-off valves.</p></div></article>
-      <article><figure><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230420_5b53848f-9c03-4813-bb19-e922417ea8e2.png" alt="Plumber clearing an outdoor sewer cleanout" loading="lazy"></figure><div class="txt"><h3>Drains &amp; sewer lines</h3><p>Slow sinks, backed-up toilets and roots in the line, cleared and checked.</p></div></article>
+  <section class="services" id="services" aria-labelledby="svc-h">
+    <div class="wrap sec-head">
+      <h2 id="svc-h">The jobs we handle every week</h2>
+      <p>Tell us what you're seeing. You'll get a time on the schedule, day or night.</p>
+      <span class="swipe">Swipe for more jobs</span>
     </div>
-    <div class="more"><span>Water lines &amp; low pressure</span><span>Gas line checks</span><span>Burst pipes</span><span>New fixture installs</span></div>
+    <div class="track-wrap" id="trackWrap">
+      <div class="track" id="track">
+        <article class="ticket"><figure><img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230347_8a4f1ea9-919d-4e49-91ec-fc475b0ab0c6.png" alt="Plumber fitting a new water heater" loading="lazy"></figure><div class="body"><div class="meta"><span>Water heaters</span><span>Repair or replace</span></div><h3>No hot water, or a tank that's leaking</h3><dl><dt>You notice</dt><dd>Cold showers, rusty water, a puddle under the tank, popping sounds.</dd><dt>We do</dt><dd>Find the cause, then repair it or replace the heater.</dd></dl></div></article>
+        <article class="ticket"><figure><img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230439_8ba4c321-e16b-470b-b858-7404a7e83ed3.png" alt="Plumber using a leak detector on a tile floor" loading="lazy"></figure><div class="body"><div class="meta"><span>Leak detection</span><span>Hidden leaks</span></div><h3>A water bill that jumped for no reason</h3><dl><dt>You notice</dt><dd>The meter spins with everything off, wet drywall, a warm spot on the floor.</dd><dt>We do</dt><dd>Track down the leak and fix it before it damages floors and walls.</dd></dl></div></article>
+        <article class="ticket"><figure><img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230420_5b53848f-9c03-4813-bb19-e922417ea8e2.png" alt="Plumber clearing an outdoor sewer cleanout" loading="lazy"></figure><div class="body"><div class="meta"><span>Drains and sewer</span><span>Cleared and checked</span></div><h3>Drains that won't drain</h3><dl><dt>You notice</dt><dd>Slow sinks, gurgling, a toilet backing up, roots in the line.</dd><dt>We do</dt><dd>Clear the line and check it so it stays clear.</dd></dl></div></article>
+        <article class="ticket"><figure><img class="photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3KgWM5IbxGMJdScqn3lNOwQJoFO/hf_20261021_230254_39082d1e-88a6-4e7d-8902-733137e92971.png" alt="Plumber checking pipes under a kitchen sink" loading="lazy"></figure><div class="body"><div class="meta"><span>Repairs and fixtures</span><span>Most fixed in one visit</span></div><h3>Drips, running toilets, broken valves</h3><dl><dt>You notice</dt><dd>A faucet that won't stop, a toilet that runs, a shut-off that won't turn.</dd><dt>We do</dt><dd>Repair or replace faucets, toilets, disposals and valves.</dd></dl></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="how" aria-labelledby="how-h"><div class="wrap">
+    <div class="sec-head"><h2 id="how-h">From your call to a plumber at the door</h2></div>
+    <div class="pipe-row" id="pipeRow" role="list">
+      <span class="pipe-fill" id="pipeFill" aria-hidden="true"></span>
+      <svg class="drop" id="drop" viewBox="0 0 26 30" aria-hidden="true"><path d="M13 1C13 1 2 13 2 19.5a11 11 0 0 0 22 0C24 13 13 1 13 1z" fill="#1d6fa5" stroke="#fff" stroke-width="2"/></svg>
+      <div role="listitem"><h3>Call, text or request</h3><p>Any hour. If the crew is on a job, the call still gets answered and nothing goes to voicemail.</p></div>
+      <div role="listitem"><h3>Booked in a minute</h3><p>Your name, number, address and the problem are read back to you, then you pick a time.</p></div>
+      <div role="listitem"><h3>The plumber shows up ready</h3><p>The details arrive by text before the van leaves, so you only explain it once.</p></div>
+    </div>
   </div></section>
 
-  <section class="promise" aria-label="What you can count on"><div class="wrap">
-    <div><b>24/7</b><span>Every call answered, nights and weekends included.</span></div>
-    <div><b>60 sec</b><span>Missed us? You get a text back within a minute.</span></div>
-    <div><b>1 call</b><span>Your details go straight to the plumber, so you only explain once.</span></div>
-  </div></section>
-
-  <section class="block" id="how" aria-labelledby="how-h"><div class="wrap">
-    <div class="head"><div class="kicker">How it works</div><h2 id="how-h">From your call to a plumber at the door</h2></div>
-    <ol class="steps">
-      <li><h3>Call, text or request</h3><p>Any hour. If the crew is on a job, the call is still answered and nothing goes to voicemail.</p></li>
-      <li><h3>Booked in a minute</h3><p>Your name, number, address and the problem are read back to you, then you pick a time.</p></li>
-      <li><h3>The plumber arrives ready</h3><p>The details arrive by text before the van leaves, so the job starts when the door opens.</p></li>
-    </ol>
-  </div></section>
-
-  <section class="block" id="request" aria-labelledby="req-h" style="padding-top:0"><div class="wrap">
-    <div class="head"><div class="kicker">Request service</div><h2 id="req-h">Send a request, get a text back within a minute</h2></div>
+  <section class="request" id="request" aria-labelledby="req-h"><div class="wrap">
+    <div class="sec-head"><h2 id="req-h">Send a request. Get a text back within a minute.</h2></div>
     <div class="req">
       <form id="req-form" novalidate>
         <div class="row2">
           <label for="f-name">Name<input id="f-name" autocomplete="name" value="Jamie"></label>
           <label for="f-phone">Mobile<input id="f-phone" inputmode="tel" autocomplete="tel" value="(469) 555-0123"></label>
         </div>
-        <label for="f-issue">What's going on?
-          <select id="f-issue"><option>Leak</option><option>Water heater</option><option>Clogged drain or toilet</option><option>Low water pressure</option><option>Something else</option></select>
-        </label>
+        <label for="f-issue">What's going on?<select id="f-issue"><option>Leak</option><option>Water heater</option><option>Clogged drain or toilet</option><option>Low water pressure</option><option>Something else</option></select></label>
         <label for="f-notes">Details (optional)<textarea id="f-notes">Water under the kitchen sink since this morning.</textarea></label>
-        <button class="btn btn-call" type="submit">Send request</button>
+        <button class="btn btn-caution" type="submit">Send request</button>
       </form>
-      <div class="sms" aria-live="polite">
+      <div class="phone-ui" aria-live="polite">
         <div class="top"><span>Text to your phone</span><b id="timer">0:00</b></div>
         <div class="bubble" id="reply">Hi Jamie, this is Service Contractors Plumbing. We got your request about a leak. A plumber can come out tomorrow morning. Is 8 or 10 AM better?</div>
-        <p>Preview: no text is sent from this page. With the live system this reply goes out within 60 seconds, day or night.</p>
+        <p>Preview: this page doesn't send texts. With the live system the reply goes out within 60 seconds, day or night.</p>
       </div>
     </div>
   </div></section>
 
   <section class="where" aria-labelledby="where-h"><div class="wrap">
-    <div class="head" style="margin:0"><div class="kicker">Location</div><h2 id="where-h">A local plumber on Raymond Rd</h2><p>Serving homes in Kaufman and the surrounding area. Not sure we cover your street? Call and ask.</p></div>
-    <div class="addr"><b>Service Contractors Plumbing</b><span>6174 Raymond Rd</span><span>Kaufman, TX 75142</span><a class="tel" href="tel:+19722322810">(972) 232-2810</a><span style="color:var(--ink-2);font-size:15px">Phone answered 24/7</span></div>
+    <div><h2 id="where-h">A local plumber on Raymond Road</h2><p>Serving homes in Kaufman and the surrounding area. Not sure we cover your street? Call and ask, or open the assistant in the corner.</p></div>
+    <div class="addr"><strong>Service Contractors Plumbing</strong><span>6174 Raymond Rd</span><span>Kaufman, TX 75142</span><a href="tel:+19722322810">(972) 232-2810</a></div>
   </div></section>
 </main>
 
 <footer><div class="wrap">
-  <span><b>Service Contractors Plumbing</b> · 6174 Raymond Rd, Kaufman, TX 75142 · <a class="tel" href="tel:+19722322810">(972) 232-2810</a></span>
+  <span>Service Contractors Plumbing, 6174 Raymond Rd, Kaufman, TX 75142</span>
   <span>Preview by Scalepath Partnership. Photos are illustrative until replaced with the company's own. Services and hours to be confirmed with the owner.</span>
 </div></footer>
 
-<div class="callbar"><a class="btn btn-call" href="tel:+19722322810">Call now</a><a class="btn btn-pine" href="#request">Request</a></div>
+<button class="fab" id="fab" aria-expanded="false" aria-controls="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg><span class="txt">Ask a plumbing question</span></button>
 
+<div class="chat" id="chat" role="dialog" aria-label="Plumbing assistant" hidden>
+  <div class="chat-head">
+    <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0c2132"/><path d="M11 9v10a5 5 0 0 0 5 5h8a5 5 0 0 1 5 5v2" fill="none" stroke="#f3c234" stroke-width="4" stroke-linecap="round"/></svg>
+    <div class="t"><b>Service Contractors Plumbing</b><span>Assistant, answers any time</span></div>
+    <button id="chatClose" aria-label="Close assistant">&times;</button>
+  </div>
+  <div class="log" id="log" aria-live="polite"></div>
+  <div class="voice" id="voice"><span class="lvl"></span><span id="voiceText">Prefer to talk? Call the after-hours line from this page.</span><button id="voiceBtn" type="button">Talk</button></div>
+  <div class="chips" id="chips"></div>
+  <form class="composer" id="composer"><input id="msg" autocomplete="off" placeholder="Type your question" aria-label="Your message"><button type="submit" aria-label="Send">Send</button></form>
+</div>
+
+<div class="callbar"><a class="btn btn-caution" href="tel:+19722322810">Call now</a><a class="btn btn-line" style="color:var(--ink)" href="#request">Request</a></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
 <script>
 (function () {
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hdr = document.getElementById("hdr"), heroImg = document.getElementById("heroImg");
-  var story = document.getElementById("night");
-  var frames = [].slice.call(document.querySelectorAll(".frames img"));
-  var clock = document.getElementById("clock"), chapter = document.getElementById("chapter"), status = document.getElementById("status");
-  var bars = [0, 1, 2].map(function (i) { return document.getElementById("p" + i); });
-  var lines = [].slice.call(document.querySelectorAll(".call .line")).map(function (el) {
-    var tw = el.querySelector(".tw"); return { el: el, tw: tw, full: tw.textContent, at: parseFloat(el.dataset.at), shown: -1 };
-  });
+  var BUSINESS = "Service Contractors Plumbing";
+  var CALENDLY = "https://calendly.com/strydegrowth";
+  var VAPI_PUBLIC_KEY = "f38f75ff-8440-46fe-b16e-533da902881c";
+
+  /* ---------- Motion (GSAP) ---------- */
+  var hasGsap = window.gsap && window.ScrollTrigger;
   var chapters = [
-    { t: "10:14", ap: "PM", text: 'The water heater lets go. <em>Water is spreading across the garage.</em>', s: "ringing" },
-    { t: "10:15", ap: "PM", text: 'You call. <em>It\'s answered on the first ring.</em>', s: "answered" },
-    { t: "8:00", ap: "AM", text: 'The plumber is at your door. <em>He already knows what\'s wrong.</em>', s: "booked" }
+    { t: "10:14", ap: "PM", text: "The water heater lets go in the garage.", s: "Ringing" },
+    { t: "10:15", ap: "PM", text: "You call. It's answered on the first ring.", s: "On the line" },
+    { t: "8:00", ap: "AM", text: "The plumber is at the door and already knows what's wrong.", s: "Booked" }
   ];
+  var story = document.getElementById("after-hours");
+  var frames = [].slice.call(story.querySelectorAll(".frames img"));
+  var clock = document.getElementById("clock"), chapter = document.getElementById("chapter"), status = document.getElementById("status");
+  var bars = [].slice.call(story.querySelectorAll(".bars b"));
+  var lines = [].slice.call(story.querySelectorAll(".call .line")).map(function (el) {
+    var tw = el.querySelector(".tw"); return { tw: tw, full: tw.textContent, at: parseFloat(el.getAttribute("data-at")), shown: -1 };
+  });
   var lastCh = -1;
-
-  function frame() {
-    var y = window.scrollY, vh = window.innerHeight;
-    hdr.classList.toggle("solid", y > vh * 0.6);
-    if (!reduce) heroImg.style.setProperty("--zoom", (1.08 - Math.min(1, y / vh) * 0.08).toFixed(4));
-
-    var r = story.getBoundingClientRect();
-    var total = story.offsetHeight - vh;
-    var p = Math.max(0, Math.min(1, -r.top / Math.max(1, total)));   // 0..1 through the pinned scene
-    var f = p * 3;                                                      // 0..3 chapter position
-    var ch = Math.min(2, Math.floor(f));
+  function renderStory(p, reduce) {
+    var f = p * 3, ch = Math.min(2, Math.floor(f));
     if (ch !== lastCh) {
-      frames.forEach(function (img, i) { img.classList.toggle("on", i === ch); });
-      clock.innerHTML = chapters[ch].t + "<small>" + chapters[ch].ap + "</small>";
-      chapter.innerHTML = chapters[ch].text;
-      status.textContent = chapters[ch].s;
       lastCh = ch;
+      clock.innerHTML = chapters[ch].t + "<small>" + chapters[ch].ap + "</small>";
+      chapter.textContent = chapters[ch].text;
+      status.textContent = chapters[ch].s;
+      frames.forEach(function (img, i) {
+        if (hasGsap && !reduce) gsap.to(img, { opacity: i === ch ? 1 : 0, scale: i === ch ? 1 : 1.06, duration: .7, overwrite: true });
+        else img.style.opacity = i === ch ? 1 : 0;
+      });
     }
-    bars.forEach(function (b, i) { b.style.setProperty("--p", (Math.max(0, Math.min(1, f - i)) * 100).toFixed(1) + "%"); });
+    bars.forEach(function (b, i) { b.style.transform = "scaleX(" + Math.max(0, Math.min(1, f - i)) + ")"; });
     lines.forEach(function (l) {
-      var k = reduce ? (f >= l.at ? 1 : 0) : Math.max(0, Math.min(1, (f - l.at) / 0.35));
+      var k = reduce ? (f >= l.at ? 1 : 0) : Math.max(0, Math.min(1, (f - l.at) / 0.3));
       var n = Math.round(l.full.length * k);
       if (n === l.shown) return; l.shown = n;
       l.tw.textContent = l.full.slice(0, n);
       var g = document.createElement("span"); g.className = "ghost"; g.textContent = l.full.slice(n); l.tw.appendChild(g);
     });
   }
-  var q = false;
-  function onScroll() { if (!q) { q = true; requestAnimationFrame(function () { q = false; frame(); }); } }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  frame();
 
-  var form = document.getElementById("req-form"), reply = document.getElementById("reply"), timer = document.getElementById("timer"), t = null;
+  if (hasGsap) {
+    gsap.registerPlugin(ScrollTrigger);
+    if (window.SplitText) gsap.registerPlugin(SplitText);
+    var mm = gsap.matchMedia();
+
+    mm.add({ motion: "(prefers-reduced-motion: no-preference)", reduce: "(prefers-reduced-motion: reduce)", wide: "(min-width: 921px)" }, function (ctx) {
+      var c = ctx.conditions;
+      if (c.reduce) {
+        ScrollTrigger.create({ trigger: story, start: "top top", end: "bottom bottom", onUpdate: function (s) { renderStory(s.progress, true); } });
+        renderStory(0, true);
+        return;
+      }
+      // Headline enters once on load
+      gsap.from("#headline .hl > span", { yPercent: 105, duration: 1, ease: "power4.out", stagger: .12, delay: .15 });
+      gsap.from(".hero p, .hero .ctas", { y: 18, autoAlpha: 0, duration: .8, ease: "power2.out", stagger: .1, delay: .55 });
+
+      // Signature: water rises, the call is answered, the water drains
+      gsap.to("#wave", { xPercent: -50, duration: 6, ease: "none", repeat: -1 });
+      var tl = gsap.timeline({ scrollTrigger: { trigger: "#hero", start: "top top", end: "+=110%", scrub: .6, pin: true } });
+      tl.to("#water", { yPercent: 38, ease: "power1.out", duration: 1 })
+        .to(".hero-photo", { scale: 1.06, duration: 1, ease: "none" }, 0)
+        .to(".hero-copy", { autoAlpha: .18, duration: .3 }, .62)
+        .to("#answered", { autoAlpha: 1, y: 0, rotate: -1.5, duration: .35, ease: "back.out(1.6)" }, .7)
+        .to(".hero-copy", { autoAlpha: 1, duration: .4 }, 1.3)
+        .to("#water", { yPercent: 100, duration: .6, ease: "power2.in" }, 1.25)
+        .to("#answered", { y: -20, duration: .6, ease: "none" }, 1.25);
+
+      // After-hours story
+      ScrollTrigger.create({ trigger: story, start: "top top", end: "bottom bottom", onUpdate: function (s) { renderStory(s.progress, false); } });
+      renderStory(0, false);
+
+      // Section headings: split into words, rise once
+      if (window.SplitText) {
+        gsap.utils.toArray(".sec-head h2, .where h2").forEach(function (h) {
+          SplitText.create(h, { type: "words", mask: "words", autoSplit: true, onSplit: function (self) {
+            return gsap.from(self.words, { yPercent: 100, duration: .8, ease: "power3.out", stagger: .05, scrollTrigger: { trigger: h, start: "top 85%", once: true } });
+          } });
+        });
+      }
+
+      // Job tickets: horizontal travel on wide screens
+      if (c.wide) {
+        var track = document.getElementById("track");
+        var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 40); };
+        gsap.to(track, { x: function () { return -dist(); }, ease: "none", scrollTrigger: { trigger: "#services", start: "top top", end: function () { return "+=" + dist(); }, scrub: .5, pin: true, invalidateOnRefresh: true } });
+      }
+
+      // Process: the drop runs down/along the pipe
+      var row = document.getElementById("pipeRow");
+      var pt = gsap.timeline({ scrollTrigger: { trigger: row, start: "top 75%", end: "bottom 55%", scrub: .5 } });
+      if (c.wide) {
+        pt.to("#pipeFill", { scaleX: 1, ease: "none" }, 0).to("#drop", { x: function () { return row.clientWidth; }, ease: "none" }, 0);
+      } else {
+        pt.to("#pipeFill", { scaleY: 1, ease: "none" }, 0).to("#drop", { y: function () { return row.clientHeight; }, ease: "none" }, 0);
+      }
+    });
+  } else {
+    // No GSAP (offline): keep the page fully readable and the story working.
+    window.addEventListener("scroll", function () {
+      var r = story.getBoundingClientRect(); var total = story.offsetHeight - window.innerHeight;
+      renderStory(Math.max(0, Math.min(1, -r.top / Math.max(1, total))), true);
+    }, { passive: true });
+    renderStory(0, true);
+  }
+
+  /* ---------- Request form preview ---------- */
+  var form = document.getElementById("req-form"), reply = document.getElementById("reply"), timer = document.getElementById("timer"), tick = null;
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var name = (document.getElementById("f-name").value || "").trim().split(" ")[0] || "there";
     var issue = document.getElementById("f-issue").value.toLowerCase();
-    var s = 0; clearInterval(t); timer.textContent = "0:00"; reply.style.opacity = ".3";
-    t = setInterval(function () {
+    var s = 0; clearInterval(tick); timer.textContent = "0:00"; reply.style.opacity = ".3";
+    tick = setInterval(function () {
       s++; timer.textContent = "0:" + (s < 10 ? "0" : "") + s;
-      if (s === 3) { reply.textContent = "Hi " + name + ", this is Service Contractors Plumbing. We got your request about: " + issue + ". A plumber can come out tomorrow morning. Is 8 or 10 AM better?"; reply.style.opacity = "1"; clearInterval(t); }
+      if (s === 3) { reply.textContent = "Hi " + name + ", this is " + BUSINESS + ". We got your request about: " + issue + ". A plumber can come out tomorrow morning. Is 8 or 10 AM better?"; reply.style.opacity = "1"; clearInterval(tick); }
     }, 1000);
+  });
+
+  /* ---------- Assistant ---------- */
+  var fab = document.getElementById("fab"), chat = document.getElementById("chat"), log = document.getElementById("log"),
+      chips = document.getElementById("chips"), composer = document.getElementById("composer"), msg = document.getElementById("msg");
+  var started = false, booking = null;
+
+  function say(text, cls) {
+    var d = document.createElement("div"); d.className = "m " + (cls || "bot"); d.textContent = text; log.appendChild(d);
+    log.scrollTop = log.scrollHeight; return d;
+  }
+  function sayHTML(html, cls) { var d = say("", cls); d.innerHTML = html; log.scrollTop = log.scrollHeight; return d; }
+  function botSay(text, cls, delay) { setTimeout(function () { say(text, cls); }, delay || 450); }
+  function setChips(list) {
+    chips.innerHTML = "";
+    list.forEach(function (c) { var b = document.createElement("button"); b.type = "button"; b.textContent = c; b.addEventListener("click", function () { handle(c); }); chips.appendChild(b); });
+  }
+  var MAIN = ["Water heater leaking", "Clogged drain", "How much does it cost?", "Do you cover my area?", "Book a plumber"];
+
+  function open() {
+    chat.hidden = false; fab.hidden = true; fab.setAttribute("aria-expanded", "true");
+    if (!started) {
+      started = true;
+      say("Hi, this is the " + BUSINESS + " assistant. I can answer questions and get a plumber booked, any time of day. What's going on?");
+      setChips(MAIN);
+    }
+    setTimeout(function () { msg.focus(); }, 50);
+  }
+  function close() { chat.hidden = true; fab.hidden = false; fab.setAttribute("aria-expanded", "false"); fab.focus(); }
+  fab.addEventListener("click", open);
+  document.getElementById("chatClose").addEventListener("click", close);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !chat.hidden) close(); });
+
+  var answers = [
+    { k: /\bgas\b|rotten egg/i, a: "If you smell gas, leave the house now and call the gas company or 911 from outside. Then call us and we'll get a plumber out." },
+    { k: /water heater|hot water|tank/i, a: "Water heater trouble is something we fix all the time. If it's leaking, turn the cold-water valve on top of the tank to off and switch off the power or gas. Want me to book a plumber?" },
+    { k: /leak|drip|wet|flood|burst|spray/i, a: "Shut off the main water valve if water is spreading (usually near the street or where the line enters the house). Then let's get a plumber out. Want me to book one?" },
+    { k: /clog|drain|backed|backing|toilet|sewer|slow/i, a: "Stop using that drain or toilet for now so it doesn't overflow. We clear drains and sewer lines and check them so they stay clear. Want me to book a time?" },
+    { k: /cost|price|how much|charge|estimate|quote/i, a: "It depends on what's wrong, so the plumber gives you an exact price on site before any work starts. No surprise bills." },
+    { k: /area|cover|come to|serve|kaufman|terrell|forney|crandall|kemp|mabank/i, a: "We're on Raymond Road in Kaufman and serve homes in Kaufman and the surrounding area. Tell me your town or zip and I'll check, or book and we'll confirm." },
+    { k: /hour|open|night|weekend|sunday|saturday|emergency|24/i, a: "The phone is answered day and night, weekends included. Urgent leaks get the first available plumber; everything else gets the next opening." },
+    { k: /human|person|someone|call me|talk/i, a: "You can call (972) 232-2810 any time, or tap Talk below to speak with the after-hours line right here." }
+  ];
+
+  var steps = [
+    { key: "name", q: "Sure. What's your first name?" },
+    { key: "phone", q: "Thanks, {name}. What's the best mobile number for the plumber to text?" },
+    { key: "zip", q: "And the street address or zip code?" },
+    { key: "issue", q: "In a few words, what's going on?" },
+    { key: "time", q: "When works best?", chips: ["As soon as possible", "Tomorrow morning", "Tomorrow afternoon", "Pick another day"] }
+  ];
+
+  function startBooking() { booking = { i: 0, data: {} }; ask(); }
+  function ask() {
+    var s = steps[booking.i];
+    botSay(s.q.replace("{name}", booking.data.name || ""));
+    setChips(s.chips || []);
+  }
+  function finishBooking() {
+    var d = booking.data; booking = null;
+    setTimeout(function () {
+      say("Booked (preview). " + (d.name || "") + ", a plumber is scheduled for " + (/soon/i.test(d.time) ? "the first available slot" : d.time.toLowerCase()) + " at " + d.zip + " for: " + d.issue + ". You'll get a text at " + d.phone + " to confirm, and the plumber gets the same details.", "m sum");
+      setTimeout(function () {
+        sayHTML("<b>For the owner:</b> this assistant and the 24/7 phone line are the Scalepath service. Want them live on your real site? <a href=\"" + CALENDLY + "\" target=\"_blank\" rel=\"noopener\">Book a 15-minute call</a>.", "m cta");
+        setChips(MAIN);
+      }, 700);
+    }, 500);
+  }
+
+  function handle(text) {
+    text = (text || "").trim(); if (!text) return;
+    say(text, "me");
+    if (booking) {
+      var s = steps[booking.i];
+      booking.data[s.key] = text;
+      booking.i++;
+      if (booking.i < steps.length) ask(); else finishBooking();
+      return;
+    }
+    if (/book|schedule|appointment|send (a|someone)|come out|yes|sure|please/i.test(text)) { startBooking(); return; }
+    for (var i = 0; i < answers.length; i++) {
+      if (answers[i].k.test(text)) { botSay(answers[i].a); setChips(["Book a plumber", "How much does it cost?", "Do you cover my area?"]); return; }
+    }
+    botSay("I can help with leaks, water heaters, drains, toilets and booking a visit. Tell me what you're seeing, or I can book a plumber now.");
+    setChips(["Book a plumber", "Water heater leaking", "Clogged drain"]);
+  }
+  composer.addEventListener("submit", function (e) { e.preventDefault(); handle(msg.value); msg.value = ""; });
+
+  /* ---------- Voice: the after-hours line in the browser (Vapi) ---------- */
+  var voiceBtn = document.getElementById("voiceBtn"), voiceBox = document.getElementById("voice"), voiceText = document.getElementById("voiceText");
+  var vapi = null, live = false;
+  var assistant = {
+    name: "SCP after-hours line",
+    firstMessage: "Thanks for calling " + BUSINESS + ", this is the after-hours line. Is water leaking right now, or would you like to schedule a visit?",
+    model: { provider: "openai", model: "gpt-4o-mini", messages: [{ role: "system", content:
+      "You are the friendly after-hours receptionist for " + BUSINESS + ", a local plumbing company at 6174 Raymond Rd, Kaufman, Texas. " +
+      "Keep sentences short and calm. First find out if it's urgent (active leak, flooding, sewage backup, no water). " +
+      "Safety: gas smell means leave the house and call the gas company or 911 first. Active leak: tell them to shut the main valve or the tank's cold valve. " +
+      "Collect first name, callback number (read it back), address, the problem, and preferred time, then confirm the booking out loud and say the plumber will get the details by text. " +
+      "Never quote prices: the plumber gives an exact price on site before work starts. If asked whether you are an AI, say yes. This is a demo line." }] },
+    voice: { provider: "vapi", voiceId: "Elliot" }
+  };
+  voiceBtn.addEventListener("click", function () {
+    if (live && vapi) { vapi.stop(); return; }
+    voiceBtn.disabled = true; voiceText.textContent = "Connecting. Allow the microphone when asked.";
+    import("https://cdn.jsdelivr.net/npm/@vapi-ai/web@2.7.1/+esm").then(function (mod) {
+      if (!vapi) {
+        var Vapi = mod.default || mod.Vapi || mod;
+        vapi = new Vapi(VAPI_PUBLIC_KEY);
+        vapi.on("call-start", function () { live = true; voiceBox.classList.add("live"); voiceText.textContent = "You're talking to the after-hours line."; voiceBtn.textContent = "End"; voiceBtn.disabled = false; });
+        vapi.on("call-end", function () { live = false; voiceBox.classList.remove("live"); voiceText.textContent = "Call ended. You can talk again any time."; voiceBtn.textContent = "Talk"; voiceBtn.disabled = false; });
+        vapi.on("message", function (m) { if (m && m.type === "transcript" && m.transcriptType === "final") say(m.transcript, m.role === "user" ? "me" : "bot"); });
+        vapi.on("error", function () { voiceText.textContent = "The voice line couldn't connect. Call (972) 232-2810 instead."; voiceBtn.textContent = "Talk"; voiceBtn.disabled = false; live = false; voiceBox.classList.remove("live"); });
+      }
+      return vapi.start(assistant);
+    }).catch(function () {
+      voiceText.textContent = "The voice line couldn't load here. Call (972) 232-2810 instead.";
+      voiceBtn.disabled = false;
+    });
   });
 })();
 </script>

@@ -45,6 +45,23 @@ Generate 2–4 concepts; let the user pick one before polishing.
 - Real photos of the business beat stock; stock beats AI people; never fake team photos.
 - **Acid test:** hide the name and logo. Could it only be this business in this town? If not, fix it.
 
+## 4b. Lessons from Khalil's feedback (Oct 2026)
+- "Looks AI-generated" = the common tells. Avoid: cream background + serif + terracotta accent; ALL-CAPS
+  eyebrow labels over every heading; "A · B · C" middle-dot strings; 01/02/03 numbering on non-sequences;
+  identical rounded cards with the same shadow; fade-up on every section. (Source: Anthropic's
+  frontend-design skill, installed in .claude/skills.)
+- Pick an identity from the trade's real world (work vans, caution yellow, galvanized steel, job tickets).
+- Photos matter most. No owner photos yet → generate illustrative ones (Higgsfield `z_image`, ~0.15
+  credits each on the free plan, one request at a time), grade them (desaturate + grain) and label them
+  "illustrative" in the footer.
+- Motion with GSAP 3.15 + ScrollTrigger + SplitText from jsdelivr (gsap-* skills installed): ONE
+  signature scroll moment tied to the trade (e.g. water rising then draining), a pinned story scene,
+  horizontal job-ticket cards on desktop (swipe on phone), headline word reveals. Respect reduced motion.
+- Every site gets the assistant: answers common questions, books the job, and ends with a card inviting
+  the owner to book a call with Scalepath. Voice button uses Vapi web SDK (public key) for a live demo.
+- Test before sending: Playwright screenshots at 390px and 1366px, no horizontal overflow, no JS errors,
+  class names never shared between unrelated components.
+
 ## 5. Quality checks before showing anyone
 Mobile at 390px: call button visible without scrolling; text ≥ 16px; tap targets ≥ 44px;
 loads fast (no video backgrounds, compressed images); click-to-call uses `tel:`; form works;
