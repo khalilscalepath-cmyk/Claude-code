@@ -42,4 +42,6 @@ test 10–12 first, then scale (Patrick Dang's rule).
 - Don't put reviewer names in the output.
 - Quotes are for OUR research. Outreach describes the pattern softly and never pastes a review
   back at the owner.
+- Confirm size and website on 2+ sources (Yelp, BBB, the company's own site) before calling a lead
+  "small" or "no website". One weak search missed a 300+ review company with its own site.
 - Flag anything older than 18 months as "dated evidence, verify".

@@ -7,6 +7,14 @@ Google Maps reviews and confirm the pattern is still current.** The lead engine 
 
 ---
 
+> **Correction (21 Oct, after deeper checks):** Emergency Air turned out to be a large company
+> (Emergency Air Heating, Cooling & Plumbing, emergencyair.com, 300+ Yelp reviews, open 24 hours), so
+> it moves to Tier B. Stay Cool (staycoolflac.com, (727) 325-3554) and DEAR Services
+> (dearservices.net, which advertises 24/7 emergency service) do have websites. **Service Contractors
+> Plumbing ((972) 232-2810, 6174 Raymond Rd, Kaufman TX) still has no website** and is now priority 1;
+> its free website preview is in `sites/service-contractors-plumbing/`. Lesson saved in the
+> `lead-signals` skill: confirm size and website on 2+ sources before calling a lead small or site-less.
+
 ## 1. The market pain (what to quote on calls)
 
 | Data point | Number | Source | How solid |
