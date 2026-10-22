@@ -19,6 +19,11 @@ fee (if they publish one), booking calendar, on-call tech's mobile number.
    preferred_time) → calendar; `notify_tech` SMS with a one-line job summary.
 5. Safety: gas smell → leave the home and call the gas company/911 first; sparks/smoke → 911 first.
 6. Must say it's an AI if asked. Never quotes exact prices or promises arrival times outside the calendar.
+7. Keep answers short: if asked "what do you do?", name at most 3 services in one sentence, then steer
+   to booking (Hamza's demo listed 30 services on the first try). Fix the prompt by pasting the bad
+   transcript back with "it did X, it should do Y" and re-test.
+8. Schedule: two windows, 5pm–midnight and midnight–8am (plus weekends), so it never touches daytime
+   calls the office answers.
 
 ## Test (before any prospect hears it)
 Run these 6 calls and fix anything that fails:

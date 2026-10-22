@@ -51,6 +51,15 @@ Google Maps search "{trade} in {city}" → scroll to the end of results → Inst
 (Chrome extension) → Copy all (name, phone, site, rating) → paste into a sheet by time zone so you
 call at local business hours → import to GoHighLevel/Instantly. Then run `lead-signals` to score.
 
+## After-hours test-call list (Hamza Automates)
+The strongest free signal: call {trade} businesses from Google Maps between 7pm and 9pm THEIR local
+time. Don't pitch. Log only: answered / voicemail / voicemail full / rings out / answering service.
+Every non-answer is a lead with proof. Next day, during business hours: "Hey, I called your business
+last night around 8 and nobody picked up. What happens to calls that come in after you close? Have you
+heard of an AI receptionist that only works after hours? I'd love to let you hear it." Then a live demo
+call, then a trial window to build trust. Good task for an offshore assistant: US evenings are daytime
+in Asia and Africa. Log the time and result for every call so the claim is always true.
+
 ## Compliance
 Real name, physical mailing address, working opt-out, honour opt-outs. Warm new domains 2–3 weeks;
 ≤ 30–50 sends per inbox per day. Send to the owner/manager address when found, not info@ if avoidable.

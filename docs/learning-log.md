@@ -3,6 +3,13 @@
 Every video or source Khalil shares, what we took from it, and where it now lives.
 Newest first. Method: `skills/video-to-skill`.
 
+## 2026-10-22
+| Video | Creator | Takeaways | Saved in |
+|---|---|---|---|
+| [Sell an after-hours AI agent to a plumber ($2,000 build)](https://youtu.be/jO7Bvm0-PTg) | Hamza Automates (Hexona) | Agent = prompt + knowledge base + actions; train KB from the client's website; book + confirmation SMS; schedule 5pm–midnight and midnight–8am; find leads by calling Google Maps businesses after hours and logging who doesn't answer; call back next day with that proof. Pitch for his white-label GHL and paid community, so ignore the upsell. | cold-outreach (after-hours test-call list), voice-receptionist (rules 7–8) |
+| [Claude routines in the cloud](https://youtu.be/g3e0m8nrQa4) | Albert (same creator as the reel video; HubSpot-sponsored) | Claude Code on the web + GitHub repo + connectors (Gmail, Calendar) + routines that run in the cloud on a schedule, even with your laptop off, and from the phone app. Use for daily lead lists, morning email drafts and weekly client reports. Avoid tool-hopping. | docs/05-team-plan.md (what Claude does vs. the hire) |
+| [Claude skill that edits reels](https://youtu.be/68v_T0jrysM) | Albert | Fish Audio transcription API + a Claude skill that cuts the talking head and adds HTML animations, then self-checks; about 30 min per reel on the $200 plan. Feedback in plain words. Only useful once you're posting content as "the face". | learning only (no skill yet) |
+
 ## 2026-10-21
 | Video | Creator | Takeaways | Saved in |
 |---|---|---|---|
