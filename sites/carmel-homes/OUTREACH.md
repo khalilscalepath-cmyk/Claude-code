@@ -15,7 +15,7 @@ be repeated, so every line below is safe to put in an email.
 
 | Finding | Theirs | The preview |
 |---|---|---|
-| Says how long they have been building | "25 years of experience" on the homepage, while the About page says since 1986 — which is 40 years | 1986, consistently |
+| Says how long they have been building | three different answers: "25 years" on the homepage, "almost 24" on Houzz, and since 1986 (so 40) on the About page | 1986, consistently |
 | Contact form on the homepage | none | one, posting to a real endpoint |
 | Pinch-zoom on mobile | blocked (`maximum-scale=1.0` in the viewport meta) | allowed |
 | Requests to load the homepage | 131 | 31 |
@@ -28,78 +28,129 @@ a dozen blogspot/tumblr/weebly pages, left behind by a previous agency. It
 reads as spam to a search engine. Raise it on the call, not in writing — it
 accuses someone they paid, and that is not how a first email should feel.
 
-### The one to lead with
+### The one to lead with — as a question, not a correction
 
-**"25 years" versus 1986.** It is specific, it is checkable in ten seconds, and
-it is in Jamie's favour — they are underselling themselves by 15 years. It
-cannot be mistaken for a mail merge.
+There are **three different numbers** on their own material for the same thing:
+
+- the homepage says "25 years of experience"
+- the Houzz profile says "almost 24 years", and David Larchez's testimonial
+  says "his 24 years of experience"
+- the About page says they have been designing and building here since 1986,
+  which is 40 years
+
+Do **not** write "you have made a mistake". Ask which one is right, because
+you are building something and do not want to get it wrong. That does three
+things at once: it is impossible to answer with silence, it puts Jamie in the
+position of the expert correcting us rather than the one being corrected, and
+it reveals that something is already being built for them.
+
+Everything after that is framed the same way. Jamie decides at every step:
+decides which number is right, decides whether to look, decides whether to
+keep it, decides whether we ever talk about money. We never ask for the sale,
+only for permission to show.
 
 Do not open with the speed numbers. A builder does not care about requests
 and megabytes, and leading with them makes it a technical pitch instead of a
-business one.
+conversation.
 
 ## Email 1
 
-> **Subject:** Your site says 25 years. Your About page says 1986.
+> **Subject:** Quick question about Carmel Homes
 >
 > Jamie —
 >
-> I was reading through your site and the homepage says "25 years of
-> experience", while your About page says you have been designing and building
-> here since 1986. That is 40 years. You are underselling yourself by 15.
+> I am hoping you can settle something. Your homepage says "25 years of
+> experience", your Houzz profile says almost 24, and your About page says you
+> have been designing and building here since 1986. Which should I be going
+> with?
 >
-> Two other things on the phone version: there is no contact form on the
-> homepage, so every enquiry depends on someone deciding to ring you. And the
-> page will not let you pinch to zoom.
+> I ask because I have been putting together a mock-up of what a new Carmel
+> Homes site could look like — your own photographs, your own project names —
+> and I would rather have that line right than guess at it.
 >
-> So I rebuilt it as a demo — your own photographs, your real project names,
-> and a form that actually reaches you. Nothing to buy. I would rather show
-> you than describe it.
+> It is free and it is not a pitch. You look at it, you tell me what is wrong
+> with it. If you do not want it, we bin it and that is the end of it.
 >
-> Want the link?
+> Want me to send it over?
 >
 > Khalil
 
-116 words. Ends on a question that takes one word to answer, and buys time to
-get the preview onto a real URL before sending it.
+117 words. Every sentence hands a decision to Jamie. The close asks permission
+to show rather than permission to sell — and a one-word reply is enough, which
+also buys the time to get the preview onto a real URL.
 
 ## Email 2 — day 3
 
-> Jamie — the demo is still up if you want a look. Open it on your phone, it
-> is built for that first.
+> Jamie — no rush on this. The mock-up is sitting here whenever you want a
+> look, and it is built for a phone first, so open it on one:
 >
 > {link}
+>
+> If you would rather I did not keep it up, say the word and it comes down.
 
 ## Email 3 — day 7
 
-> Jamie, last one from me.
+> Jamie, last one from me — I will not keep bothering you.
 >
-> You do not need a new site to win ten jobs. Your range runs from $20,000 to
-> $6 million — one enquiry that would otherwise have bounced off the old page
-> covers the whole thing several times over.
+> The offer has not changed and there is nothing attached to it. Have a look,
+> keep what you like, throw out what you do not. If any of it is useful you
+> own it either way:
 >
-> The demo stays up either way: {link}
+> {link}
 >
-> If the timing is wrong, say so and I will stop.
+> And if the timing is simply wrong, tell me and I will leave you alone.
 
 Then stop. Three is the limit unless Jamie replies.
 
+## If Jamie replies "send it"
+
+Send the link and nothing else. No price, no deck, no list of what else we
+could do. One line:
+
+> Here it is — {link}. Best on a phone. Tell me what is wrong with it.
+
+"Tell me what is wrong with it" is the whole play. It invites criticism, which
+makes it safe to engage, and every piece of criticism is Jamie describing the
+site they actually want. Let them design it. Money only comes up when Jamie
+raises it, or on a call they agreed to.
+
+If Jamie asks for changes, make them and send it back the same day. That is
+the moment the relationship changes: it stops being our mock-up and starts
+being their site.
+
 ## Loom, 2 minutes
 
-- **0:00** Their homepage on a phone. Read the "25 years" line out loud, then
-  open the About page and read "since 1986". Say nothing else — let it land.
-- **0:25** Scroll the homepage to the bottom. Point out there is nowhere to
-  leave a name. Try to pinch-zoom and show that it does not.
-- **0:45** Cut to the preview. Scroll the process section once, slowly. This is
-  the part that takes 20 seconds and is the reason the call happens.
-- **1:15** The nine projects, with their real photo counts. "These are your
-  photographs, from your own archive. 349 of them."
-- **1:35** Fill in the form, submit it, show the notification arriving.
-- **1:50** "If it is useful, grab 15 minutes. If not, no hard feelings — the
-  25 years line is worth fixing either way."
+Same frame. Curious, not corrective.
 
-That last clause matters. It gives Jamie something free whether or not they
-reply, which is the whole reason this gets opened.
+- **0:00** Their homepage on a phone. "I was trying to work out how long you
+  have been doing this." Read the "25 years" line, then open About and read
+  "since 1986". "So which is it? Because those are fifteen years apart."
+- **0:25** "While I was in there I noticed a couple of other things." Scroll to
+  the bottom — nowhere to leave a name. Try to pinch-zoom; show it does not.
+  State it flatly, no editorialising.
+- **0:45** Cut to the preview. Scroll the process section once, slowly. This is
+  the twenty seconds that earns the call. Say nothing over it.
+- **1:15** The nine projects with their real photo counts. "These are your
+  photographs, out of your own archive. There are 349 of them."
+- **1:35** Fill in the form, submit, show the notification land.
+- **1:50** "That is it. It is free, it is yours to pull apart, and if you do not
+  like it nothing happens. The years thing is worth fixing either way."
+
+That last line matters. Jamie gets something whether or not they reply, which
+is the whole reason this gets watched to the end.
+
+## One thing to get right before you write
+
+Carmel's own published testimonials refer to Jamie as "he" throughout — "Jamie
+Vaughn and **his** team", "**He** is a perfectionist", "**his** 24 years of
+experience", "**he** will not leave the job until you're 100% satisfied". The
+About page is written in Jamie's own voice and never settles it either way, so
+this is what their own site says, not an assumption from the name.
+
+The emails above avoid pronouns entirely and address Jamie directly as "you",
+which is what a cold email should do anyway. But it will come up on the call,
+so worth knowing in advance. Getting it wrong on a first call is an avoidable
+own goal.
 
 ## Before any of this goes out
 
