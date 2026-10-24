@@ -21,6 +21,16 @@ Newest first. Method: `skills/video-to-skill`.
   the real title. Do not trust it.
 - vidIQ credits: 0, renewing 14 Nov 2026.
 
+## 2026-10-24
+| Video | Creator | Takeaways | Saved in |
+|---|---|---|---|
+| Three tools for Claude-built sites (45s TikTok, re-sent) | @jackroberts___ | The clip that started the Carmel build: GSAP, Lenis, React Bits, or "your website will look like slop". All three already in use. The new thing is a fourth resource named at 0:28, **21st.dev** (the transcript mishears it as "21st.gov"), a component marketplace in the React Bits vein — unused so far. The real ask was the *example sites* he shows (Zentry, aether1.ai, Rejouice): near-black grounds, one lit hero object, split display type, neon measurement hairlines. | docs/carmel-dark-direction.md |
+
+Watched locally with `tools/watch-video.py` — frames and audio, no API, no
+credits. Second real use of it, and the first where the transcript alone would
+have misled: "21st.gov" is not a thing, and the point of the video was in the
+frames rather than the words.
+
 ## 2026-10-22
 | Video | Creator | Takeaways | Saved in |
 |---|---|---|---|
