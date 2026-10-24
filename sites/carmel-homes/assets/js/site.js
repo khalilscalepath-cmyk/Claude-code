@@ -357,11 +357,14 @@
       return function (progress) {
         var p = Math.min(1, Math.max(0, progress));
 
-        // 01-02 look straight down at the drawing; 03 lifts it into a building
-        // and starts it turning; 04 keeps turning the other way.
-        var lift = ease(seg(p, 0.40, 0.62));
+        // 01-02 look straight down at the drawing, held still so the plan
+        // stays readable. From 03 onward it is one slow continuous sweep —
+        // the building keeps turning at a constant rate and each stage of
+        // the build arrives during the turn rather than between turns.
+        var lift = ease(seg(p, 0.36, 0.56));
+        var spin = seg(p, 0.36, 0.96);
         var el = (90 - 52 * lift) * RAD;
-        var ang = (-30 * lift + 54 * ease(seg(p, 0.62, 0.80))) * RAD;
+        var ang = (-46 + 92 * spin) * RAD;
 
         // on a phone the drawing sits in a shorter box, so it does not need
         // to climb as far to clear the phase copy
@@ -373,12 +376,12 @@
 
         gsap.set(parts.slab, { opacity: seg(p, 0.02, 0.16) });
         gsap.set(parts.walls, { opacity: seg(p, 0.06, 0.20) });
-        gsap.set(parts.frame, { opacity: seg(p, 0.42, 0.58) });
-        gsap.set(parts.roof, { opacity: seg(p, 0.50, 0.64) });
-        gsap.set(parts.rooms, { opacity: seg(p, 0.60, 0.74) });
-        gsap.set(parts.glass, { opacity: seg(p, 0.66, 0.80) });
+        gsap.set(parts.frame, { opacity: seg(p, 0.40, 0.54) });
+        gsap.set(parts.roof, { opacity: seg(p, 0.54, 0.66) });
+        gsap.set(parts.rooms, { opacity: seg(p, 0.64, 0.74) });
+        gsap.set(parts.glass, { opacity: seg(p, 0.72, 0.82) });
 
-        var gone = 1 - seg(p, 0.40, 0.52);
+        var gone = 1 - seg(p, 0.34, 0.46);
         var shown = {
           planmarks: Math.min(seg(p, 0.02, 0.18), gone),
           dims: Math.min(seg(p, 0.20, 0.34), gone),
