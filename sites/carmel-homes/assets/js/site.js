@@ -302,6 +302,94 @@
     });
   }
 
+  /* ---------------- one house, scrubbed through ----------------
+   * Twelve photographs from Carmel's own Classic Contemporary archive, in the
+   * photographer's shoot order, cross-dissolved against scroll so you walk
+   * through the house. Hard cuts between rooms would strobe, hence the blend.
+   * Phones keep the single static frame already in the HTML: the other eleven
+   * images are never fetched there. */
+
+  var tourSection = document.querySelector('[data-tour]');
+
+  if (tourSection && !REDUCED && window.matchMedia('(min-width: 900px)').matches) {
+    var tourFrames = tourSection.querySelector('[data-tour-frames]');
+    var tourCaption = tourSection.querySelector('[data-tour-caption]');
+    var tourCounter = tourSection.querySelector('[data-tour-counter]');
+
+    // Built now, not in the fetch callback: a pin created after the page has
+    // settled makes every pin below it measure against a stale height.
+    var tourPainter = null;
+
+    ScrollTrigger.create({
+      trigger: tourSection,
+      start: 'top top',
+      end: '+=' + (window.innerHeight * 3.4),
+      pin: '.tour__stage',
+      scrub: 0.5,
+      refreshPriority: 0,
+      invalidateOnRefresh: true,
+      onUpdate: function (self) {
+        if (tourPainter) tourPainter(self.progress);
+      }
+    });
+
+    fetch('assets/tour/manifest.json', { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (manifest) {
+        if (!manifest || !manifest.frames || manifest.frames.length < 2) return;
+
+        var frames = manifest.frames;
+        var images = [tourFrames.querySelector('img')];
+
+        // frame 0 is already in the markup; add the rest
+        frames.slice(1).forEach(function (frame) {
+          var img = new Image();
+          img.src = 'assets/tour/' + frame.file;
+          img.alt = '';
+          img.width = 1440;
+          img.height = 810;
+          img.decoding = 'async';
+          tourFrames.appendChild(img);
+          images.push(img);
+        });
+
+        var last = -1;
+
+        // Each room holds for most of its slot and dissolves over the last
+        // quarter. An even blend across the whole slot leaves two rooms at
+        // half opacity for most of the scroll, which reads as a double
+        // exposure rather than a walk through the house.
+        var HOLD = 0.75;
+
+        tourPainter = function (progress) {
+          var pos = progress * (frames.length - 1);
+          var index = Math.floor(pos);
+          var raw = pos - index;
+          var blend = raw <= HOLD ? 0 : (raw - HOLD) / (1 - HOLD);
+
+          for (var i = 0; i < images.length; i++) {
+            var opacity = 0;
+            if (i === index) opacity = 1;
+            else if (i === index + 1) opacity = blend;
+            gsap.set(images[i], { opacity: opacity });
+          }
+
+          // the caption flips with the image, not with the raw position
+          var shown = blend > 0.5 ? Math.min(frames.length - 1, index + 1) : index;
+          if (shown !== last) {
+            last = shown;
+            tourCaption.textContent = frames[shown].caption;
+            tourCounter.textContent = 'Room ' + (shown + 1) + ' of ' + frames.length
+              + ', from 183 photographs';
+          }
+        };
+
+        tourPainter(0);
+        ScrollTrigger.refresh();
+      })
+      .catch(function () { /* the single static frame is a fine fallback */ });
+  }
+
   /* ---------------- React Bits ---------------- */
 
   if (window.ReactBits) {

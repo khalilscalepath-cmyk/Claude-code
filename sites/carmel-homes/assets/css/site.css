@@ -674,3 +674,60 @@ body { padding-bottom: 56px; }
   .phase__item { grid-area: auto; }
   .scrub__stage { height: auto; padding: 60px 0; }
 }
+
+/* ---------- one house, scrubbed through ----------
+   On a phone this is a single photograph with a caption. On a pointer device
+   with motion allowed, site.js loads the rest of the tour and cross-dissolves
+   through it against scroll. */
+
+.tour { position: relative; background: #0d0b09; }
+
+.tour__stage {
+  position: relative;
+  min-height: 72svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.tour__frames {
+  position: absolute;
+  inset: 0;
+}
+.tour__frames img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* every frame after the first starts hidden and is faded in by scroll */
+.tour__frames img + img { opacity: 0; }
+
+.tour__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 11, 9, 0.95) 2%, rgba(13, 11, 9, 0.3) 46%, rgba(13, 11, 9, 0.5) 100%);
+}
+
+.tour__copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-bottom: clamp(32px, 6vh, 64px);
+  padding-top: 120px;
+}
+
+.tour__caption {
+  font-size: clamp(1.7rem, 4.2vw, 3rem);
+  margin: 8px 0 10px;
+}
+.tour__sub { color: var(--plaster-dim); max-width: 46ch; margin: 0; }
+
+@media (min-width: 900px) {
+  .tour__stage { min-height: 100svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour__stage { min-height: auto; padding: 60px 0; }
+}

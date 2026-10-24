@@ -74,6 +74,7 @@ async function paintedRatio(page) {
       out.scrub = sec('.scrub');
       out.figures = sec('.figures');
       out.work = sec('.work');
+      out.tour = sec('.tour');
       out.jamie = sec('.jamie');
       out.contact = sec('#contact');
       out.triggers = ScrollTrigger.getAll()
@@ -131,6 +132,40 @@ async function paintedRatio(page) {
       problems.push(`${label}: no project cards on screen mid-work (${JSON.stringify(workState)})`);
     }
     await page.screenshot({ path: `${OUT}/${label}-04-work.png` });
+
+    // --- the house tour (desktop only) ---
+    if (label === 'desktop') {
+      const tourPin = marks.triggers.find(t => String(t.cls).includes('tour'));
+      if (!tourPin) {
+        problems.push('desktop: tour section never pinned');
+      } else {
+        if (Math.abs(tourPin.start - marks.tour.top) > 40) {
+          problems.push(`desktop: tour pin starts at ${tourPin.start} but section is at ${marks.tour.top}`);
+        }
+        await scrollTo(page, tourPin.start + (tourPin.end - tourPin.start) * 0.45, 900);
+        const tour = await page.evaluate(() => ({
+          caption: document.querySelector('[data-tour-caption]').textContent.trim(),
+          counter: document.querySelector('[data-tour-counter]').textContent.trim(),
+          frames: document.querySelectorAll('[data-tour-frames] img').length,
+          lit: [...document.querySelectorAll('[data-tour-frames] img')]
+                 .map(i => +getComputedStyle(i).opacity).filter(o => o > 0.02).length,
+        }));
+        if (tour.frames < 12) problems.push(`desktop: only ${tour.frames} tour frames loaded`);
+        if (tour.lit === 0) problems.push('desktop: no tour frame visible mid-scrub');
+        // mid-hold exactly one room should be lit; two means a double exposure
+        if (tour.lit > 1) problems.push(`desktop: ${tour.lit} tour frames blended mid-hold`);
+        if (!/Room \d+ of/.test(tour.counter)) problems.push(`desktop: tour counter reads "${tour.counter}"`);
+        if (/Living room, open to the kitchen/.test(tour.caption)) {
+          problems.push('desktop: tour caption never advanced past the first room');
+        }
+        await page.screenshot({ path: `${OUT}/desktop-04b-tour.png` });
+      }
+    } else {
+      // phones keep the single static frame and must not fetch the rest
+      const mobileFrames = await page.evaluate(() =>
+        document.querySelectorAll('[data-tour-frames] img').length);
+      if (mobileFrames !== 1) problems.push(`mobile: ${mobileFrames} tour frames loaded (want 1)`);
+    }
 
     // --- jamie ---
     await scrollTo(page, marks.jamie.top - 80, 1400);

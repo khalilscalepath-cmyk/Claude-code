@@ -81,10 +81,26 @@ showing it at 240×160 was the problem worth fixing. To re-pick or re-crop, the 
 scripts work from the gallery pages; image selection is a judgement call, so re-run them by hand
 rather than on a schedule.
 
-**Still outstanding: the scroll-scrubbed walkthrough.** The process section is wired to play a frame
-sequence against scroll position, and currently falls back to the floor plan drawing itself.
-`youtube.com` is still blocked by this environment's network policy, so the clip could not be pulled.
-Once it is reachable:
+### The scroll-scrubbed house tour
+
+`assets/tour/` holds twelve rooms from the Classic Contemporary archive, kept in the photographer's
+own shoot order, which runs as a tour: living, kitchen, wine room, dining, hallway, office, courtyard,
+primary suite, dressing room, game room. Scrolling the pinned section walks through the house.
+
+Each room **holds** for three quarters of its slot and dissolves over the last quarter. An even blend
+leaves two rooms at half opacity for most of the scroll, which reads as a double exposure rather than
+a walkthrough — `tools/check.js` asserts only one frame is lit mid-hold so that cannot regress.
+
+791 KB across twelve frames, fetched only on a pointer device at 900px or wider with motion allowed.
+Phones keep the single static frame that is already in the markup and never request the other eleven.
+
+This is the section that dramatises the audit finding: 183 photographs nobody can see.
+
+**Still outstanding: the walkthrough footage.** The *process* section is separately wired to play a
+real video frame sequence, and falls back to the floor plan drawing itself. Finished-room photographs
+cannot honestly illustrate "permits and engineering", so the tour above did not get reused there.
+`youtube.com` is still blocked by this environment's network policy, so Jamie's clip could not be
+pulled. Once it is reachable:
 
    ```bash
    tools/build-frames.sh <video-file-or-url> 72 1280
