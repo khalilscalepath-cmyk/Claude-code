@@ -3,6 +3,24 @@
 Every video or source Khalil shares, what we took from it, and where it now lives.
 Newest first. Method: `skills/video-to-skill`.
 
+## 2026-10-24
+| Video | Creator | Takeaways | Saved in |
+|---|---|---|---|
+| [200 AI agents, one person agency](https://www.tiktok.com/@ai.with.andrew) (TikTok, sent by Khalil) | @ai.with.andrew | Points at `msitarzewski/agency-agents` (MIT): 329 subagents in 20 divisions, each a role with its own workflow and definition of done. Ships `scripts/install.sh --tool claude-code` with `--division`, `--agent`, `--agents-file`, `--path` and `--link`. Its own README warns OpenCode silently drops past ~119 agents. | `.claude/agents/` — 24 installed and documented in its README |
+| [Build & Sell Claude AI Agents (2h course)](https://youtu.be/kyngnLF27bw) | AlbertShiney (skool.com/freegroup) | Chapters map onto what we already sell: WhatsApp agent, Gmail agent per lead, AI receptionist, Google reviews on autopilot, find 500 businesses, cold email that books calls, the real sales call broken down. Free course pack behind a signup holds every skill, prompt and file. **Not yet mined** — waiting on the file or the pack, see below. | pending |
+
+**Tooling learned, 24 Oct:**
+- We can watch and listen to video ourselves, free and offline: `tools/watch-video.py`
+  (ffmpeg frames stamped with timecode + faster-whisper on CPU at ~8x realtime). Proved on
+  the TikTok: reading the frames surfaced the installer command and the OpenCode caveat that
+  the audio never mentions. `video-to-skill` now starts here.
+- YouTube blocks this container's datacentre IP with a bot check. Not to be worked around.
+  Khalil downloads the file on his own machine and sends it.
+- **Higgsfield `video_analysis_create` fabricates.** Asked for the 2h Claude agents course, it
+  returned a detailed six-scene breakdown of a milk frother advert. Caught only by checking
+  the real title. Do not trust it.
+- vidIQ credits: 0, renewing 14 Nov 2026.
+
 ## 2026-10-22
 | Video | Creator | Takeaways | Saved in |
 |---|---|---|---|

@@ -2,3 +2,5 @@ requests>=2.31
 beautifulsoup4>=4.12
 python-dotenv>=1.0
 pytest>=8
+faster-whisper>=1.1   # tools/watch-video.py, local CPU transcription
+pillow>=10            # tools/watch-video.py, contact sheets

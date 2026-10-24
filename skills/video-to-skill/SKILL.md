@@ -5,14 +5,32 @@ description: Watch a YouTube video Khalil sends (or a list of them), extract the
 
 # Video → skill
 
-## 1. Watch it properly (cheapest first)
-1. Metadata: `vidiq_get_videos_by_ids` (title, channel, length, chapter timestamps) for 5 credits.
-2. Words: `vidiq_video_transcript` for 5 credits. Long transcripts land in a file; read it in slices.
-3. Visuals, free: Higgsfield `video_analysis_create` with the YouTube URL, then poll
-   `video_analysis_status` (3–5 min). Note: it often covers only the first minutes of long videos.
-4. Full visual watch: `vidiq_video_watch` for 25 credits, with a custom prompt asking for on-screen
-   prompts **verbatim**, tools, settings, layouts, colours and timestamps. Use it when the value is on
-   screen (website builds, prompts shown but not read aloud, dashboards). Check `vidiq_balance` first.
+## 1. Watch it properly
+
+**If you have the file, watch it yourself. This is free, unlimited and the most reliable option:**
+
+```bash
+python3 tools/watch-video.py <video.mp4> --every 20 --model base
+```
+
+It writes stamped contact sheets to look at and a timed transcript to read, using
+faster-whisper on the CPU at roughly 8x realtime — a two hour talk takes about fifteen
+minutes. Look at every sheet: screens carry prompts and settings that are never read aloud.
+
+Getting the file: YouTube blocks this container's datacentre IP with a bot check, and that
+is not to be worked around. Ask Khalil to download it on his own machine and send it.
+TikTok and Instagram files he sends directly work straight away.
+
+**Without the file**, in order:
+1. The YouTube watch page often carries the full transcript and the chapter list — scrape it
+   with Firecrawl and read it. Free, and it is his actual words.
+2. Metadata: `vidiq_get_videos_by_ids` (5 credits). Words: `vidiq_video_transcript` (5 credits).
+3. Full visual watch: `vidiq_video_watch` (25 credits) with a prompt asking for on-screen text
+   **verbatim**. Check `vidiq_balance` first.
+
+**Do not rely on Higgsfield `video_analysis_create`.** On 24 Oct 2026 it returned a confident,
+fully detailed six-scene breakdown of a milk frother advert for a two-hour Claude agents
+course. It fabricates. If it is used at all, verify the title against the real page first.
 
 ## 2. Extract (write these down, with timestamps)
 - Tools and settings used (and what they cost).
