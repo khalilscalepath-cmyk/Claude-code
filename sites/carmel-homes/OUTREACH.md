@@ -7,53 +7,43 @@ happened when I went looking for you, so I built what I think you need, here
 it is for free, you decide.* Jamie stays in control of every step. We never
 ask for the sale, only for permission to show.
 
-## The story the email tells, and it is all true
+## What we actually know, and how sure we are
 
-Verified 24 Oct 2026, each one repeatable in under a minute.
+Verified 24 Oct 2026. Only use the first group in writing.
 
-1. **Their Houzz profile is excellent.** 5.0 from 3 reviews, 14 projects,
-   ROC #214294, typical job $20,000 to $6,000,000. This is where someone
-   shopping for a luxury remodel actually looks.
-2. **The website link on that profile is broken.** Houzz lists their site as
-   `carmelhomesdesigngroup.com`. It returns **403 Forbidden — "Request
-   forbidden by administrative rules."** Not a slow page, not an ugly page: a
-   dead end. Anyone who finds Carmel at their strongest and clicks through
-   hits a wall.
-3. **Their real site is at a different address** —
-   `luxuryhomebuildersscottsdale.com` — which does work, and
-   `carmelhomesllc.com` redirects to it correctly.
-4. **Nobody can agree how long they have been in business.** Four answers:
+**Solid — checkable by anyone in under a minute:**
 
-   | Where | What it says |
-   |---|---|
-   | Homepage body text | "25 years of experience" |
-   | Homepage badge image | "Celebrating 35 Years In Business" |
-   | Houzz profile | "almost 24 years" |
-   | About page | since 1986, so 40 years |
+| Where | What it says |
+|---|---|
+| Homepage body text | "25 years of experience" |
+| Homepage badge image | "Celebrating 35 Years In Business" |
+| Houzz profile | "almost 24 years" |
+| About page | since 1986, so 40 years |
 
-5. **Their own walkthrough video has 143 views** in nine years, posted Dec
-   2017. The footage exists. Nobody sees it.
-6. On a phone the homepage takes 131 requests and 3.9 MB, has no contact form
-   at all, and blocks pinch-zoom (`maximum-scale=1.0` in the viewport meta).
-   The preview is 31 requests and 1.4 MB, with a form, and zooms.
+Four different answers to the same question, on material they control. That is
+the hook, and it is unarguable.
 
-### Lead with the 403
+Also solid, for the call rather than the email: no contact form anywhere on
+the homepage, pinch-zoom blocked on mobile (`maximum-scale=1.0` in the
+viewport meta), 131 requests and 3.9 MB to load (the preview is 31 and
+1.4 MB), and their own walkthrough video has 143 views since Dec 2017 — the
+footage exists, nobody sees it.
 
-It is the most valuable thing on the list and the cheapest to fix. It costs
-Jamie real enquiries right now, from the one platform where the reputation is
-already built. Telling them is worth something whether or not they ever reply,
-which is exactly why the email gets read to the end.
+**Dropped — could not verify honestly:**
 
-### Two things to keep out of writing
+`carmelhomesdesigngroup.com`, the website address on their Houzz profile,
+returned `403 Forbidden — "Request forbidden by administrative rules"` to two
+separate automated fetches. That wording is what a bot filter says, not what a
+dead site says. Khalil's read is the right one: a real person on a real phone
+may well see the site load fine, and I could not test that from here without
+disguising an automated request as a human one, which is not something to do.
 
-- **Their meta description** carries keyword stuffing and links to a dozen
-  blogspot and tumblr pages, left by a previous agency ("Website By American
-  Creative"). Real, and worth money to fix — but raising it in a cold email
-  accuses someone they are paying.
-- **The 35-year badge is an AI-generated image** (the file is literally named
-  `ChatGPT-Image-Oct-1-2025...png`). Noting that would be a cheap shot, and we
-  use the same tools. Count it as evidence the site is maintained by someone
-  in a hurry, nothing more.
+So it stays out of the email. If you want to know, open it on your phone. If
+it genuinely fails for you, it goes back in and it leads — but say it only
+once you have seen it with your own eyes.
+
+(`carmelhomesllc.com` does work and redirects correctly. An early sandbox
+result said otherwise and was wrong.)
 
 ## One thing to get right before you write
 
@@ -65,55 +55,48 @@ at risk in writing, but it will come up on the call.
 
 ## Email 1
 
-> **Subject:** Your Houzz link is broken — and I built you something
+> **Subject:** Quick question about Carmel Homes
 >
 > Jamie —
 >
-> I went looking for Carmel Homes this week and found your Houzz profile
-> first: 5.0, fourteen projects, the Canyon Court house. Then I clicked the
-> website link on it and got "403 Forbidden". That link is
-> carmelhomesdesigngroup.com, and it is dead. Your real site is at
-> luxuryhomebuildersscottsdale.com.
+> I am hoping you can settle something for me. Your homepage says "25 years of
+> experience", the badge on that same page says 35, Houzz says almost 24, and
+> your About page says you have been designing and building here since 1986.
 >
-> So anyone who finds you at your best hits a wall. That one is worth fixing
-> today, whatever you do about the rest.
+> Four different answers, and I could not work out which one you want people
+> to believe.
 >
-> While I was in there I built a demo of what a new Carmel site could look
-> like — your photographs, your project names, your nine galleries. It is
-> free and there is nothing attached to it:
+> I ask because I have been putting together a demo of what a new Carmel site
+> could look like — your photographs, your project names, your nine galleries
+> — and I would rather have that line right than guess. I went with 1986:
 >
 > {link}
 >
-> Best on a phone. Tell me what you think.
+> It is free and there is nothing attached to it. Best on a phone. Have a look
+> and tell me what I got wrong.
 >
 > Khalil
->
-> P.S. Your homepage says 25 years, the badge on it says 35, Houzz says almost
-> 24 and your About page says 1986. I went with 1986. Which is right?
 
-Opens by giving something away, names the exact problem and the exact fix, and
-the demo arrives as an afterthought rather than a pitch. The link goes in
-email 1 — Jamie should not have to ask for it. The postscript is the easiest
-possible thing to reply to, and answering it makes Jamie a participant in the
-build rather than a prospect.
+126 words. The question is genuine, it cannot be answered with silence, and it
+casts Jamie as the expert settling something rather than a prospect being
+sold to. "Tell me what I got wrong" is the real close — it makes replying
+safe, and every correction is Jamie describing the site he actually wants.
 
 ## Email 2 — day 3
 
-> Jamie — no pressure on the demo, it stays up either way:
+> Jamie — no pressure on this. The demo stays up either way:
 >
 > {link}
 >
-> But do get that Houzz link pointed at your real site if you have not. That
-> is free and it is costing you enquiries from the one place your rating
-> already does the selling.
+> Still curious which of those four numbers is the right one, though.
 
 ## Email 3 — day 7
 
 > Jamie, last one from me — I am not going to keep emailing.
 >
-> The demo is yours to look at, pull apart, or ignore: {link}
+> The demo is yours to look at, pull apart or ignore: {link}
 >
-> If the timing is wrong, just say so.
+> If the timing is wrong, just say so and I will leave you to it.
 
 Then stop. Three unless Jamie replies.
 
@@ -150,33 +133,39 @@ the low number can cost credibility with this particular kind of client.
 
 ## Loom, 2 minutes
 
-- **0:00** Their Houzz profile on screen. "This is how I found you. It is
-  good — 5.0, fourteen projects." Click the website link. Let the 403 sit
-  there for three full seconds without saying anything.
-- **0:20** "That is the link on your Houzz profile. Your actual site is over
-  here." Open the real one on a phone. Scroll to the bottom — no contact form.
-  Try to pinch-zoom; show it does not.
-- **0:45** Cut to the demo. Scroll the process section once, slowly, in
+- **0:00** Their homepage on a phone. "I was trying to work out how long you
+  have been doing this." Read the "25 years" line. Scroll to the badge that
+  says 35. Open About and read "since 1986". Open Houzz: "almost 24." Say
+  nothing else — four numbers in forty seconds makes the point on its own.
+- **0:40** Cut to the demo. Scroll the process section once, slowly, in
   silence. This is the twenty seconds that earns the call.
-- **1:15** The nine projects with their real photo counts. "These are your
+- **1:10** The nine projects with their real photo counts. "These are your
   photographs, out of your own gallery. 349 of them."
 - **1:35** Fill in the form, submit it, show the notification land.
 - **1:50** "It is free, it is yours to pull apart, and if you hate it nothing
-  happens. Either way, fix that Houzz link."
+  happens. I just want to know which number is the right one."
 
 ## Where the demo lives
 
-Pushed to the `gh-pages` branch. Once Pages is switched on in the repo
-settings it is public at:
+The `gh-pages` branch is the built site — `index.html` at the root next to
+`assets/` and `vendor/`, plus a `netlify.toml` that sets the publish directory,
+so there is nothing to type on a phone.
 
-**https://khalilscalepath-cmyk.github.io/Claude-code/**
+**In Netlify:** Add new site -> Import an existing project -> GitHub ->
+`khalilscalepath-cmyk/Claude-code` -> set the branch to **`gh-pages`** ->
+Deploy. The toml handles the rest.
 
-Anyone can open it — no sign-in, no Claude account, nothing to install. The
-page carries `noindex, nofollow` so it never competes with Carmel's real site
-in search, and the preview disclosure stays in the header and footer saying it
-is built by Scalepath, unaffiliated, and not the live site.
+Then **Site settings -> Forms -> Form notifications -> Email**, pointed at
+whichever inbox should get the leads. Netlify picks the form up from the
+`data-netlify` attributes in `index.html`, so submissions capture with no
+backend, and the hidden `company` field is declared as the honeypot so bot
+traffic never reaches the inbox.
 
-On GitHub Pages there is no backend, so the form cannot capture; it tells the
-visitor plainly that it did not send and gives them the phone number. To make
-it capture for real, either deploy to Netlify instead (`DEPLOY.md`) or send a
-Formspree or Web3Forms key and it is a one-line change.
+GitHub Pages returned 404 because the Pages source is pointed somewhere other
+than `gh-pages` — the branch itself is correct. Not worth chasing now that
+Netlify is in play: Pages cannot capture the form anyway.
+
+Whichever host, the page carries `noindex, nofollow` so it never competes with
+Carmel's real site in search, and the preview disclosure stays in the header
+and footer saying it is built by Scalepath, unaffiliated, and not the live
+site.
