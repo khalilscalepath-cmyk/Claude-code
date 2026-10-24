@@ -367,8 +367,40 @@ p:last-child { margin-bottom: 0; }
     radial-gradient(120% 90% at 50% 100%, #231e18 0%, #0d0b09 62%);
 }
 .scrub__fallback svg { width: min(90%, 940px); height: auto; }
-.scrub__fallback .stroke { fill: none; stroke: #6d6252; stroke-width: 1.3; vector-effect: non-scaling-stroke; }
-.scrub__fallback .stroke--key { stroke: var(--copper-bright); stroke-width: 1.8; }
+/* The plan reads as a real drawing: heavy walls, thin glazing, light
+   annotation. Weights matter more than colour for it to look like a drawing
+   rather than a diagram. */
+.scrub__fallback svg { overflow: visible; }
+.scrub__fallback path, .scrub__fallback rect, .scrub__fallback circle, .scrub__fallback ellipse {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.scrub__fallback .w { stroke: #d8cebd; stroke-width: 5; stroke-linecap: square; }
+.scrub__fallback .g { stroke: var(--copper-bright); stroke-width: 2; }
+.scrub__fallback .d { stroke: #8d8477; stroke-width: 1.2; }
+.scrub__fallback .dim { stroke: #6f6657; stroke-width: 1; }
+.scrub__fallback .stamp { stroke: var(--copper); stroke-width: 1.2; }
+.scrub__fallback .bub { stroke: #8d8477; stroke-width: 1.2; }
+.scrub__fallback .grid { stroke: #5c5446; stroke-width: 1; stroke-dasharray: 7 6; }
+.scrub__fallback .beam { stroke: #857a68; stroke-width: 1.4; stroke-dasharray: 14 8; }
+.scrub__fallback .sect { stroke: var(--copper); stroke-width: 1.4; }
+.scrub__fallback .f { stroke: #9c9284; stroke-width: 1.3; }
+.scrub__fallback .tb { stroke: #6f6657; stroke-width: 1.1; }
+
+.scrub__fallback .plan-label {
+  fill: #cfc6b7;
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  stroke: none;
+}
+.scrub__fallback .plan-dim {
+  fill: #9a9081;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  stroke: none;
+}
 
 .scrub__veil {
   position: absolute;

@@ -221,28 +221,58 @@
       };
     }
 
+    // The drawing gains detail as the phases advance, the way a real document
+    // set goes from schematic to permit to structural to interiors. Each
+    // phase owns one layer of the plan.
     function planPainter() {
       var plan = scrubSection.querySelector('[data-plan]');
-      var planPaths = plan ? Array.prototype.slice.call(plan.querySelectorAll('path')) : [];
+      if (!plan || REDUCED) return null;
 
-      if (!planPaths.length || REDUCED) return null;
+      var layers = ['walls', 'dims', 'structure', 'interior'].map(function (name) {
+        return plan.querySelector('[data-layer="' + name + '"]');
+      }).filter(Boolean);
 
-      planPaths.forEach(function (p) {
-        var len;
-        try { len = p.getTotalLength(); } catch (err) { len = 0; }
-        if (!len) return;
-        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
-      });
+      if (!layers.length) return null;
 
-      var draw = gsap.to(planPaths, {
-        strokeDashoffset: 0,
-        ease: 'none',
-        stagger: { each: 0.3, from: 'start' },
-        paused: true
+      var tl = gsap.timeline({ paused: true });
+      var slot = 1 / layers.length;
+
+      layers.forEach(function (layer, i) {
+        var strokes = Array.prototype.slice.call(layer.querySelectorAll('path'));
+        var shapes = Array.prototype.slice.call(
+          layer.querySelectorAll('rect, circle, ellipse, text')
+        );
+
+        strokes.forEach(function (node) {
+          var len;
+          try { len = node.getTotalLength(); } catch (err) { len = 0; }
+          if (!len) return;
+          gsap.set(node, { strokeDasharray: len, strokeDashoffset: len });
+        });
+        gsap.set(shapes, { opacity: 0 });
+
+        var at = i * slot;
+
+        if (strokes.length) {
+          tl.to(strokes, {
+            strokeDashoffset: 0,
+            ease: 'none',
+            duration: slot * 0.78,
+            stagger: { each: slot * 0.16 / Math.max(1, strokes.length) }
+          }, at);
+        }
+        if (shapes.length) {
+          tl.to(shapes, {
+            opacity: 1,
+            ease: 'none',
+            duration: slot * 0.5,
+            stagger: { each: slot * 0.2 / Math.max(1, shapes.length) }
+          }, at + slot * 0.2);
+        }
       });
 
       return function (progress) {
-        draw.progress(Math.min(1, progress * 1.15));
+        tl.progress(Math.min(1, Math.max(0, progress)));
       };
     }
 
