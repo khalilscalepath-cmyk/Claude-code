@@ -2,179 +2,181 @@
 
 Jamie Vaughn, owner. 602-348-2430. Scottsdale, AZ.
 
-The standard Scalepath angle is missed calls after hours. It does not fit here.
-Carmel is a design-build firm whose jobs run from $20,000 to $6 million, with a
-sales cycle measured in months. Nobody picks a custom home builder off a
-voicemail. The problem is the shopfront.
+The frame is not "here is what is wrong with your site". It is: *this is what
+happened when I went looking for you, so I built what I think you need, here
+it is for free, you decide.* Jamie stays in control of every step. We never
+ask for the sale, only for permission to show.
 
-## What is actually wrong with their site
+## The story the email tells, and it is all true
 
-Measured once, 24 Oct 2026, on a simulated iPhone against
-`luxuryhomebuildersscottsdale.com`. Each of these is visible to anyone and can
-be repeated, so every line below is safe to put in an email.
+Verified 24 Oct 2026, each one repeatable in under a minute.
 
-| Finding | Theirs | The preview |
-|---|---|---|
-| Says how long they have been building | three different answers: "25 years" on the homepage, "almost 24" on Houzz, and since 1986 (so 40) on the About page | 1986, consistently |
-| Contact form on the homepage | none | one, posting to a real endpoint |
-| Pinch-zoom on mobile | blocked (`maximum-scale=1.0` in the viewport meta) | allowed |
-| Requests to load the homepage | 131 | 31 |
-| Page weight | 3.9 MB | 1.4 MB |
-| `<title>` in Google results | duplicated: "…Carmel Homes Design GroupTop-Rated Scottsdale Luxury…" | single, clean |
+1. **Their Houzz profile is excellent.** 5.0 from 3 reviews, 14 projects,
+   ROC #214294, typical job $20,000 to $6,000,000. This is where someone
+   shopping for a luxury remodel actually looks.
+2. **The website link on that profile is broken.** Houzz lists their site as
+   `carmelhomesdesigngroup.com`. It returns **403 Forbidden — "Request
+   forbidden by administrative rules."** Not a slow page, not an ugly page: a
+   dead end. Anyone who finds Carmel at their strongest and clicks through
+   hits a wall.
+3. **Their real site is at a different address** —
+   `luxuryhomebuildersscottsdale.com` — which does work, and
+   `carmelhomesllc.com` redirects to it correctly.
+4. **Nobody can agree how long they have been in business.** Four answers:
 
-One more, worth knowing but **not** worth putting in a cold email: the
-homepage's `og:description` carries a block of keyword stuffing and links to
-a dozen blogspot/tumblr/weebly pages, left behind by a previous agency. It
-reads as spam to a search engine. Raise it on the call, not in writing — it
-accuses someone they paid, and that is not how a first email should feel.
+   | Where | What it says |
+   |---|---|
+   | Homepage body text | "25 years of experience" |
+   | Homepage badge image | "Celebrating 35 Years In Business" |
+   | Houzz profile | "almost 24 years" |
+   | About page | since 1986, so 40 years |
 
-### The one to lead with — as a question, not a correction
+5. **Their own walkthrough video has 143 views** in nine years, posted Dec
+   2017. The footage exists. Nobody sees it.
+6. On a phone the homepage takes 131 requests and 3.9 MB, has no contact form
+   at all, and blocks pinch-zoom (`maximum-scale=1.0` in the viewport meta).
+   The preview is 31 requests and 1.4 MB, with a form, and zooms.
 
-There are **three different numbers** on their own material for the same thing:
+### Lead with the 403
 
-- the homepage says "25 years of experience"
-- the Houzz profile says "almost 24 years", and David Larchez's testimonial
-  says "his 24 years of experience"
-- the About page says they have been designing and building here since 1986,
-  which is 40 years
+It is the most valuable thing on the list and the cheapest to fix. It costs
+Jamie real enquiries right now, from the one platform where the reputation is
+already built. Telling them is worth something whether or not they ever reply,
+which is exactly why the email gets read to the end.
 
-Do **not** write "you have made a mistake". Ask which one is right, because
-you are building something and do not want to get it wrong. That does three
-things at once: it is impossible to answer with silence, it puts Jamie in the
-position of the expert correcting us rather than the one being corrected, and
-it reveals that something is already being built for them.
+### Two things to keep out of writing
 
-Everything after that is framed the same way. Jamie decides at every step:
-decides which number is right, decides whether to look, decides whether to
-keep it, decides whether we ever talk about money. We never ask for the sale,
-only for permission to show.
-
-Do not open with the speed numbers. A builder does not care about requests
-and megabytes, and leading with them makes it a technical pitch instead of a
-conversation.
-
-## Email 1
-
-> **Subject:** Quick question about Carmel Homes
->
-> Jamie —
->
-> I am hoping you can settle something. Your homepage says "25 years of
-> experience", your Houzz profile says almost 24, and your About page says you
-> have been designing and building here since 1986. Which should I be going
-> with?
->
-> I ask because I have been putting together a mock-up of what a new Carmel
-> Homes site could look like — your own photographs, your own project names —
-> and I would rather have that line right than guess at it.
->
-> It is free and it is not a pitch. You look at it, you tell me what is wrong
-> with it. If you do not want it, we bin it and that is the end of it.
->
-> Want me to send it over?
->
-> Khalil
-
-117 words. Every sentence hands a decision to Jamie. The close asks permission
-to show rather than permission to sell — and a one-word reply is enough, which
-also buys the time to get the preview onto a real URL.
-
-## Email 2 — day 3
-
-> Jamie — no rush on this. The mock-up is sitting here whenever you want a
-> look, and it is built for a phone first, so open it on one:
->
-> {link}
->
-> If you would rather I did not keep it up, say the word and it comes down.
-
-## Email 3 — day 7
-
-> Jamie, last one from me — I will not keep bothering you.
->
-> The offer has not changed and there is nothing attached to it. Have a look,
-> keep what you like, throw out what you do not. If any of it is useful you
-> own it either way:
->
-> {link}
->
-> And if the timing is simply wrong, tell me and I will leave you alone.
-
-Then stop. Three is the limit unless Jamie replies.
-
-## If Jamie replies "send it"
-
-Send the link and nothing else. No price, no deck, no list of what else we
-could do. One line:
-
-> Here it is — {link}. Best on a phone. Tell me what is wrong with it.
-
-"Tell me what is wrong with it" is the whole play. It invites criticism, which
-makes it safe to engage, and every piece of criticism is Jamie describing the
-site they actually want. Let them design it. Money only comes up when Jamie
-raises it, or on a call they agreed to.
-
-If Jamie asks for changes, make them and send it back the same day. That is
-the moment the relationship changes: it stops being our mock-up and starts
-being their site.
-
-## Loom, 2 minutes
-
-Same frame. Curious, not corrective.
-
-- **0:00** Their homepage on a phone. "I was trying to work out how long you
-  have been doing this." Read the "25 years" line, then open About and read
-  "since 1986". "So which is it? Because those are fifteen years apart."
-- **0:25** "While I was in there I noticed a couple of other things." Scroll to
-  the bottom — nowhere to leave a name. Try to pinch-zoom; show it does not.
-  State it flatly, no editorialising.
-- **0:45** Cut to the preview. Scroll the process section once, slowly. This is
-  the twenty seconds that earns the call. Say nothing over it.
-- **1:15** The nine projects with their real photo counts. "These are your
-  photographs, out of your own archive. There are 349 of them."
-- **1:35** Fill in the form, submit, show the notification land.
-- **1:50** "That is it. It is free, it is yours to pull apart, and if you do not
-  like it nothing happens. The years thing is worth fixing either way."
-
-That last line matters. Jamie gets something whether or not they reply, which
-is the whole reason this gets watched to the end.
+- **Their meta description** carries keyword stuffing and links to a dozen
+  blogspot and tumblr pages, left by a previous agency ("Website By American
+  Creative"). Real, and worth money to fix — but raising it in a cold email
+  accuses someone they are paying.
+- **The 35-year badge is an AI-generated image** (the file is literally named
+  `ChatGPT-Image-Oct-1-2025...png`). Noting that would be a cheap shot, and we
+  use the same tools. Count it as evidence the site is maintained by someone
+  in a hurry, nothing more.
 
 ## One thing to get right before you write
 
 Carmel's own published testimonials refer to Jamie as "he" throughout — "Jamie
 Vaughn and **his** team", "**He** is a perfectionist", "**his** 24 years of
-experience", "**he** will not leave the job until you're 100% satisfied". The
-About page is written in Jamie's own voice and never settles it either way, so
-this is what their own site says, not an assumption from the name.
+experience". That is their own copy, not an assumption from the name. The
+emails below avoid pronouns and address Jamie directly as "you", so nothing is
+at risk in writing, but it will come up on the call.
 
-The emails above avoid pronouns entirely and address Jamie directly as "you",
-which is what a cold email should do anyway. But it will come up on the call,
-so worth knowing in advance. Getting it wrong on a first call is an avoidable
-own goal.
+## Email 1
 
-## Before any of this goes out
+> **Subject:** Your Houzz link is broken — and I built you something
+>
+> Jamie —
+>
+> I went looking for Carmel Homes this week and found your Houzz profile
+> first: 5.0, fourteen projects, the Canyon Court house. Then I clicked the
+> website link on it and got "403 Forbidden". That link is
+> carmelhomesdesigngroup.com, and it is dead. Your real site is at
+> luxuryhomebuildersscottsdale.com.
+>
+> So anyone who finds you at your best hits a wall. That one is worth fixing
+> today, whatever you do about the rest.
+>
+> While I was in there I built a demo of what a new Carmel site could look
+> like — your photographs, your project names, your nine galleries. It is
+> free and there is nothing attached to it:
+>
+> {link}
+>
+> Best on a phone. Tell me what you think.
+>
+> Khalil
+>
+> P.S. Your homepage says 25 years, the badge on it says 35, Houzz says almost
+> 24 and your About page says 1986. I went with 1986. Which is right?
 
-The claude.ai artifact link is **private to Khalil's account**. Jamie cannot
-open it. Deploy to Netlify first — `DEPLOY.md` has the steps — and send that
-URL.
+Opens by giving something away, names the exact problem and the exact fix, and
+the demo arrives as an afterthought rather than a pitch. The link goes in
+email 1 — Jamie should not have to ask for it. The postscript is the easiest
+possible thing to reply to, and answering it makes Jamie a participant in the
+build rather than a prospect.
 
-Leave the preview disclosure in the header and footer. It says the page is
-built by Scalepath, is not affiliated and is not the live site. It is the
-honest framing, and it is also what makes "I rebuilt it as a demo" land as
-generous rather than presumptuous.
+## Email 2 — day 3
 
-## If Jamie replies
+> Jamie — no pressure on the demo, it stays up either way:
+>
+> {link}
+>
+> But do get that Houzz link pointed at your real site if you have not. That
+> is free and it is costing you enquiries from the one place your rating
+> already does the selling.
 
-The site is the icebreaker, not the offer. What Carmel plausibly needs beyond
-it, in the order worth raising:
+## Email 3 — day 7
 
-1. **The enquiry form going somewhere Jamie reads.** Already built. SMS is the
-   channel that matters — a text beats an email for someone on site all day.
-2. **A reply to first-contact enquiries.** For a job of this size the first
-   useful thing is a qualifier: budget band, lot or existing house, rough
-   timing. That can be a short form flow or a chat widget. It is not an
-   after-hours receptionist; nobody commits to a $2m build at 9pm.
-3. **The spam block in their meta description.** A cleanup with a visible
-   before and after.
+> Jamie, last one from me — I am not going to keep emailing.
+>
+> The demo is yours to look at, pull apart, or ignore: {link}
+>
+> If the timing is wrong, just say so.
 
-Do not lead with any of these. Lead with the thing they can see.
+Then stop. Three unless Jamie replies.
+
+## When Jamie replies
+
+**Do not send a price.** Send changes. The first reply is almost always a
+criticism or a question — treat it as a brief:
+
+> Good catch, give me today and I will have it changed.
+
+Turn it around the same day. That is the moment it stops being our mock-up and
+starts being their site, and it is worth more than any proposal.
+
+### When Jamie asks what it costs
+
+Only then, and be straight:
+
+> Honestly — we are new. Scalepath is a small team and Carmel would be one of
+> our first builds, which is why the demo was free and why the price is what
+> it is. $300 to $400 covers the build. Hosting and maintenance we handle, and
+> you can walk away whenever you like.
+>
+> If you would rather not be someone's early client, I completely understand.
+
+Being new is only a weakness if we hide it. Said plainly it explains the
+price, and offering them the exit is what makes the whole thing credible.
+
+**A note on that number.** $300–$400 is very low for a firm quoting jobs at
+$20,000 to $6,000,000 — low enough that it can read as amateur to a luxury
+buyer rather than as a bargain. Worth considering a higher build fee with a
+small monthly for hosting and changes; that reads as a working relationship
+instead of a favour. Your call, and either is defensible — just go in knowing
+the low number can cost credibility with this particular kind of client.
+
+## Loom, 2 minutes
+
+- **0:00** Their Houzz profile on screen. "This is how I found you. It is
+  good — 5.0, fourteen projects." Click the website link. Let the 403 sit
+  there for three full seconds without saying anything.
+- **0:20** "That is the link on your Houzz profile. Your actual site is over
+  here." Open the real one on a phone. Scroll to the bottom — no contact form.
+  Try to pinch-zoom; show it does not.
+- **0:45** Cut to the demo. Scroll the process section once, slowly, in
+  silence. This is the twenty seconds that earns the call.
+- **1:15** The nine projects with their real photo counts. "These are your
+  photographs, out of your own gallery. 349 of them."
+- **1:35** Fill in the form, submit it, show the notification land.
+- **1:50** "It is free, it is yours to pull apart, and if you hate it nothing
+  happens. Either way, fix that Houzz link."
+
+## Where the demo lives
+
+Pushed to the `gh-pages` branch. Once Pages is switched on in the repo
+settings it is public at:
+
+**https://khalilscalepath-cmyk.github.io/Claude-code/**
+
+Anyone can open it — no sign-in, no Claude account, nothing to install. The
+page carries `noindex, nofollow` so it never competes with Carmel's real site
+in search, and the preview disclosure stays in the header and footer saying it
+is built by Scalepath, unaffiliated, and not the live site.
+
+On GitHub Pages there is no backend, so the form cannot capture; it tells the
+visitor plainly that it did not send and gives them the phone number. To make
+it capture for real, either deploy to Netlify instead (`DEPLOY.md`) or send a
+Formspree or Web3Forms key and it is a one-line change.
