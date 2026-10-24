@@ -62,18 +62,29 @@ From Carmel's own site and their Houzz profile. Nothing on the page is invented.
 - **Award dates.** Only the Luxury Home Magazine cover carries a date. The page says "year to confirm"
   on the rest rather than guessing.
 - **Which address and which domain** are current, then make them match everywhere.
-- **Photographs.** The page ships with line drawings, not photos. See below.
+- **Photo permission.** The photographs are his, taken from his own public gallery for this preview.
+  Confirm he is happy for them to be used this way before the page goes anywhere public.
 
-## The media still to drop in
+## Media
 
-Two placeholders, both deliberate, both labelled on the page.
+**Photographs are in and they are Carmel's own**, pulled from their project archive and re-encoded to
+WebP. 11 images, 892 KB in total, every one credited to their gallery:
 
-1. **Project photos.** Their archive has 349. `assets/img/` is empty because
-   `luxuryhomebuildersscottsdale.com` is blocked by this environment's network policy. Until then each
-   project card draws an illustrative SVG elevation. Drop real images in and reference them from the
-   `.project__frame` in `index.html`.
-2. **The scroll-scrubbed walkthrough.** The process section is wired to play a frame sequence against
-   scroll position. Produce it from Carmel's own footage:
+| Where | Project | Source |
+|---|---|---|
+| Hero | The Sanctuary | `sanctuary-casa/DSC_0617-1.jpg` |
+| Cards | all nine projects | one representative frame from each gallery |
+| Jamie | portrait | `uploads/2016/06/Jamie_Vaughn.png` |
+
+Their photography is good — Nikon D810, dusk exteriors, real mountain views — which is exactly why
+showing it at 240×160 was the problem worth fixing. To re-pick or re-crop, the harvest and encode
+scripts work from the gallery pages; image selection is a judgement call, so re-run them by hand
+rather than on a schedule.
+
+**Still outstanding: the scroll-scrubbed walkthrough.** The process section is wired to play a frame
+sequence against scroll position, and currently falls back to the floor plan drawing itself.
+`youtube.com` is still blocked by this environment's network policy, so the clip could not be pulled.
+Once it is reachable:
 
    ```bash
    tools/build-frames.sh <video-file-or-url> 72 1280

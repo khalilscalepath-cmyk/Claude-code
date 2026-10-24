@@ -219,7 +219,33 @@ p:last-child { margin-bottom: 0; }
   overflow: hidden;
 }
 
+/* A finished house behind the drawing of one. The veil is heavy enough that
+   the copper linework and the headline both stay legible over it. */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    var(--ink) 4%,
+    rgba(20, 18, 15, 0.88) 34%,
+    rgba(20, 18, 15, 0.6) 68%,
+    rgba(20, 18, 15, 0.78) 100%
+  );
+}
+
 .hero__drawing {
+  z-index: 1;
   position: absolute;
   inset: auto 0 0 0;
   height: min(78%, 620px);
@@ -278,9 +304,11 @@ p:last-child { margin-bottom: 0; }
     justify-content: flex-start;
   }
   .hero__in { order: 1; }
+  .hero__photo { height: 100%; }
   .hero__drawing {
     order: 2;
     position: relative;
+    z-index: 1;
     inset: auto;
     height: 190px;
     width: 100%;
@@ -486,7 +514,6 @@ p:last-child { margin-bottom: 0; }
 .jamie__layout { display: grid; gap: 40px; }
 @media (min-width: 980px) {
   .jamie__layout { grid-template-columns: 0.85fr 1fr; gap: 72px; align-items: start; }
-  .portrait { aspect-ratio: 4 / 5; }
 }
 
 .portrait {
@@ -499,6 +526,10 @@ p:last-child { margin-bottom: 0; }
   overflow: hidden;
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (min-width: 980px) {
+  .portrait { aspect-ratio: 4 / 5; }
+}
 .portrait__slot { display: grid; gap: 10px; justify-items: center; padding: 24px; text-align: center; }
 
 .pull {
