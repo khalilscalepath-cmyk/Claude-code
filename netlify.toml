@@ -1,0 +1,17 @@
+# This branch is already the built site: index.html sits at the root next to
+# assets/ and vendor/. Nothing to build, so publish the directory as it is.
+#
+# Netlify picks the contact form up from the data-netlify attributes on the
+# form in index.html. Submissions land under Forms -> lead in the dashboard;
+# turn on Site settings -> Forms -> Form notifications to get an email on each
+# one. The hidden "company" field is declared as the honeypot, so bot traffic
+# is dropped before it reaches the inbox.
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
