@@ -653,12 +653,27 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
+      function field(key) {
+        var el = form.elements[key];
+        return el ? String(el.value).trim() : '';
+      }
+
+      // The honeypot is off-screen and label-less, so a person never fills
+      // it. A bot that does gets the same reply a person gets and nothing
+      // is sent anywhere.
+      if (field('company')) {
+        form.reset();
+        say('Got it. Jamie will call you back.', 'good');
+        if (button) button.textContent = 'Sent';
+        return;
+      }
+
       var data = {
-        name: form.name.value.trim(),
-        phone: form.phone.value.trim(),
-        email: form.email.value.trim(),
-        type: form.type.value,
-        message: form.message.value.trim(),
+        name: field('name'),
+        phone: field('phone'),
+        email: field('email'),
+        type: field('type'),
+        message: field('message'),
         page: location.pathname
       };
 
@@ -670,18 +685,55 @@
       if (button) { button.disabled = true; button.textContent = 'Sending'; }
       say('Sending');
 
-      fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-        .then(function (res) {
+      // Two ways out, tried in order.
+      //
+      // 1. POST JSON to /api/lead — server/server.py, which validates the
+      //    lead, appends it to leads.jsonl and notifies Jamie. That is what
+      //    runs locally and on any host where we control the backend.
+      // 2. POST the same fields urlencoded back to this page, carrying
+      //    form-name — which is how Netlify captures a submission with no
+      //    backend at all, from the data-netlify attributes on the form.
+      //
+      // On a static host with neither, both fail and the caller is given the
+      // phone number. That is the honest outcome: nothing was captured, and
+      // saying otherwise would lose Jamie the job.
+
+      function viaApi() {
+        return fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(function (res) {
+          if (res.status === 404 || res.status === 405 || res.status === 501) {
+            var gone = new Error('no lead endpoint here');
+            gone.tryNetlify = true;
+            throw gone;
+          }
           return res.json().then(function (body) {
-            return { ok: res.ok, body: body };
+            if (!res.ok) throw new Error((body && body.error) || 'failed');
           });
+        });
+      }
+
+      function viaNetlify() {
+        var body = new URLSearchParams();
+        body.set('form-name', form.getAttribute('name') || 'lead');
+        Object.keys(data).forEach(function (k) { body.set(k, data[k]); });
+        return fetch(location.pathname, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString()
+        }).then(function (res) {
+          if (!res.ok) throw new Error('failed');
+        });
+      }
+
+      viaApi()
+        .catch(function (err) {
+          if (err && err.tryNetlify) return viaNetlify();
+          throw err;
         })
-        .then(function (result) {
-          if (!result.ok) throw new Error(result.body && result.body.error || 'failed');
+        .then(function () {
           form.reset();
           say('Got it. Jamie has been notified and will call you back on ' + data.phone + '.', 'good');
           if (button) button.textContent = 'Sent';

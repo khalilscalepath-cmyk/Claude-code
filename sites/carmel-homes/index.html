@@ -518,8 +518,8 @@
           <p>His subcontractors are trained well enough that each of them supervises on site. He says the
             office takes the jobs others turn down, including build-to-suit houses on difficult mountainside
             lots.</p>
-          <p class="attrib">Quotations on this page are Jamie&rsquo;s own words, taken from
-            carmel&rsquo;s current site. Everything else here is to confirm with him.</p>
+          <p class="attrib">Jamie&rsquo;s words and every claim in this section come from Carmel&rsquo;s
+            own About page.</p>
         </div>
       </div>
     </div>
@@ -554,7 +554,8 @@
     <div class="wrap">
       <div class="section__head">
         <h2>Recognition</h2>
-        <p class="lede">As listed by Carmel Homes. Dates and issues to confirm before this goes live.</p>
+        <p class="lede">Carmel&rsquo;s own list, word for word from their About page. Only the
+          Luxury Home Magazine cover is dated there, so the rest are shown as they publish them.</p>
       </div>
       <div class="awards">
         <div class="award">
@@ -565,27 +566,22 @@
         <div class="award">
           <span class="award__source">Custom Builder magazine</span>
           <span class="award__what">Builder of the Year, for Desert Resort</span>
-          <span class="mark">Year to confirm</span>
         </div>
         <div class="award">
           <span class="award__source">Phoenix Home &amp; Garden</span>
           <span class="award__what">Featured in the Grand Tour of Homes</span>
-          <span class="mark">Year to confirm</span>
         </div>
         <div class="award">
-          <span class="award__source">Fox 10 Phoenix</span>
+          <span class="award__source">Fox 10 TV</span>
           <span class="award__what">Featured in the Parade of Homes</span>
-          <span class="mark">Year to confirm</span>
         </div>
         <div class="award">
-          <span class="award__source">Business Journal</span>
+          <span class="award__source">Business Journal magazine</span>
           <span class="award__what">Front page, Outdoor Living</span>
-          <span class="mark">Year to confirm</span>
         </div>
         <div class="award">
-          <span class="award__source">Exceptional Properties</span>
+          <span class="award__source">Exceptional Properties magazine</span>
           <span class="award__what">Featured, Kiss of Class</span>
-          <span class="mark">Year to confirm</span>
         </div>
       </div>
     </div>
@@ -622,7 +618,12 @@
           <p class="lede" style="margin-bottom:30px">Tell Jamie what you are thinking about. He will come
             out and look at the house or the lot before anyone talks about a number.</p>
 
-          <form data-form novalidate>
+          <form data-form novalidate name="lead" method="POST"
+                data-netlify="true" netlify-honeypot="company">
+            <input type="hidden" name="form-name" value="lead">
+            <p class="hp" aria-hidden="true">
+              <label>Company<input name="company" tabindex="-1" autocomplete="off"></label>
+            </p>
             <div class="field field--pair">
               <div class="field">
                 <label for="f-name">Name</label>
@@ -655,7 +656,7 @@
             </div>
             <button class="btn btn--block" type="submit">Request a meeting</button>
             <p class="mark" data-form-note style="margin-top:14px">
-              Preview form. Not connected to anything yet.
+              Goes straight to Jamie. No one else sees it.
             </p>
           </form>
         </div>
@@ -729,8 +730,8 @@
         Preview built by Scalepath for Carmel Homes Design Group. Not affiliated, not the live site.
         Every photograph is Carmel&rsquo;s own, from their project archive. The line drawings are
         illustrative and do not depict a specific Carmel house. Project names, photograph counts,
-        licence number, rating and project range are taken from Carmel&rsquo;s own site and Houzz
-        profile. Award dates and years in business to be confirmed with Jamie before launch.
+        licence number, rating, recognition list and project range are taken from Carmel&rsquo;s own
+        site and Houzz profile, and are reproduced as published there.
       </p>
     </div>
   </div>

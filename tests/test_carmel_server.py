@@ -129,3 +129,23 @@ def test_lead_summary_includes_the_callback_number():
     summary = server.lead_summary(lead)
     assert "+16023482430" in summary
     assert "Home renovation" in summary
+
+
+def test_honeypot_field_rejects_the_lead():
+    """A filled "company" field means a bot: no lead comes back."""
+    lead, error = server.clean_lead({
+        "name": "Dana Whitfield",
+        "phone": "6023482430",
+        "company": "Acme SEO Services",
+    })
+    assert lead is None
+    assert error == "__honeypot__"
+
+
+def test_empty_honeypot_lets_a_real_lead_through():
+    lead, error = server.clean_lead({
+        "name": "Dana Whitfield", "phone": "6023482430", "company": "",
+    })
+    assert error is None
+    assert lead["name"] == "Dana Whitfield"
+    assert "company" not in lead

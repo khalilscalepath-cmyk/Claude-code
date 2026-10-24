@@ -79,6 +79,13 @@ def clean_lead(payload: dict) -> tuple[dict | None, str | None]:
     if not isinstance(payload, dict):
         return None, "Send a JSON object."
 
+    # The form carries an off-screen "company" field no person ever sees.
+    # Anything in it came from a bot, so drop the lead without storing or
+    # notifying. The caller is told it worked, which is what stops a bot
+    # retrying with the field removed.
+    if str(payload.get("company") or "").strip():
+        return None, "__honeypot__"
+
     name = str(payload.get("name") or "").strip()
     if len(name) < 2:
         return None, "Add a name."
@@ -191,7 +198,10 @@ def send_email(lead: dict) -> tuple[bool, str]:
         return False, "email not configured"
 
     msg = EmailMessage()
-    msg["Subject"] = f"Website request: {lead['name']} — {lead['type']}"
+    # Plain hyphen, not an em dash: a non-ASCII character here forces the
+    # whole subject into an RFC 2047 encoded word, which older mail clients
+    # render raw.
+    msg["Subject"] = f"Website request: {lead['name']} - {lead['type']}"
     msg["From"] = os.getenv("SMTP_FROM", to)
     msg["To"] = to
     if lead["email"]:
@@ -282,6 +292,12 @@ class Handler(SimpleHTTPRequestHandler):
             return
 
         lead, error = clean_lead(payload)
+        if error == "__honeypot__":
+            # Answer exactly as a real submission does, so the bot has no
+            # signal to tune against. Nothing is stored and no one is paged.
+            print(f"honeypot tripped from {ip}")
+            self._json(200, {"ok": True, "channels": []})
+            return
         if error:
             self._json(422, {"error": error})
             return
