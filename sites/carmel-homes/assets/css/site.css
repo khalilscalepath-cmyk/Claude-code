@@ -550,7 +550,7 @@ p:last-child { margin-bottom: 0; }
 
 .portrait {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 5;
   background: var(--ink-raised);
   border: 1px solid var(--ink-line);
   display: grid;
@@ -559,9 +559,6 @@ p:last-child { margin-bottom: 0; }
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; }
 
-@media (min-width: 980px) {
-  .portrait { aspect-ratio: 4 / 5; }
-}
 .portrait__slot { display: grid; gap: 10px; justify-items: center; padding: 24px; text-align: center; }
 
 .pull {
@@ -762,4 +759,21 @@ body { padding-bottom: 56px; }
 
 @media (prefers-reduced-motion: reduce) {
   .tour__stage { min-height: auto; padding: 60px 0; }
+}
+
+@media (max-width: 760px) {
+  /* The plan is a wide drawing in a tall viewport. Rather than float a small
+     complete drawing in the middle of a black field, let it run wider than
+     the screen so it reads as a big drawing, and centre it in the space above
+     the phase copy instead of in the whole stage. */
+  .scrub__fallback {
+    inset: 0 0 312px 0;
+    overflow: hidden;
+  }
+  .scrub__fallback svg { width: 118%; max-width: none; }
+  /* a pinned stage is fixed, so it does not inherit the body padding that
+     keeps content clear of the sticky call bar */
+  .scrub__copy { padding-top: 0; padding-bottom: 80px; }
+  .tour__copy { padding-bottom: 80px; }
+  .hero__drawing { height: 150px; margin-top: 26px; }
 }
