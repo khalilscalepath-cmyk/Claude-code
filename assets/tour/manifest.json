@@ -1,0 +1,54 @@
+{
+  "project": "Classic Contemporary, 7001 N Longlook",
+  "note": "Cut from Carmel's own 183-photo archive, kept in the photographer's shoot order.",
+  "frames": [
+    {
+      "file": "tour-00.webp",
+      "caption": "Living room, open to the kitchen"
+    },
+    {
+      "file": "tour-01.webp",
+      "caption": "Kitchen, marble island"
+    },
+    {
+      "file": "tour-02.webp",
+      "caption": "Wine room"
+    },
+    {
+      "file": "tour-03.webp",
+      "caption": "Dining, with the mountain in the window"
+    },
+    {
+      "file": "tour-04.webp",
+      "caption": "Living room, black tile wall"
+    },
+    {
+      "file": "tour-05.webp",
+      "caption": "Gallery hallway"
+    },
+    {
+      "file": "tour-06.webp",
+      "caption": "Office"
+    },
+    {
+      "file": "tour-07.webp",
+      "caption": "Interior courtyard"
+    },
+    {
+      "file": "tour-08.webp",
+      "caption": "Primary bedroom"
+    },
+    {
+      "file": "tour-09.webp",
+      "caption": "Primary bathroom"
+    },
+    {
+      "file": "tour-10.webp",
+      "caption": "Dressing room"
+    },
+    {
+      "file": "tour-11.webp",
+      "caption": "Game room"
+    }
+  ]
+}
