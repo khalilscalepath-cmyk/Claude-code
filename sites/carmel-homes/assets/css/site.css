@@ -211,7 +211,9 @@ p:last-child { margin-bottom: 0; }
 
 .hero {
   position: relative;
-  min-height: 92svh;
+  /* the hero starts below the disclosure strip and the header, so a full
+     92svh pushed its own call to action past the fold */
+  min-height: 78svh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -776,4 +778,36 @@ body { padding-bottom: 56px; }
   .scrub__copy { padding-top: 0; padding-bottom: 80px; }
   .tour__copy { padding-bottom: 80px; }
   .hero__drawing { height: 150px; margin-top: 26px; }
+}
+
+/* ---------- hero trust facts ----------
+   Three verified facts where a buyer looks first. On a phone this replaces
+   the elevation drawing, which was a generic house that could have belonged
+   to any builder — the floor plan in the process section carries the drawing
+   idea properly, with Carmel's own detail on it. */
+
+.hero__facts {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 26px;
+}
+.hero__facts li {
+  display: grid;
+  gap: 4px;
+  padding-left: 14px;
+  border-left: 1px solid #4a4336;
+}
+.hero__facts strong {
+  font-weight: 540;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 760px) {
+  .hero__drawing { display: none; }
+  .hero { padding-bottom: 40px; }
+  .hero__facts { margin-top: 30px; gap: 12px 22px; }
 }
