@@ -221,73 +221,182 @@
       };
     }
 
-    // The drawing gains detail as the phases advance, the way a real document
-    // set goes from schematic to permit to structural to interiors. Each
-    // phase owns one layer of the plan.
+    /* ---- the house, built and turned by scroll ----
+     * A wireframe model projected to SVG and re-rendered as the view moves.
+     * No 3D library: an axonometric projection is a few lines of trigonometry,
+     * and keeping it as SVG strokes means the building stays in the same
+     * drawing language as the plan it grows out of.
+     *
+     * At 90 degrees of elevation the projection flattens to a true plan view,
+     * which is why the drawing can lift off the page into a building instead
+     * of cutting to a different graphic. */
+
+    var MODEL = (function () {
+      function box(x0, x1, y0, y1, z0, z1) {
+        var c = [
+          [x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0],
+          [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]
+        ];
+        return {
+          base: [[c[0], c[1]], [c[1], c[2]], [c[2], c[3]], [c[3], c[0]]],
+          posts: [[c[0], c[4]], [c[1], c[5]], [c[2], c[6]], [c[3], c[7]]],
+          top: [[c[4], c[5]], [c[5], c[6]], [c[6], c[7]], [c[7], c[4]]]
+        };
+      }
+      function panel(x0, x1, z0, z1, y) {
+        return [
+          [[x0, y, z0], [x1, y, z0]], [[x1, y, z0], [x1, y, z1]],
+          [[x1, y, z1], [x0, y, z1]], [[x0, y, z1], [x0, y, z0]]
+        ];
+      }
+
+      var A = box(0, 26, 0, 23, 0, 11);
+      var B = box(26, 44, 5, 19, 0, 8);
+      var CLEAR = box(6, 20, 6, 17, 11, 14);
+
+      // Larger y projects nearer the viewer, so glazing goes on the high-y
+      // faces or it ends up on the side we never see.
+      var glazing = panel(2, 10, 2, 8, 23)
+        .concat(panel(13, 24, 2, 8, 23), panel(30, 41, 2, 6, 19));
+
+      // partitions extruded to full height, so the massing reads as rooms
+      var partitions = [
+        [[14, 0, 0], [14, 14, 0]],
+        [[0, 14, 0], [26, 14, 0]],
+        [[34, 5, 0], [34, 19, 0]]
+      ];
+      var rooms = [];
+      partitions.forEach(function (e) {
+        var a = e[0], b = e[1], h = 11;
+        rooms.push([[a[0], a[1], h], [b[0], b[1], h]]);
+        rooms.push([[a[0], a[1], 0], [a[0], a[1], h]]);
+        rooms.push([[b[0], b[1], 0], [b[0], b[1], h]]);
+      });
+
+      // a roof with an overhang, plus the eave returns that make it read as
+      // a roof rather than another box lid
+      function plane(x0, x1, y0, y1, z) {
+        return [
+          [[x0, y0, z], [x1, y0, z]], [[x1, y0, z], [x1, y1, z]],
+          [[x1, y1, z], [x0, y1, z]], [[x0, y1, z], [x0, y0, z]]
+        ];
+      }
+      var roof = plane(-2, 28, -2, 25, 11.6)
+        .concat(plane(25, 46, 3, 21, 8.6), CLEAR.posts, CLEAR.top, [
+          [[-2, -2, 11.6], [0, 0, 11]], [[28, -2, 11.6], [26, 0, 11]],
+          [[28, 25, 11.6], [26, 23, 11]], [[-2, 25, 11.6], [0, 23, 11]]
+        ]);
+
+      return {
+        slab: A.base.concat(B.base),
+        walls: partitions,
+        frame: A.posts.concat(B.posts, A.top, B.top),
+        rooms: rooms,
+        roof: roof,
+        glass: glazing
+      };
+    })();
+
+    function renderModel(group, ang, el, scale, cx, cy) {
+      var ca = Math.cos(ang), sa = Math.sin(ang);
+      var se = Math.sin(el), ce = Math.cos(el);
+      var ox = 22, oy = 11.5; // turn on the footprint's own centre
+
+      function pt(q) {
+        var px = q[0] - ox, py = q[1] - oy;
+        var x = px * ca - py * sa;
+        var y = px * sa + py * ca;
+        return (cx + x * scale).toFixed(1) + ' ' + (cy + (y * se - q[2] * ce) * scale).toFixed(1);
+      }
+
+      Object.keys(MODEL).forEach(function (part) {
+        var node = group.querySelector('[data-part="' + part + '"]');
+        if (!node) return;
+        var edges = MODEL[part], d = '';
+        for (var i = 0; i < edges.length; i++) {
+          d += 'M' + pt(edges[i][0]) + 'L' + pt(edges[i][1]);
+        }
+        node.setAttribute('d', d);
+      });
+    }
+
     function planPainter() {
       var plan = scrubSection.querySelector('[data-plan]');
       if (!plan || REDUCED) return null;
 
-      var layers = ['walls', 'dims', 'structure', 'interior'].map(function (name) {
-        return plan.querySelector('[data-layer="' + name + '"]');
-      }).filter(Boolean);
-
-      if (!layers.length) return null;
+      var model = plan.querySelector('[data-model]');
+      if (!model) return null;
 
       var finish = scrubSection.querySelector('[data-scrub-finish]');
+      var veil = scrubSection.querySelector('.scrub__veil');
 
-      var tl = gsap.timeline({ paused: true });
-      // The four drawing phases share the first four fifths; the last fifth
-      // dissolves the drawing into the finished house.
-      var DRAWN_THROUGH = 0.8;
-      var slot = DRAWN_THROUGH / layers.length;
+      var parts = {};
+      ['slab', 'walls', 'frame', 'rooms', 'roof', 'glass'].forEach(function (k) {
+        parts[k] = model.querySelector('[data-part="' + k + '"]');
+      });
 
-      layers.forEach(function (layer, i) {
-        var strokes = Array.prototype.slice.call(layer.querySelectorAll('path'));
-        var shapes = Array.prototype.slice.call(
-          layer.querySelectorAll('rect, circle, ellipse, text')
-        );
+      var annotations = ['planmarks', 'dims', 'structure', 'titleblock'].map(function (n) {
+        return plan.querySelector('[data-layer="' + n + '"]');
+      }).filter(Boolean);
 
-        strokes.forEach(function (node) {
+      var dashed = [];
+      annotations.forEach(function (layer) {
+        Array.prototype.forEach.call(layer.querySelectorAll('path'), function (node) {
           var len;
           try { len = node.getTotalLength(); } catch (err) { len = 0; }
           if (!len) return;
           gsap.set(node, { strokeDasharray: len, strokeDashoffset: len });
+          dashed.push({ node: node, len: len, layer: layer });
         });
-        gsap.set(shapes, { opacity: 0 });
-
-        var at = i * slot;
-
-        if (strokes.length) {
-          tl.to(strokes, {
-            strokeDashoffset: 0,
-            ease: 'none',
-            duration: slot * 0.78,
-            stagger: { each: slot * 0.16 / Math.max(1, strokes.length) }
-          }, at);
-        }
-        if (shapes.length) {
-          tl.to(shapes, {
-            opacity: 1,
-            ease: 'none',
-            duration: slot * 0.5,
-            stagger: { each: slot * 0.2 / Math.max(1, shapes.length) }
-          }, at + slot * 0.2);
-        }
       });
 
-      // the payoff: the drawing becomes a house
-      if (finish) {
-        var veil = scrubSection.querySelector('.scrub__veil');
-        tl.to(finish, { opacity: 1, ease: 'none', duration: 0.14 }, DRAWN_THROUGH + 0.02);
-        // the drawing all but disappears, and the veil lifts, so the finished
-        // house is the thing you are left looking at
-        tl.to(plan, { opacity: 0.07, ease: 'none', duration: 0.12 }, DRAWN_THROUGH + 0.05);
-        if (veil) tl.to(veil, { opacity: 0.58, ease: 'none', duration: 0.12 }, DRAWN_THROUGH + 0.05);
-      }
+      var RAD = Math.PI / 180;
+      function seg(v, a, b) { return b <= a ? (v >= b ? 1 : 0) : Math.max(0, Math.min(1, (v - a) / (b - a))); }
+      function ease(t) { return t * t * (3 - 2 * t); }
 
       return function (progress) {
-        tl.progress(Math.min(1, Math.max(0, progress)));
+        var p = Math.min(1, Math.max(0, progress));
+
+        // 01-02 look straight down at the drawing; 03 lifts it into a building
+        // and starts it turning; 04 keeps turning the other way.
+        var lift = ease(seg(p, 0.40, 0.62));
+        var el = (90 - 52 * lift) * RAD;
+        var ang = (-30 * lift + 54 * ease(seg(p, 0.62, 0.80))) * RAD;
+
+        // on a phone the drawing sits in a shorter box, so it does not need
+        // to climb as far to clear the phase copy
+        var narrow = window.innerWidth < 760;
+        renderModel(model, ang, el,
+          (narrow ? 13.5 : 15) + 1.5 * lift,
+          600,
+          narrow ? 430 - 50 * lift : 420 - 120 * lift);
+
+        gsap.set(parts.slab, { opacity: seg(p, 0.02, 0.16) });
+        gsap.set(parts.walls, { opacity: seg(p, 0.06, 0.20) });
+        gsap.set(parts.frame, { opacity: seg(p, 0.42, 0.58) });
+        gsap.set(parts.roof, { opacity: seg(p, 0.50, 0.64) });
+        gsap.set(parts.rooms, { opacity: seg(p, 0.60, 0.74) });
+        gsap.set(parts.glass, { opacity: seg(p, 0.66, 0.80) });
+
+        var gone = 1 - seg(p, 0.40, 0.52);
+        var shown = {
+          planmarks: Math.min(seg(p, 0.02, 0.18), gone),
+          dims: Math.min(seg(p, 0.20, 0.34), gone),
+          structure: Math.min(seg(p, 0.26, 0.38), gone),
+          titleblock: Math.min(seg(p, 0.05, 0.16), gone)
+        };
+        annotations.forEach(function (layer) {
+          gsap.set(layer, { opacity: shown[layer.dataset.layer] });
+        });
+        dashed.forEach(function (d) {
+          gsap.set(d.node, { strokeDashoffset: d.len * (1 - shown[d.layer.dataset.layer]) });
+        });
+
+        // 05: the drawing gives way to the photograph of the finished house
+        var reveal = seg(p, 0.82, 0.96);
+        if (finish) gsap.set(finish, { opacity: reveal });
+        gsap.set(model, { opacity: 1 - 0.92 * reveal });
+        if (veil) gsap.set(veil, { opacity: 1 - 0.42 * reveal });
       };
     }
 

@@ -135,38 +135,19 @@
       <div class="scrub__fallback" data-scrub-fallback aria-hidden="true">
         <svg viewBox="0 0 1200 780" preserveAspectRatio="xMidYMid meet" fill="none" data-plan>
 
-          <!-- ---------- phase 01: the walls go down ---------- -->
-          <g data-layer="walls">
-            <path class="w" d="M160 140 V300"/>
-            <path class="w" d="M160 380 V600"/>
-            <path class="w" d="M160 600 H260"/>
-            <path class="w" d="M360 600 H700"/>
-            <path class="w" d="M800 600 H1040"/>
-            <path class="w" d="M1040 600 V470"/>
-            <path class="w" d="M1040 380 V140"/>
-            <path class="w" d="M960 140 H1040"/>
-            <path class="w" d="M700 140 H860"/>
-            <path class="w" d="M420 140 H600"/>
-            <path class="w" d="M160 140 H300"/>
+          <!-- the model: slab, partitions, frame, roof and glazing, projected
+               from 3D by site.js and re-rendered as the view rotates -->
+          <g data-model>
+            <path class="w" data-part="slab"/>
+            <path class="w" data-part="walls"/>
+            <path class="m" data-part="frame"/>
+            <path class="m" data-part="rooms"/>
+            <path class="m" data-part="roof"/>
+            <path class="g" data-part="glass"/>
+          </g>
 
-            <path class="w" d="M520 140 V250"/>
-            <path class="w" d="M520 310 V420"/>
-            <path class="w" d="M160 420 H300"/>
-            <path class="w" d="M360 420 H520"/>
-            <path class="w" d="M780 140 V300"/>
-            <path class="w" d="M780 360 V600"/>
-            <path class="w" d="M520 300 H600"/>
-            <path class="w" d="M660 300 H780"/>
-
-            <!-- glazing in the wall openings -->
-            <path class="g" d="M300 140 H420"/>
-            <path class="g" d="M600 140 H700"/>
-            <path class="g" d="M860 140 H960"/>
-            <path class="g" d="M1040 380 V470"/>
-            <path class="g" d="M160 300 V380"/>
-            <path class="g" d="M700 600 H800"/>
-
-            <!-- door swings -->
+          <!-- flat plan annotation, true only while we are looking straight down -->
+          <g data-layer="planmarks">
             <path class="d" d="M520 250 H580"/>
             <path class="d" d="M580 250 A60 60 0 0 1 520 310"/>
             <path class="d" d="M300 420 V360"/>
@@ -175,8 +156,6 @@
             <path class="d" d="M720 300 A60 60 0 0 0 780 360"/>
             <path class="d" d="M600 300 V240"/>
             <path class="d" d="M600 240 A60 60 0 0 1 660 300"/>
-            <path class="d" d="M260 600 V500"/>
-            <path class="d" d="M260 500 A100 100 0 0 0 360 600"/>
 
             <text class="plan-label" x="196" y="186">LIVING</text>
             <text class="plan-label" x="196" y="464">GARAGE</text>
@@ -184,6 +163,15 @@
             <text class="plan-label" x="548" y="348">DINING</text>
             <text class="plan-label" x="808" y="186">PRIMARY</text>
             <text class="plan-label" x="808" y="424">BATH</text>
+
+            <rect class="f" x="240" y="332" width="190" height="52" rx="6"/>
+            <rect class="f" x="296" y="266" width="92" height="38" rx="4"/>
+            <rect class="f" x="570" y="232" width="160" height="44" rx="4"/>
+            <ellipse class="f" cx="650" cy="474" rx="74" ry="48"/>
+            <rect class="f" x="850" y="236" width="120" height="132" rx="6"/>
+            <rect class="f" x="820" y="452" width="92" height="56" rx="26"/>
+            <rect class="f" x="200" y="492" width="130" height="60" rx="8"/>
+            <rect class="f" x="360" y="492" width="130" height="60" rx="8"/>
           </g>
 
           <!-- ---------- phase 02: dimensions and the permit set ---------- -->
@@ -238,24 +226,6 @@
             <path class="sect" d="M200 660 L186 648"/>
             <path class="sect" d="M200 660 L186 672"/>
             <text class="plan-dim" x="120" y="648">SECTION 3 / A-4.1</text>
-          </g>
-
-          <!-- ---------- phase 04: interiors ---------- -->
-          <g data-layer="interior">
-            <rect class="f" x="240" y="332" width="190" height="52" rx="6"/>
-            <rect class="f" x="296" y="266" width="92" height="38" rx="4"/>
-            <rect class="f" x="570" y="232" width="160" height="44" rx="4"/>
-            <ellipse class="f" cx="650" cy="474" rx="74" ry="48"/>
-            <circle class="f" cx="650" cy="398" r="15"/>
-            <circle class="f" cx="650" cy="542" r="15"/>
-            <circle class="f" cx="552" cy="470" r="15"/>
-            <circle class="f" cx="748" cy="470" r="15"/>
-            <rect class="f" x="850" y="236" width="120" height="132" rx="6"/>
-            <rect class="f" x="872" y="236" width="76" height="26" rx="4"/>
-            <rect class="f" x="820" y="452" width="92" height="56" rx="26"/>
-            <rect class="f" x="942" y="436" width="86" height="32" rx="4"/>
-            <rect class="f" x="200" y="492" width="130" height="60" rx="8"/>
-            <rect class="f" x="360" y="492" width="130" height="60" rx="8"/>
           </g>
 
           <!-- always on: the title block -->

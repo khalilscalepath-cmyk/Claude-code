@@ -380,6 +380,7 @@ p:last-child { margin-bottom: 0; }
 .scrub__fallback .w { stroke: #d8cebd; stroke-width: 5; stroke-linecap: square; }
 .scrub__fallback .g { stroke: var(--copper-bright); stroke-width: 2; }
 .scrub__fallback .d { stroke: #8d8477; stroke-width: 1.2; }
+.scrub__fallback .m { stroke: #a1978a; stroke-width: 1.9; stroke-linecap: round; }
 .scrub__fallback .dim { stroke: #6f6657; stroke-width: 1; }
 .scrub__fallback .stamp { stroke: var(--copper); stroke-width: 1.2; }
 .scrub__fallback .bub { stroke: #8d8477; stroke-width: 1.2; }
