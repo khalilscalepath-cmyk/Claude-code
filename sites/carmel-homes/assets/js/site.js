@@ -44,21 +44,6 @@
 
   /* ---------------- hero ---------------- */
 
-  function drawStrokes(paths, opts) {
-    paths.forEach(function (p) {
-      var len;
-      try { len = p.getTotalLength(); } catch (err) { len = 0; }
-      if (!len) return;
-      gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
-    });
-    return gsap.to(paths, Object.assign({
-      strokeDashoffset: 0,
-      duration: 1.4,
-      ease: 'power2.inOut',
-      stagger: 0.012
-    }, opts || {}));
-  }
-
   var heroTitle = document.querySelector('[data-split]');
   if (heroTitle) {
     if (REDUCED) {
@@ -78,25 +63,74 @@
     }
   }
 
-  var heroDrawing = document.querySelector('[data-drawing]');
-  if (heroDrawing && !REDUCED) {
-    var heroPaths = Array.prototype.slice.call(heroDrawing.querySelectorAll('path'));
-    gsap.set(heroDrawing, { opacity: 0 });
-    gsap.to(heroDrawing, { opacity: 0.85, duration: 0.6, delay: 0.1 });
-    drawStrokes(heroPaths, { duration: 1.9, stagger: 0.018, delay: 0.2 });
+  /* The hero arrives as one piece: the arch unmasks from the floor while the
+   * photograph inside it settles out of a slight zoom, then the side column
+   * and the thumbnail strip follow the headline in. Those elements carry
+   * data-hero rather than data-reveal so the scroll reveals below do not also
+   * claim them and fire a second, competing tween. */
 
-    // The elevation drifts down a little as the hero leaves, so the drawing
-    // reads as a layer behind the page rather than a flat background image.
-    gsap.to(heroDrawing, {
-      yPercent: 14,
+  var arch = document.querySelector('.arch');
+  var archImg = arch && arch.querySelector('img');
+
+  if (arch && !REDUCED) {
+    var intro = gsap.timeline({ delay: 0.1 });
+
+    intro.fromTo(arch,
+      { clipPath: 'inset(100% 0% 0% 0%)', opacity: 1 },
+      { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.15, ease: 'power3.inOut' }, 0);
+
+    if (archImg) {
+      intro.from(archImg, { scale: 1.2, duration: 1.7, ease: 'power3.out' }, 0);
+    }
+
+    intro.from('.hero__side > [data-hero]',
+      { y: 26, opacity: 0, duration: 0.8, ease: 'power2.out', stagger: 0.14 }, 0.45);
+
+    intro.from('.thumbs img',
+      { scale: 0.3, opacity: 0, duration: 0.55, ease: 'back.out(2.2)', stagger: 0.06 }, 0.6);
+
+    intro.from('.thumbs .mark', { opacity: 0, x: -10, duration: 0.5 }, 0.85);
+
+    // Two speeds across the hero: the photograph creeps up inside its fixed
+    // mask, the side column leaves a little faster than the page. Small
+    // numbers on purpose — this should read as depth, not as a slide.
+    gsap.to(archImg || arch, {
+      yPercent: -8,
       ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
     });
+
+    gsap.to('.hero__side', {
+      y: -52,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+  gsap.utils.toArray('[data-hero]').forEach(function (el) {
+    if (el.closest('.hero__side') || el.classList.contains('thumbs') || el.classList.contains('arch')) return;
+    if (REDUCED) { gsap.set(el, { opacity: 1 }); return; }
+    gsap.from(el, { opacity: 0, y: 20, duration: 0.8, ease: 'power2.out', delay: 0.35 });
+  });
+
+  /* The archive strip drifts sideways as it crosses the viewport. The photo
+   * set is printed twice in the markup, so moving the track by a quarter of
+   * its width never exposes an end. */
+
+  var band = document.querySelector('[data-band]');
+  if (band && !REDUCED) {
+    gsap.fromTo(band,
+      { xPercent: -4 },
+      {
+        xPercent: -26,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.band',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.6
+        }
+      });
   }
 
   /* ---------------- generic reveals ---------------- */
@@ -250,21 +284,21 @@
         ];
       }
 
-      var A = box(0, 26, 0, 23, 0, 11);
-      var B = box(26, 44, 5, 19, 0, 8);
-      var CLEAR = box(6, 20, 6, 17, 11, 14);
+      /* The model must land exactly on the hand-drawn plan, or plan view shows
+         two drawings that disagree. The drawn sheet runs x 160..1040 and
+         y 140..600 in viewBox units, so at scale 20 centred on (600, 370) one
+         model unit is 20 units of the sheet and every partition below maps
+         onto a wall that is already drawn:
+             x 18 -> 520    x 31 -> 780    y 8 -> 300    y 14 -> 420          */
+      var A = box(0, 31, 0, 23, 0, 11);   // main house
+      var B = box(31, 44, 0, 23, 0, 8);   // lower wing, sharing the x=31 wall
 
-      // Larger y projects nearer the viewer, so glazing goes on the high-y
-      // faces or it ends up on the side we never see.
-      var glazing = panel(2, 10, 2, 8, 23)
-        .concat(panel(13, 24, 2, 8, 23), panel(30, 41, 2, 6, 19));
-
-      // partitions extruded to full height, so the massing reads as rooms
       var partitions = [
-        [[14, 0, 0], [14, 14, 0]],
-        [[0, 14, 0], [26, 14, 0]],
-        [[34, 5, 0], [34, 19, 0]]
+        [[18, 0, 0], [18, 14, 0]],
+        [[0, 14, 0], [18, 14, 0]],
+        [[18, 8, 0], [31, 8, 0]]
       ];
+
       var rooms = [];
       partitions.forEach(function (e) {
         var a = e[0], b = e[1], h = 11;
@@ -273,19 +307,23 @@
         rooms.push([[b[0], b[1], 0], [b[0], b[1], h]]);
       });
 
-      // a roof with an overhang, plus the eave returns that make it read as
-      // a roof rather than another box lid
       function plane(x0, x1, y0, y1, z) {
         return [
           [[x0, y0, z], [x1, y0, z]], [[x1, y0, z], [x1, y1, z]],
           [[x1, y1, z], [x0, y1, z]], [[x0, y1, z], [x0, y0, z]]
         ];
       }
-      var roof = plane(-2, 28, -2, 25, 11.6)
-        .concat(plane(25, 46, 3, 21, 8.6), CLEAR.posts, CLEAR.top, [
-          [[-2, -2, 11.6], [0, 0, 11]], [[28, -2, 11.6], [26, 0, 11]],
-          [[28, 25, 11.6], [26, 23, 11]], [[-2, 25, 11.6], [0, 23, 11]]
+
+      var CLEAR = box(7, 24, 6, 17, 11, 14);
+      var roof = plane(-2, 33, -2, 25, 11.6)
+        .concat(plane(30, 46, -1, 24, 8.6), CLEAR.posts, CLEAR.top, [
+          [[-2, -2, 11.6], [0, 0, 11]], [[33, -2, 11.6], [31, 0, 11]],
+          [[33, 25, 11.6], [31, 23, 11]], [[-2, 25, 11.6], [0, 23, 11]]
         ]);
+
+      // high y projects toward the viewer, so glazing goes on those faces
+      var glazing = panel(2, 11, 2, 8, 23)
+        .concat(panel(14, 28, 2, 8, 23), panel(33, 42, 2, 6, 23));
 
       return {
         slab: A.base.concat(B.base),
@@ -361,18 +399,22 @@
         // stays readable. From 03 onward it is one slow continuous sweep —
         // the building keeps turning at a constant rate and each stage of
         // the build arrives during the turn rather than between turns.
-        var lift = ease(seg(p, 0.36, 0.56));
-        var spin = seg(p, 0.36, 0.96);
+        // The sweep must START at zero. Any other starting angle means the
+        // footprint is skewed while we are still looking straight down at it,
+        // so the slab renders as diamonds across axis-aligned room labels and
+        // dimension strings — which is what it did.
+        var lift = ease(seg(p, 0.38, 0.58));
+        var spin = seg(p, 0.38, 0.96);
         var el = (90 - 52 * lift) * RAD;
-        var ang = (-46 + 92 * spin) * RAD;
+        var ang = 84 * spin * RAD;
 
         // on a phone the drawing sits in a shorter box, so it does not need
         // to climb as far to clear the phase copy
         var narrow = window.innerWidth < 760;
         renderModel(model, ang, el,
-          (narrow ? 13.5 : 15) + 1.5 * lift,
+          20 - 5 * lift,
           600,
-          narrow ? 430 - 50 * lift : 420 - 120 * lift);
+          (narrow ? 395 : 370) - (narrow ? 40 : 80) * lift);
 
         gsap.set(parts.slab, { opacity: seg(p, 0.02, 0.16) });
         gsap.set(parts.walls, { opacity: seg(p, 0.06, 0.20) });
@@ -381,12 +423,12 @@
         gsap.set(parts.rooms, { opacity: seg(p, 0.64, 0.74) });
         gsap.set(parts.glass, { opacity: seg(p, 0.72, 0.82) });
 
-        var gone = 1 - seg(p, 0.34, 0.46);
+        var gone = 1 - seg(p, 0.28, 0.37);
         var shown = {
-          planmarks: Math.min(seg(p, 0.02, 0.18), gone),
-          dims: Math.min(seg(p, 0.20, 0.34), gone),
-          structure: Math.min(seg(p, 0.26, 0.38), gone),
-          titleblock: Math.min(seg(p, 0.05, 0.16), gone)
+          planmarks: Math.min(seg(p, 0.02, 0.14), gone),
+          dims: Math.min(seg(p, 0.14, 0.24), gone),
+          structure: Math.min(seg(p, 0.20, 0.28), gone),
+          titleblock: Math.min(seg(p, 0.05, 0.14), gone)
         };
         annotations.forEach(function (layer) {
           gsap.set(layer, { opacity: shown[layer.dataset.layer] });
@@ -395,17 +437,21 @@
           gsap.set(d.node, { strokeDashoffset: d.len * (1 - shown[d.layer.dataset.layer]) });
         });
 
-        // 05: the drawing gives way to the photograph of the finished house
-        var reveal = seg(p, 0.82, 0.96);
+        // 05: the drawing hands over to the photograph of the finished house.
+        // The wireframe clears before the photograph is fully up, so the two
+        // are only on screen together briefly — a long double exposure just
+        // reads as a washed-out picture behind a drawing.
+        var reveal = seg(p, 0.85, 0.95);
         if (finish) gsap.set(finish, { opacity: reveal });
-        gsap.set(model, { opacity: 1 - 0.92 * reveal });
-        if (veil) gsap.set(veil, { opacity: 1 - 0.42 * reveal });
+        gsap.set(model, { opacity: 1 - seg(p, 0.80, 0.88) });
+        if (veil) gsap.set(veil, { opacity: 1 - reveal });
       };
     }
 
     // Build the trigger now, synchronously, so later pins measure against a
     // page whose height has stopped changing.
     painter = planPainter();
+    if (painter) painter(0);   // draw the sheet at rest, before any scroll
     buildScrub();
 
     // Frames are optional: an empty manifest just means we have not cut
