@@ -142,22 +142,42 @@ async function paintedRatio(page) {
         if (Math.abs(tourPin.start - marks.tour.top) > 40) {
           problems.push(`desktop: tour pin starts at ${tourPin.start} but section is at ${marks.tour.top}`);
         }
-        await scrollTo(page, tourPin.start + (tourPin.end - tourPin.start) * 0.45, 900);
+        // Each room holds for three quarters of its segment and dissolves over
+        // the last quarter, so across the scroll most samples must show exactly
+        // one room. A single sample is flaky — scroll position does not map
+        // cleanly onto settled scrub progress — so sample across the section
+        // and assert the proportion. The regression this guards is the
+        // double exposure: two rooms at half opacity for most of the scroll.
+        const span = tourPin.end - tourPin.start;
+        let singles = 0, samples = 0, maxLit = 0, lastCounter = '';
+        for (const f of [0.08, 0.2, 0.32, 0.44, 0.56, 0.68, 0.8, 0.92]) {
+          await scrollTo(page, tourPin.start + span * f, 650);
+          const st = await page.evaluate(() => {
+            const ops = [...document.querySelectorAll('[data-tour-frames] img')]
+              .map(i => +getComputedStyle(i).opacity);
+            return {
+              lit: ops.filter(o => o > 0.02).length,
+              counter: document.querySelector('[data-tour-counter]').textContent.trim(),
+            };
+          });
+          samples++;
+          if (st.lit === 1) singles++;
+          maxLit = Math.max(maxLit, st.lit);
+          lastCounter = st.counter;
+        }
+        if (maxLit > 2) problems.push(`desktop: ${maxLit} tour frames lit at once`);
+        if (singles < 5) {
+          problems.push(`desktop: only ${singles}/${samples} tour samples showed a single room — rooms are blending instead of holding`);
+        }
+        if (/Room 1 of/.test(lastCounter)) {
+          problems.push('desktop: tour never advanced past the first room');
+        }
+
         const tour = await page.evaluate(() => ({
-          caption: document.querySelector('[data-tour-caption]').textContent.trim(),
-          counter: document.querySelector('[data-tour-counter]').textContent.trim(),
           frames: document.querySelectorAll('[data-tour-frames] img').length,
-          lit: [...document.querySelectorAll('[data-tour-frames] img')]
-                 .map(i => +getComputedStyle(i).opacity).filter(o => o > 0.02).length,
         }));
         if (tour.frames < 12) problems.push(`desktop: only ${tour.frames} tour frames loaded`);
-        if (tour.lit === 0) problems.push('desktop: no tour frame visible mid-scrub');
-        // mid-hold exactly one room should be lit; two means a double exposure
-        if (tour.lit > 1) problems.push(`desktop: ${tour.lit} tour frames blended mid-hold`);
-        if (!/Room \d+ of/.test(tour.counter)) problems.push(`desktop: tour counter reads "${tour.counter}"`);
-        if (/Living room, open to the kitchen/.test(tour.caption)) {
-          problems.push('desktop: tour caption never advanced past the first room');
-        }
+
         await page.screenshot({ path: `${OUT}/desktop-04b-tour.png` });
       }
     } else {

@@ -365,8 +365,8 @@ p:last-child { margin-bottom: 0; }
   inset: 0;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(120% 90% at 50% 100%, #231e18 0%, #0d0b09 62%);
+  /* no background: the finished house sits behind this layer and has to
+     show through once the drawing fades */
 }
 .scrub__fallback svg { width: min(90%, 940px); height: auto; }
 /* The plan reads as a real drawing: heavy walls, thin glazing, light
@@ -408,6 +408,17 @@ p:last-child { margin-bottom: 0; }
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(13, 11, 9, 0.94) 4%, rgba(13, 11, 9, 0.18) 48%, rgba(13, 11, 9, 0.72) 100%);
+}
+
+/* Its own scrim, so the veil can lift off the finished house without the
+   phase copy losing contrast against pale concrete. */
+.scrub__copy::before {
+  content: '';
+  position: absolute;
+  inset: -56px -40px -40px -40px;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(13, 11, 9, 0.94) 32%, rgba(13, 11, 9, 0));
+  pointer-events: none;
 }
 
 .scrub__copy {
@@ -810,4 +821,21 @@ body { padding-bottom: 56px; }
   .hero__drawing { display: none; }
   .hero { padding-bottom: 40px; }
   .hero__facts { margin-top: 30px; gap: 12px 22px; }
+}
+
+/* The finished house, revealed as the drawing fades out on the last phase. */
+.scrub__finish {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+@media (max-width: 760px) {
+  .scrub__finish {
+    inset: 0 0 190px 0;
+    object-fit: contain;
+  }
 }

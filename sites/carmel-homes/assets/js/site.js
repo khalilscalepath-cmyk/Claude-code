@@ -159,7 +159,7 @@
       ScrollTrigger.create({
         trigger: scrubSection,
         start: 'top top',
-        end: '+=' + (window.innerHeight * 3.2),
+        end: '+=' + (window.innerHeight * 4),
         pin: '.scrub__stage',
         scrub: REDUCED ? false : 0.6,
         refreshPriority: 2,
@@ -234,8 +234,13 @@
 
       if (!layers.length) return null;
 
+      var finish = scrubSection.querySelector('[data-scrub-finish]');
+
       var tl = gsap.timeline({ paused: true });
-      var slot = 1 / layers.length;
+      // The four drawing phases share the first four fifths; the last fifth
+      // dissolves the drawing into the finished house.
+      var DRAWN_THROUGH = 0.8;
+      var slot = DRAWN_THROUGH / layers.length;
 
       layers.forEach(function (layer, i) {
         var strokes = Array.prototype.slice.call(layer.querySelectorAll('path'));
@@ -270,6 +275,16 @@
           }, at + slot * 0.2);
         }
       });
+
+      // the payoff: the drawing becomes a house
+      if (finish) {
+        var veil = scrubSection.querySelector('.scrub__veil');
+        tl.to(finish, { opacity: 1, ease: 'none', duration: 0.14 }, DRAWN_THROUGH + 0.02);
+        // the drawing all but disappears, and the veil lifts, so the finished
+        // house is the thing you are left looking at
+        tl.to(plan, { opacity: 0.07, ease: 'none', duration: 0.12 }, DRAWN_THROUGH + 0.05);
+        if (veil) tl.to(veil, { opacity: 0.58, ease: 'none', duration: 0.12 }, DRAWN_THROUGH + 0.05);
+      }
 
       return function (progress) {
         tl.progress(Math.min(1, Math.max(0, progress)));
