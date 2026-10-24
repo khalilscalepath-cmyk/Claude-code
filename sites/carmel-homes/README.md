@@ -96,11 +96,25 @@ Phones keep the single static frame that is already in the markup and never requ
 
 This is the section that dramatises the audit finding: 183 photographs nobody can see.
 
-**Still outstanding: the walkthrough footage.** The *process* section is separately wired to play a
-real video frame sequence, and falls back to the floor plan drawing itself. Finished-room photographs
-cannot honestly illustrate "permits and engineering", so the tour above did not get reused there.
-`youtube.com` is still blocked by this environment's network policy, so Jamie's clip could not be
-pulled. Once it is reachable:
+### Jamie's YouTube clip: assessed and not used
+
+`watch?v=xUe9ZmMqNok` was analysed scene by scene through Higgsfield's video analysis, which reads a
+YouTube URL directly and needs no download. The result (16 scenes, 2:08):
+
+- It is **a montage of static and slow shots, not a walkthrough** — dusk exteriors, a pool-table room,
+  two kitchens, bathrooms, a wine cellar, patios, closing on a black contact card.
+- The audio is **acoustic guitar end to end, no narration**, so there is no transcript to mine.
+- Several scenes are the same projects already in the gallery, at video compression.
+
+So scrubbing it would produce a worse version of the house tour we already have from the 183-photo
+archive. **Decision: do not use it.** The `tools/build-frames.sh` path stays in place in case Jamie
+supplies real walk-through footage as a client, but nothing is waiting on it.
+
+The *process* section therefore keeps its floor plan permanently, which is the better answer anyway:
+finished-room photographs cannot honestly illustrate "permits and engineering", but a drawing that
+gains dimensions, then structure, then furniture can.
+
+To cut frames if real footage ever arrives:
 
    ```bash
    tools/build-frames.sh <video-file-or-url> 72 1280
