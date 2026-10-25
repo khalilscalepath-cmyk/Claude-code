@@ -62,7 +62,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+/* height:auto is load-bearing. Every <img> carries width/height attributes so
+   the browser can reserve space before the file arrives, and those attributes
+   become presentational hints — a literal height in pixels. A hint beats
+   aspect-ratio, so without this the boxes below are set to the photograph's
+   full pixel height and object-fit crops a tall slice out of a wide picture. */
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 ::selection { background: var(--ink); color: var(--paper); }
@@ -154,7 +159,9 @@ p { margin: 0 0 var(--s2); }
 }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s3); }
 
-.hero__shot { margin-top: var(--s5); }
+/* <figure> comes with margin: 1em 40px from the UA sheet, which quietly
+   insets the photograph by 80px. */
+.hero__shot { margin: var(--s5) 0 0; }
 .hero__shot img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
 @media (max-width: 760px) { .hero__shot img { aspect-ratio: 4 / 3; } }
 
