@@ -1,0 +1,117 @@
+{
+  "_note": "EXAMPLE PROFILE. Northside Heating & Air is fictional and every figure here is illustrative. Before any sales call or go-live, rebuild this file from the real business's own website and Google listing (see skills/agent-suite). Never show a prospect a demo carrying another company's numbers.",
+  "agent_name": "Dana",
+  "business": {
+    "name": "Northside Heating & Air",
+    "trade": "HVAC",
+    "owner_or_office": "Ray",
+    "phone": "(602) 555-0142",
+    "address": "4120 N 7th St, Phoenix, AZ 85014",
+    "service_area": "Phoenix and the north valley \u2014 Scottsdale, Glendale, Peoria, Paradise Valley",
+    "service_area_short": "the Phoenix north valley",
+    "years_in_business": "since 2004",
+    "license": "AZ ROC #284119",
+    "website": "northsideheatingair.example"
+  },
+  "hours": {
+    "regular": "Monday to Friday, 7am to 5pm. Saturday 8am to noon.",
+    "closed": "Sundays",
+    "after_hours": "Emergency calls answered 24/7; after-hours visits carry a call-out fee."
+  },
+  "services": [
+    {
+      "name": "Diagnostic / service call",
+      "price_from": 89,
+      "price_to": 89,
+      "unit": "flat",
+      "notes": "Waived if you proceed with the repair that visit."
+    },
+    {
+      "name": "AC repair",
+      "price_from": 180,
+      "price_to": 1200,
+      "unit": "job",
+      "notes": "Depends entirely on the part. Exact figure after the tech sees it."
+    },
+    {
+      "name": "AC tune-up / maintenance",
+      "price_from": 129,
+      "price_to": 129,
+      "unit": "visit",
+      "notes": "Recommended twice a year in Phoenix heat."
+    },
+    {
+      "name": "New AC system installed",
+      "price_from": 6500,
+      "price_to": 14000,
+      "unit": "job",
+      "notes": "Depends on tonnage, SEER and ductwork. Free in-home quote."
+    },
+    {
+      "name": "Furnace / heat repair",
+      "price_from": 180,
+      "price_to": 1100,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Thermostat replacement",
+      "price_from": 220,
+      "price_to": 480,
+      "unit": "job",
+      "notes": "Smart thermostats at the upper end."
+    },
+    {
+      "name": "Duct cleaning",
+      "price_from": 450,
+      "price_to": 900,
+      "unit": "job",
+      "notes": "Priced by the number of vents."
+    }
+  ],
+  "policies": {
+    "after_hours_fee": "$150 call-out after 5pm, weekends and holidays",
+    "warranty": "1 year on our labour; manufacturer warranty on parts",
+    "payment": "Card, check or financing. The office takes payment \u2014 never the agent.",
+    "financing": "Available on new systems; the office explains the options",
+    "emergency": "No cooling above 100\u00b0F, no heat below 45\u00b0F, or anyone vulnerable in the home is treated as same-day"
+  },
+  "faqs": [
+    {
+      "q": "Do you charge for a quote?",
+      "a": "New system quotes are free. A diagnostic on a broken unit is $89, waived if you go ahead with the repair that day."
+    },
+    {
+      "q": "How soon can someone come out?",
+      "a": "Usually same or next day. Emergencies are same-day."
+    },
+    {
+      "q": "Do you work on all brands?",
+      "a": "Yes, all major brands."
+    },
+    {
+      "q": "Are you licensed and insured?",
+      "a": "Yes \u2014 AZ ROC #284119, licensed, bonded and insured, since 2004."
+    }
+  ],
+  "booking": {
+    "windows": "8am-11am, 11am-2pm, 2pm-5pm",
+    "lead_time": "Usually same or next day",
+    "confirm_by": "Someone from the office calls to confirm the exact time"
+  },
+  "review": {
+    "link": "https://g.page/r/EXAMPLE-REPLACE-ME/review",
+    "reactivation_days": 180,
+    "reactivation_service": "your six-month AC check before it gets hot",
+    "sms_window": "9am to 7pm"
+  },
+  "safety": {
+    "gas_emergency_line": "Southwest Gas on 877-860-6020"
+  },
+  "tone": "Straight-talking and warm, the way a good family-run Phoenix shop answers the phone. No corporate polish, no upselling. People calling in July are hot, tired and want a human who gets it.",
+  "unknowns": [
+    "Exact technician names and schedules",
+    "Whether a specific part is in stock",
+    "Anything about a customer's existing invoice or account balance"
+  ]
+}

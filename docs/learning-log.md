@@ -3,6 +3,11 @@
 Every video or source Khalil shares, what we took from it, and where it now lives.
 Newest first. Method: `skills/video-to-skill`.
 
+## 2026-10-25
+| Video | Creator | Takeaways | Saved in |
+|---|---|---|---|
+| [Build & Sell Claude AI Agents (2+ hr course)](https://youtu.be/kyngnLF27bw) | Oliver Rasmussen | Four agents (WhatsApp booking, Gmail speed-to-lead, Fish Audio voice receptionist, Google review + reactivation SMS) all built from one reusable prompt + knowledge base, then sold up a ladder. The money ideas: **price per booked appointment** (cost per lead ÷ their booking rate = what they already pay per appointment; charge visibly under it); **productise at $300–500/mo** instead of $2–5k retainers, which are 10× harder to close and churn in months; **enter on the review gap** because it's the one problem you can verify from outside and prove in public. Also: the show-up system (confirm the invite live → call 24h before with a research question → "see you in 2 hours" → email-guests if they're late), "what would make this a no?" to pull every objection out of a big account, $1 card-on-file for commitment, universal booking = a Google Sheet, not their calendar. Review gating is the thing that can erase a client's results — his compliant pattern (1–3 stars still see the link) is the one to copy. Numbers are self-reported and it funnels to a paid community + affiliate links; mechanics kept, claims not. | **New:** `brains/` (core brain + 4 channel prompts + compiler), `skills/agent-suite`, `demos/front-desk.html`, `production/gmail-speed-to-lead.gs`, `docs/06-business-plan-review-first.md` |
+
 ## 2026-10-22
 | Video | Creator | Takeaways | Saved in |
 |---|---|---|---|

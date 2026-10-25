@@ -20,7 +20,22 @@ docs/03-offer-playbook.md      Evidence → offer → pitch, diagnosis-call scri
 prospects/tier-a-2026-10.csv   First 8 researched prospects (import to Notion/CRM)
 templates/                     Voice-AI prompt, missed-call text-back, speed-to-lead flows
 leadengine/                    The scanner (Python)
+brains/                        One brain per client, compiled to four channel prompts
+demos/front-desk.html          Live four-agent demo for sales calls (publish as an artifact)
+production/                    Free 24/7 deployment (Google Apps Script)
+docs/06-business-plan-review-first.md   Why we enter on reviews, what to charge, the ladder
 ```
+
+## Build the agents for a client
+
+```bash
+python3 brains/compile.py --client northside-hvac --all --out out/northside/
+```
+
+One profile in `brains/clients/<client>.json` compiles to four prompts: text/WhatsApp booking,
+email speed-to-lead, voice receptionist, and review + reactivation. Facts live in the profile,
+reasoning in `brains/core-brain.md`; never hand-edit a compiled prompt. Full process, tests and
+pricing in `skills/agent-suite`.
 
 ## Run the lead engine
 
