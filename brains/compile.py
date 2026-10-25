@@ -187,7 +187,8 @@ def main():
     missing = [".".join(r) for r in REQUIRED if dig(p, r) in (None, "")]
     if missing:
         sys.exit(f"profile is missing required fields: {', '.join(missing)}")
-    if p.get("review", {}).get("link", "").find("EXAMPLE") != -1:
+    link = p.get("review", {}).get("link", "")
+    if not link.lower().startswith("http") or "example" in link.lower():
         print("  ! review.link is still the placeholder — the review agent will send a dead link",
               file=sys.stderr)
 

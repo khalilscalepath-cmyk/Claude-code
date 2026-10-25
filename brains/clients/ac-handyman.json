@@ -1,0 +1,78 @@
+{
+  "_note": "REAL BUSINESS. Every fact below is taken from air-conditioning-arizona.com and their public Google listing on 2026-10-25. Nothing is invented. Anything not published by them is in `unknowns`, so the agent says the office will confirm rather than guessing. Re-check before go-live — prices and hours move.",
+  "_source": "https://www.air-conditioning-arizona.com/ and Google Maps listing 0x872ba72844cdd5df:0x20dcb8a93ed26cea",
+
+  "agent_name": "Robin",
+  "business": {
+    "name": "A/C Handyman",
+    "trade": "air conditioning",
+    "owner_or_office": "Bradley",
+    "phone": "(480) 343-2530",
+    "address": "104 S Pomeroy, Mesa, AZ 85210",
+    "service_area": "Mesa, Tempe, Scottsdale, Chandler, Gilbert, Gold Canyon, Apache Junction, Queen Creek and Phoenix",
+    "service_area_short": "Mesa and the East Valley",
+    "years_in_business": "serving Arizona homes for 17 years",
+    "license": "AZ ROC #259312, licensed, bonded and insured",
+    "website": "air-conditioning-arizona.com"
+  },
+
+  "hours": {
+    "regular": "Open 7 days a week, 5am to 7pm",
+    "closed": "Nothing listed outside 5am-7pm",
+    "after_hours": "Nothing published about after-hours work. Never promise an after-hours visit — take the details and say Bradley will call back."
+  },
+
+  "services": [
+    { "name": "Service call / diagnostic", "price_from": 99.95, "price_to": 99.95, "unit": "flat", "notes": "The one price published on their site." },
+    { "name": "Air conditioning repair", "price_from": null, "price_to": null, "unit": "job", "notes": "All makes and models. Price only after Bradley sees it." },
+    { "name": "Heating repair", "price_from": null, "price_to": null, "unit": "job", "notes": "Gas heating, furnaces, electric heaters, heat pumps." },
+    { "name": "Swamp cooler service and repair", "price_from": null, "price_to": null, "unit": "job", "notes": null },
+    { "name": "Tune-up and maintenance", "price_from": null, "price_to": null, "unit": "visit", "notes": "Pre-summer checks." },
+    { "name": "Parts for do-it-yourselfers", "price_from": null, "price_to": null, "unit": "item", "notes": "They do sell parts over the counter." }
+  ],
+
+  "policies": {
+    "warranty": "One year warranty on all work",
+    "accreditation": "A+ rating with the Better Business Bureau",
+    "guarantee": "Satisfaction guaranteed",
+    "owner_operated": "Owner-operated — Bradley does the work himself, which is why customers ask for him by name",
+    "payment": "Not published. The office confirms — never discuss payment on the agent's side."
+  },
+
+  "faqs": [
+    { "q": "How much is a service call?", "a": "The service call is $99.95. What the repair itself costs depends on what Bradley finds once he's out there." },
+    { "q": "What brands do you work on?", "a": "All major brands — Trane, Amana, Ruud, Goodman, Carrier, York, Goettl, Payne, Lennox, Rheem, Kenmore, Coleman, Master Cool and Adobe Air among them." },
+    { "q": "What kind of systems?", "a": "Air conditioners, heat pumps, gas heating, furnaces, electric heaters and swamp coolers." },
+    { "q": "Are you licensed?", "a": "Yes — AZ ROC #259312, licensed, bonded and insured, with an A+ rating at the BBB." },
+    { "q": "Is there a warranty?", "a": "Yes, one year on all work." },
+    { "q": "Do you sell parts?", "a": "Yes, we sell parts for do-it-yourselfers." }
+  ],
+
+  "booking": {
+    "windows": "Not published — offer morning or afternoon and let Bradley confirm the exact time",
+    "lead_time": "Not published. Never promise same-day; say Bradley will confirm.",
+    "confirm_by": "Bradley calls back to confirm the time himself"
+  },
+
+  "review": {
+    "link": "REPLACE WITH THEIR GOOGLE REVIEW LINK BEFORE GO-LIVE",
+    "reactivation_days": 180,
+    "reactivation_service": "your pre-summer A/C check before the heat hits",
+    "sms_window": "9am to 7pm"
+  },
+
+  "safety": {
+    "gas_emergency_line": "Southwest Gas on 877-860-6020"
+  },
+
+  "tone": "Plain, honest and unhurried, the way a one-man shop talks. Their customers praise him for not using hard-sell tactics and for fair prices — never upsell, never pressure, never oversell urgency. Most callers in a Phoenix summer are hot and worried about the bill.",
+
+  "unknowns": [
+    "The price of any repair, part or replacement beyond the $99.95 service call",
+    "Whether Bradley can come today, and what his schedule looks like",
+    "Whether a specific part is on the van or has to be ordered",
+    "Anything about after-hours or emergency visits outside 5am-7pm",
+    "Financing, payment methods or card details",
+    "Anything about a customer's existing invoice or account"
+  ]
+}
