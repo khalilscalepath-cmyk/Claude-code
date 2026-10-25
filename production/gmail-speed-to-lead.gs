@@ -242,7 +242,9 @@ function callProvider(name, key, turns) {
 // Markers
 // ---------------------------------------------------------------------------
 
-var MARKER_RE = /\[\[(BOOKING|ESCALATE|OPTOUT)\]\]([\s\S]*?)\[\[\/\1\]\]/g;
+// Forgiving on purpose: models mis-close these (single brackets, a stray brace, no closing tag).
+// A booking that fails to parse is a job on the floor.
+var MARKER_RE = /\[{1,2}\s*(BOOKING|ESCALATE|OPTOUT)\s*\]{1,2}([\s\S]*?)(?:\[{1,2}\s*\/\s*\1\s*\]{1,2}|$)/gi;
 
 function stripMarkers(t) {
   return String(t).replace(MARKER_RE, '').replace(/\n{3,}/g, '\n\n').trim();
@@ -252,12 +254,30 @@ function readMarkers(t) {
   var out = [], m;
   MARKER_RE.lastIndex = 0;
   while ((m = MARKER_RE.exec(t)) !== null) {
-    var body = {};
-    try { body = JSON.parse(String(m[2]).trim()); } catch (e) { body = { notes: String(m[2]).slice(0, 400) }; }
-    body.kind = m[1] === 'BOOKING' ? 'booking' : (m[1] === 'ESCALATE' ? 'escalation' : 'optout');
+    var body = looseJson(String(m[2])) || { notes: String(m[2]).trim().slice(0, 400) };
+    var tag = String(m[1]).toUpperCase();
+    body.kind = tag === 'BOOKING' ? 'booking' : (tag === 'ESCALATE' ? 'escalation' : 'optout');
     out.push(body);
   }
   return out;
+}
+
+/** First balanced JSON object in a string, tolerating junk either side. */
+function looseJson(s) {
+  var start = s.indexOf('{');
+  if (start === -1) return null;
+  var depth = 0, inStr = false, esc = false;
+  for (var i = start; i < s.length; i++) {
+    var c = s.charAt(i);
+    if (esc) { esc = false; continue; }
+    if (c === '\\') { esc = true; continue; }
+    if (c === '"') { inStr = !inStr; continue; }
+    if (inStr) continue;
+    if (c === '{') depth++;
+    else if (c === '}') { depth--; if (depth === 0) {
+      try { return JSON.parse(s.substring(start, i + 1)); } catch (e) { return null; } } }
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------------------

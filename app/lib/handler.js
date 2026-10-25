@@ -29,7 +29,8 @@ async function handle(body) {
   const system = build(profile, channel);
 
   try {
-    const out = await ask(system, turns, { maxTokens: channel === "voice" ? 300 : 700 });
+    // Generous caps: reasoning models bill their thinking against this before writing a word.
+    const out = await ask(system, turns, { maxTokens: channel === "voice" ? 800 : 1500 });
     return {
       status: 200,
       json: {

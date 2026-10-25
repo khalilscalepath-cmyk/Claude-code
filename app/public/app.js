@@ -4,6 +4,7 @@
 const $ = id => document.getElementById(id);
 const qs = new URLSearchParams(location.search);
 const CLIENT = (qs.get("c") || qs.get("client") || "northside-hvac").toLowerCase();
+const AGENCY = qs.get("by") || "Scalepath";
 
 let P = null;                       // the client profile
 const KEY = "fd:" + CLIENT;         // records live per client, per browser
@@ -304,6 +305,10 @@ function seed() {
   $("h-chat").textContent =
     `A customer texts ${B.name}. Type anything a real one would.`;
   $("foot").textContent = `${B.trade} · ${B.service_area_short || B.service_area}`;
+  // Never let a demo pass as the business's own service.
+  const flag = $("demoFlag");
+  flag.textContent = `Demo prepared for ${B.name} by ${AGENCY}`;
+  flag.hidden = false;
 
   seed();
   renderRecs();

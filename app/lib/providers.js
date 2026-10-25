@@ -20,12 +20,18 @@ const PROVIDERS = [
     model: () => process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
     url: () => "https://api.groq.com/openai/v1/chat/completions",
     headers: key => ({ "content-type": "application/json", authorization: `Bearer ${key}` }),
-    body: (system, turns, model, maxTokens) => JSON.stringify({
-      model,
-      max_tokens: maxTokens,
-      temperature: 0.6,
-      messages: [{ role: "system", content: system }].concat(turns)
-    }),
+    body: (system, turns, model, maxTokens) => {
+      const b = {
+        model,
+        max_tokens: maxTokens,
+        temperature: 0.6,
+        messages: [{ role: "system", content: system }].concat(turns)
+      };
+      // gpt-oss spends max_tokens on a `reasoning` field before it writes `content`, so a tight
+      // cap comes back empty. Keep the thinking short: these are front-desk replies, not puzzles.
+      if (/gpt-oss/.test(model)) b.reasoning_effort = "low";
+      return JSON.stringify(b);
+    },
     parse: j => (j.choices && j.choices[0] && j.choices[0].message &&
                  j.choices[0].message.content || "").trim()
   },

@@ -18,6 +18,17 @@ const CHANNELS = {
 };
 const SELF_CONTAINED = new Set(["voice"]);
 
+// Compact channel rules, used by the runtime build. Short on purpose: free-tier accounts meter
+// tokens per minute, so every line here costs replies per minute.
+const COMPACT_CHANNEL = {
+  chat: `CHANNEL: live text message. Two or three short lines at most. Plain text only, no markdown, no bullets, no links. One question. Answer as if within 30 seconds.`,
+  email: `CHANNEL: email reply to a website form. The form already gave you their name, phone and email, so never ask for those again. 40 to 80 words, plain text, no HTML, no signature block beyond the sign-off. Acknowledge the specific problem, then give one question or two time options. Sign off as "{{OWNER_OR_OFFICE}}, {{BUSINESS_NAME}}" with {{PHONE}} on its own line. Reply with the body of the email only.`,
+  voice: `CHANNEL: a live phone call. You are speaking and they hear you. One or two sentences, then stop and let them talk, under 30 words. Say numbers as words, like "ten in the morning". No lists, never more than two options at once. If you cannot make out what they said, ask once more, then take their number for a human. Reply with only the words you speak.`,
+  review: `CHANNEL: a text to one of {{BUSINESS_NAME}}'s own past customers, sent as {{OWNER_OR_OFFICE}}, after a job. One or two short lines, plain text.
+COMPLIANCE, absolute: never route an unhappy customer away from Google, never hide the review link, never make it conditional on their rating. On 4 or 5 stars, thank them and send {{REVIEW_LINK}}, asking once and never again. On 1 to 3 stars, apologise once, ask what went wrong, offer {{OWNER_OR_OFFICE}}'s call, AND show the same link {{REVIEW_LINK}} anyway, then add [[ESCALATE]]{"reason":"low_rating","detail":"","phone":""}[[/ESCALATE]]. Never offer anything in exchange for a review and never write the words of one. If they mention a problem or another job, drop the review and book it.
+On STOP or any request to stop, reply once confirming they are unsubscribed, add [[OPTOUT]]{"phone":"","reason":""}[[/OPTOUT]], and never message again.`
+};
+
 const cache = new Map();
 const readCached = p => {
   const st = fs.statSync(p);
@@ -113,8 +124,9 @@ function groundTruthCompact(p) {
   return o.filter(Boolean).join(" ");
 }
 
-function build(profile, channel) {
+function build(profile, channel, opts) {
   if (!CHANNELS[channel]) throw new Error(`unknown channel "${channel}"`);
+  const compact = !(opts && opts.full);
   const p = profile, b = p.business;
   const gas = (p.safety || {}).gas_emergency_line;
   const rv = p.review || {};
@@ -141,10 +153,25 @@ function build(profile, channel) {
     REACTIVATION_SERVICE: rv.reactivation_service || "a check-up"
   };
 
-  const parts = [];
-  if (!SELF_CONTAINED.has(channel)) parts.push(readCached(path.join(BRAINS, "core-brain.md")));
-  parts.push(readCached(path.join(BRAINS, "agents", CHANNELS[channel])));
-  let text = parts.join("\n\n");
+  // Headline price: the first service with a real figure, for the "give the listed price" example.
+  const priced = (p.services || []).find(s => s.price_from != null);
+  vals.HEADLINE_PRICE = priced ? money(priced) : "the figure the office confirms";
+  vals.HOURS_SHORT = (p.hours && p.hours.regular) || "our opening hours";
+  vals.PHONE = b.phone || "";
+
+  let text;
+  // Voice already has a purpose-built short prompt; the generic compact one is bigger.
+  if (compact && !SELF_CONTAINED.has(channel)) {
+    text = readCached(path.join(BRAINS, "core-compact.md"));
+    text = text.replace(/^[\s\S]*?\n---\n/, "");          // drop the authoring note
+    vals.CHANNEL_RULES = COMPACT_CHANNEL[channel] || "";
+  } else {
+    const parts = [];
+    if (!SELF_CONTAINED.has(channel)) parts.push(readCached(path.join(BRAINS, "core-brain.md")));
+    parts.push(readCached(path.join(BRAINS, "agents", CHANNELS[channel])));
+    text = parts.join("\n\n");
+    vals.CHANNEL_RULES = "";
+  }
 
   // Strip the authoring notes and the platform-config tail; neither belongs in a system prompt.
   text = text.replace(/^#.*?\n\nPlaceholders[\s\S]*?\n\n---\n/, "");
@@ -152,7 +179,8 @@ function build(profile, channel) {
   text = text.replace(/^# Channel: .*$/gm, "");
   text = text.replace(/Voice agents degrade badly[\s\S]*?warns past 2,000\.\n\n---\n/, "");
 
-  for (const [k, v] of Object.entries(vals)) text = text.split("{{" + k + "}}").join(v);
+  for (let pass = 0; pass < 2; pass++)
+    for (const [k, v] of Object.entries(vals)) text = text.split("{{" + k + "}}").join(v);
 
   // Live conversation, not a document: say so once at the end.
   text = text.trim() + `
@@ -164,17 +192,38 @@ no stage directions, no "Agent:", no surrounding quotes, and no markdown formatt
 }
 
 // --- markers emitted by the agent ------------------------------------------
-const MARKER = /\[\[(BOOKING|ESCALATE|OPTOUT)\]\]([\s\S]*?)\[\[\/\1\]\]/g;
+// Deliberately forgiving. Models mis-close these: single brackets, a stray brace, a missing
+// closing tag. A booking that fails to parse is a job on the floor, so accept the near misses
+// rather than insisting on exact syntax.
+const MARKER = /\[{1,2}\s*(BOOKING|ESCALATE|OPTOUT)\s*\]{1,2}([\s\S]*?)(?:\[{1,2}\s*\/\s*\1\s*\]{1,2}|$)/gi;
 
 const stripMarkers = t => String(t).replace(MARKER, "").replace(/\n{3,}/g, "\n\n").trim();
+
+/** Pull the first balanced JSON object out of a string, tolerating junk either side. */
+function looseJson(s) {
+  const start = s.indexOf("{");
+  if (start === -1) return null;
+  let depth = 0, inStr = false, esc = false;
+  for (let i = start; i < s.length; i++) {
+    const c = s[i];
+    if (esc) { esc = false; continue; }
+    if (c === "\\") { esc = true; continue; }
+    if (c === '"') { inStr = !inStr; continue; }
+    if (inStr) continue;
+    if (c === "{") depth++;
+    else if (c === "}" && --depth === 0) {
+      try { return JSON.parse(s.slice(start, i + 1)); } catch (e) { return null; }
+    }
+  }
+  return null;
+}
 
 function readMarkers(t) {
   const out = [];
   for (const m of String(t).matchAll(MARKER)) {
-    let body = {};
-    try { body = JSON.parse(m[2].trim()); }
-    catch (e) { body = { notes: m[2].trim().slice(0, 400) }; }
-    body.kind = m[1] === "BOOKING" ? "booking" : m[1] === "ESCALATE" ? "escalation" : "optout";
+    const body = looseJson(m[2]) || { notes: m[2].trim().slice(0, 400) };
+    body.kind = m[1].toUpperCase() === "BOOKING" ? "booking"
+              : m[1].toUpperCase() === "ESCALATE" ? "escalation" : "optout";
     out.push(body);
   }
   return out;
