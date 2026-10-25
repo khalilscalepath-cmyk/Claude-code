@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AC Repair in Mesa, AZ | A/C Handyman | (480) 343-2530</title>
+<meta name="description" content="Owner-operated air conditioning repair in Mesa and the East Valley. $99.95 service call, one year warranty, 17 years, ROC #259312. Open 7 days, 5am to 7pm. Call (480) 343-2530.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{
+  --ink:#16181a; --ink-2:#444a4f; --line:#dcdfe1; --paper:#fff; --wash:#f4f2ef;
+  --hot:#c2410c; --hot-dark:#9a3412; --cold:#0e6b8a; --ok:#1a7f52;
+  --d:"Oswald",system-ui,sans-serif; --b:"Source Sans 3",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--b);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.w{width:100%;max-width:1060px;margin:0 auto;padding-inline:18px}
+h1,h2,h3{font-family:var(--d);font-weight:700;line-height:1.08;margin:0;text-transform:uppercase;letter-spacing:.01em}
+h1{font-size:clamp(30px,7vw,54px)}
+h2{font-size:clamp(23px,4.4vw,34px)}
+h3{font-size:19px}
+p{margin:0}
+
+/* sticky call bar */
+.bar{position:sticky;top:0;z-index:50;background:var(--ink);color:#fff;border-bottom:3px solid var(--hot)}
+.bar .w{display:flex;align-items:center;gap:12px;padding-block:9px}
+.logo{font-family:var(--d);font-size:19px;letter-spacing:.02em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo b{color:var(--hot)}
+.callbtn{background:var(--hot);color:#fff;text-decoration:none;font-family:var(--d);font-size:17px;
+  padding:10px 16px;border-radius:3px;white-space:nowrap;letter-spacing:.02em}
+.callbtn:hover{background:var(--hot-dark)}
+
+/* hero */
+.hero{background:var(--wash);border-bottom:1px solid var(--line)}
+.hero .w{padding-block:34px 30px}
+.kicker{font-family:var(--d);font-size:14px;color:var(--hot);letter-spacing:.09em;margin-bottom:10px}
+.hero h1{max-width:16ch}
+.hero .lede{margin-top:14px;font-size:19px;color:var(--ink-2);max-width:48ch}
+.price{display:inline-flex;align-items:baseline;gap:9px;margin-top:20px;background:var(--ink);color:#fff;
+  padding:11px 17px;border-radius:3px}
+.price b{font-family:var(--d);font-size:27px;color:#fff}
+.price span{font-size:15px;color:#cfd4d7}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{font-family:var(--d);font-size:18px;text-decoration:none;padding:14px 22px;border-radius:3px;
+  letter-spacing:.02em;border:2px solid var(--ink);display:inline-block}
+.btn.p{background:var(--hot);border-color:var(--hot);color:#fff}
+.btn.p:hover{background:var(--hot-dark);border-color:var(--hot-dark)}
+.btn.s{background:transparent;color:var(--ink)}
+.btn.s:hover{background:var(--ink);color:#fff}
+.trust{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.trust div{font-size:14px;color:var(--ink-2)}
+.trust b{display:block;font-family:var(--d);font-size:17px;color:var(--ink);letter-spacing:.01em}
+
+section{padding-block:44px}
+.lead-in{color:var(--ink-2);max-width:56ch;margin-top:10px}
+
+/* services */
+.svcs{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+.svc{background:var(--paper);padding:20px 18px}
+.svc h3{color:var(--hot)}
+.svc p{margin-top:6px;color:var(--ink-2);font-size:16px}
+
+/* reviews */
+.revs{display:grid;grid-template-columns:1fr;gap:16px;margin-top:24px}
+.rev{border-left:3px solid var(--hot);padding:4px 0 4px 16px}
+.rev p{font-size:17px}
+.rev cite{display:block;margin-top:8px;font-style:normal;font-size:14px;color:var(--ink-2);font-weight:600}
+.gscore{margin-top:22px;padding:14px 16px;background:var(--wash);border:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+.gscore b{color:var(--ink)}
+
+/* area */
+.towns{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding:0;list-style:none}
+.towns li{font-family:var(--d);font-size:16px;background:var(--wash);border:1px solid var(--line);
+  padding:7px 13px;border-radius:3px}
+
+/* why */
+.why{display:grid;grid-template-columns:1fr;gap:18px;margin-top:24px}
+.why div{padding-left:16px;border-left:3px solid var(--cold)}
+.why h3{font-size:17px}
+.why p{margin-top:5px;color:var(--ink-2);font-size:16px}
+
+/* form */
+.formwrap{background:var(--ink);color:#fff}
+.formwrap h2{color:#fff}
+.formwrap .lead-in{color:#c3c9cd}
+form{margin-top:22px;display:grid;gap:12px;max-width:520px}
+label{font-size:14px;font-weight:600;color:#cfd4d7;display:block;margin-bottom:5px}
+input,textarea{width:100%;font:inherit;font-size:17px;padding:12px 13px;border:1px solid #3a4046;
+  border-radius:3px;background:#23262a;color:#fff}
+input:focus,textarea:focus{outline:2px solid var(--hot);outline-offset:1px}
+textarea{min-height:92px;resize:vertical}
+.sub{font-family:var(--d);font-size:19px;background:var(--hot);color:#fff;border:0;padding:15px;
+  border-radius:3px;cursor:pointer;letter-spacing:.02em}
+.sub:hover{background:var(--hot-dark)}
+.formnote{font-size:14px;color:#aeb5ba;margin-top:4px}
+.formok{display:none;background:var(--ok);color:#fff;padding:13px 15px;border-radius:3px;font-weight:600}
+
+/* chat */
+.chatbtn{position:fixed;right:14px;bottom:14px;z-index:60;background:var(--ink);color:#fff;border:2px solid var(--hot);
+  font-family:var(--d);font-size:16px;padding:13px 18px;border-radius:3px;cursor:pointer;letter-spacing:.02em}
+.chat{position:fixed;right:14px;bottom:14px;z-index:61;width:min(370px,calc(100vw - 28px));height:min(520px,calc(100vh - 28px));
+  background:var(--paper);border:1px solid var(--ink);border-radius:4px;display:none;flex-direction:column;
+  box-shadow:0 18px 50px -14px rgba(0,0,0,.45)}
+.chat.on{display:flex}
+.chat header{background:var(--ink);color:#fff;padding:11px 13px;display:flex;align-items:center;gap:9px}
+.chat header b{font-family:var(--d);font-size:16px;flex:1}
+.chat header button{background:none;border:0;color:#fff;font-size:21px;cursor:pointer;line-height:1;padding:0 4px}
+.msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px;background:var(--wash)}
+.m{max-width:85%;padding:9px 12px;border-radius:12px;font-size:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.m.a{background:var(--paper);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.m.u{background:var(--cold);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.m.w{color:var(--ink-2);font-style:italic}
+.chat form{margin:0;padding:10px;border-top:1px solid var(--line);display:flex;gap:8px;max-width:none;background:var(--paper)}
+.chat input{background:var(--paper);color:var(--ink);border-color:var(--line);font-size:16px;padding:10px 12px}
+.chat .sub{padding:10px 15px;font-size:16px}
+.chatnote{font-size:12px;color:var(--ink-2);padding:0 10px 9px;background:var(--paper)}
+
+footer{background:var(--wash);border-top:1px solid var(--line);font-size:15px;color:var(--ink-2)}
+footer .w{padding-block:28px}
+footer b{color:var(--ink);font-family:var(--d);font-size:17px;letter-spacing:.01em}
+footer a{color:var(--ink);font-weight:600}
+.nap{display:grid;gap:16px;grid-template-columns:1fr;margin-top:14px}
+.built{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:13px}
+
+@media (min-width:720px){
+  .svcs{grid-template-columns:1fr 1fr}
+  .revs{grid-template-columns:1fr 1fr}
+  .why{grid-template-columns:1fr 1fr}
+  .nap{grid-template-columns:repeat(3,1fr)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="w">
+    <div class="logo">A/C <b>HANDYMAN</b></div>
+    <a class="callbtn" href="tel:+14803432530">Call (480) 343-2530</a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="w">
+    <div class="kicker">Mesa, AZ · Owner operated · 17 years</div>
+    <h1>AC Repair in Mesa, 7 Days a Week</h1>
+    <p class="lede">Bradley does the work himself. No call centre, no commission, no hard sell.
+      Air conditioning, heating and swamp coolers across the East Valley.</p>
+
+    <div class="price"><b>$99.95</b><span>service call, all makes and models</span></div>
+
+    <div class="cta">
+      <a class="btn p" href="tel:+14803432530">Call (480) 343-2530</a>
+      <a class="btn s" href="#request">Request a visit</a>
+    </div>
+
+    <div class="trust">
+      <div><b>ROC #259312</b>Licensed, bonded, insured</div>
+      <div><b>A+ rated</b>Better Business Bureau</div>
+      <div><b>1 year</b>Warranty on all work</div>
+      <div><b>5am to 7pm</b>Open 7 days</div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="w">
+    <h2>What we fix</h2>
+    <p class="lead-in">Residential work across Mesa and the East Valley. If it blows hot, blows
+      nothing, or trips the breaker, call before it gets worse in the heat.</p>
+    <div class="svcs">
+      <div class="svc"><h3>Air conditioning repair</h3>
+        <p>All makes and models. Not cooling, not running, freezing up, or making a noise it did not
+        make last week.</p></div>
+      <div class="svc"><h3>Heating repair</h3>
+        <p>Gas heating, furnaces, electric heaters and heat pumps, for the three weeks a year Phoenix
+        needs them.</p></div>
+      <div class="svc"><h3>Swamp coolers</h3>
+        <p>Service, repair and seasonal changeovers on evaporative coolers, including Master Cool and
+        Adobe Air.</p></div>
+      <div class="svc"><h3>Tune-ups and maintenance</h3>
+        <p>Get it checked before June rather than during it. A clean filter and a tested capacitor
+        prevent most of the calls we take.</p></div>
+      <div class="svc"><h3>Parts for do-it-yourselfers</h3>
+        <p>Know what you need and want to fit it yourself? We sell the parts. Few companies will.</p></div>
+      <div class="svc"><h3>All major brands</h3>
+        <p>Trane, Amana, Ruud, Goodman, Carrier, York, Goettl, Payne, Lennox, Rheem, Kenmore and
+        Coleman.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--wash);border-block:1px solid var(--line)">
+  <div class="w">
+    <h2>What customers say</h2>
+    <p class="lead-in">Published on our site and on Google. Names and towns are theirs.</p>
+    <div class="revs">
+      <div class="rev"><p>"My A/C wasn't blowing cool, so I called at 7:00 am on a Friday. He showed up
+        at 8:30 the same day. Added freon, and didn't try any hard sell tactics."</p>
+        <cite>Russ, Mesa AZ</cite></div>
+      <div class="rev"><p>"I called Brad early Sunday AM. By 10:00 AM, the air was cold and I was
+        relieved not to have a ridiculous bill."</p>
+        <cite>Les, Scottsdale AZ</cite></div>
+      <div class="rev"><p>"Bradley came and diagnosed the problem to be a motor, and returned after
+        finishing his other work that day, which ended up being 11:00pm, so my family could get some
+        sleep."</p><cite>John Shumway, Queen Creek AZ</cite></div>
+      <div class="rev"><p>"A/C Handyman is on time, professional and charges a fair price."</p>
+        <cite>Ethel Duplisea, Mesa AZ</cite></div>
+    </div>
+    <p class="gscore"><b>4.6 out of 5 on Google</b>, from 37 reviews. Read them, and the ones we have
+      not cherry-picked, on our Google listing.</p>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2>Where we work</h2>
+    <p class="lead-in">Based at 104 S Pomeroy in Mesa, covering the East Valley and into Phoenix.</p>
+    <ul class="towns">
+      <li>Mesa</li><li>Tempe</li><li>Scottsdale</li><li>Chandler</li><li>Gilbert</li>
+      <li>Gold Canyon</li><li>Apache Junction</li><li>Queen Creek</li><li>Phoenix</li>
+    </ul>
+  </div>
+</section>
+
+<section style="background:var(--wash);border-block:1px solid var(--line)">
+  <div class="w">
+    <h2>Why people call Brad back</h2>
+    <div class="why">
+      <div><h3>You get the owner</h3>
+        <p>Bradley diagnoses it and Bradley fixes it. Nobody is paid commission to find you a second
+        problem.</p></div>
+      <div><h3>One price to come out</h3>
+        <p>$99.95 for the service call. What the repair costs depends on what it needs, and you hear
+        that number before any work starts.</p></div>
+      <div><h3>One year warranty</h3>
+        <p>On all work. Seventeen years in the same valley means standing behind it.</p></div>
+      <div><h3>We will tell you not to</h3>
+        <p>If a part is fine, we say so. If you can fix it yourself, we will sell you the part.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="formwrap" id="request">
+  <section>
+    <div class="w">
+      <h2>Request a visit</h2>
+      <p class="lead-in">Send this and you get a reply within minutes, including evenings. Or just
+        call, which is usually faster.</p>
+
+      <form id="leadform" novalidate>
+        <div><label for="nm">Your name</label><input id="nm" name="name" autocomplete="name" required></div>
+        <div><label for="ph">Phone</label><input id="ph" name="phone" type="tel" autocomplete="tel" required>
+          <p class="formnote">Required. It is how Bradley confirms the time.</p></div>
+        <div><label for="em">Email</label><input id="em" name="email" type="email" autocomplete="email"></div>
+        <div><label for="ms">What is it doing?</label><textarea id="ms" name="message" required></textarea></div>
+        <button class="sub" type="submit">Request a visit</button>
+        <p class="formok" id="formok">Thanks. You will get a reply shortly, and Bradley will call to
+          confirm the time.</p>
+        <p class="formnote" id="formerr" hidden></p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="w">
+    <b>A/C HANDYMAN</b>
+    <div class="nap">
+      <div>104 S Pomeroy<br>Mesa, AZ 85210<br>
+        <a href="tel:+14803432530">(480) 343-2530</a></div>
+      <div>Open 7 days a week<br>5am to 7pm<br>Residential service</div>
+      <div>AZ ROC #259312<br>Licensed, bonded, insured<br>A+ with the BBB</div>
+    </div>
+    <p class="built">Serving Mesa, Tempe, Scottsdale, Chandler, Gilbert, Gold Canyon, Apache Junction,
+      Queen Creek and Phoenix.</p>
+  </div>
+</footer>
+
+<button class="chatbtn" id="chatbtn" type="button">Ask about a repair</button>
+
+<div class="chat" id="chat" role="dialog" aria-label="Ask about a repair">
+  <header><b>A/C Handyman</b><button id="chatx" type="button" aria-label="Close">&times;</button></header>
+  <div class="msgs" id="msgs"></div>
+  <form id="chatform">
+    <input id="chatin" placeholder="What is it doing?" aria-label="Your message" autocomplete="off">
+    <button class="sub" type="submit">Send</button>
+  </form>
+  <p class="chatnote">Answers come from A/C Handyman's assistant. Bradley confirms every booking.</p>
+</div>
+
+<script>
+/* ---- config: point these at your own endpoints before go-live ---- */
+var AGENT_API   = window.AGENT_API   || "http://localhost:8787/api/agent";
+var CLIENT_SLUG = window.CLIENT_SLUG || "ac-handyman";
+var WEB3FORMS_KEY = window.WEB3FORMS_KEY || "";   /* web3forms.com, free, 250/mo */
+
+/* ---- request form ---- */
+var form = document.getElementById("leadform");
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  var err = document.getElementById("formerr");
+  err.hidden = true;
+  var data = Object.fromEntries(new FormData(form).entries());
+  if (!data.name || !data.phone || !data.message) {
+    err.textContent = "Please add your name, phone and what it is doing."; err.hidden = false; return;
+  }
+  if (!WEB3FORMS_KEY) {
+    err.textContent = "Form not connected yet. Please call (480) 343-2530.";
+    err.hidden = false; return;
+  }
+  try {
+    var r = await fetch("https://api.web3forms.com/submit", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify(Object.assign({ access_key: WEB3FORMS_KEY,
+        subject: "New request from " + data.name }, data))
+    });
+    if (!r.ok) throw new Error("submit failed");
+    form.reset();
+    document.getElementById("formok").style.display = "block";
+  } catch (ex) {
+    err.textContent = "That did not send. Please call (480) 343-2530."; err.hidden = false;
+  }
+});
+
+/* ---- chat ---- */
+var chat = document.getElementById("chat"), msgs = document.getElementById("msgs");
+var turns = [], busy = false;
+function bubble(cls, text) {
+  var d = document.createElement("div");
+  d.className = "m " + cls; d.textContent = text;
+  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+  return d;
+}
+function openChat() {
+  chat.classList.add("on");
+  document.getElementById("chatbtn").hidden = true;
+  if (!msgs.children.length) bubble("a", "Hi, what is the unit doing?");
+  document.getElementById("chatin").focus();
+}
+document.getElementById("chatbtn").addEventListener("click", openChat);
+document.getElementById("chatx").addEventListener("click", function () {
+  chat.classList.remove("on"); document.getElementById("chatbtn").hidden = false;
+});
+document.getElementById("chatform").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  var input = document.getElementById("chatin");
+  var text = input.value.trim();
+  if (!text || busy) return;
+  busy = true; input.value = "";
+  bubble("u", text);
+  turns.push({ role: "user", content: text });
+  var ph = bubble("a w", "...");
+  try {
+    var res = await fetch(AGENT_API, {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ client: CLIENT_SLUG, channel: "chat", turns: turns.slice(-20) })
+    });
+    var j = await res.json();
+    if (!res.ok) throw new Error(j.error || "unavailable");
+    ph.className = "m a"; ph.textContent = j.reply;
+    turns.push({ role: "assistant", content: j.reply });
+  } catch (ex) {
+    ph.className = "m a";
+    ph.textContent = "Sorry, I cannot answer right now. Please call (480) 343-2530.";
+  }
+  busy = false; input.focus();
+});
+</script>
+</body>
+</html>
