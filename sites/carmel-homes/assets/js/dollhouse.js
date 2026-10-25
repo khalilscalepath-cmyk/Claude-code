@@ -28,6 +28,12 @@ const WALL = 0.55;   // wall thickness
 const CUT = 4.6;     // height the walls are cut to, so you can see in
 const ROOF = 9.0;    // where the roof planes float
 
+/* How far the page may turn the house. Exported so the framing below and the
+ * scroll driver on the page agree — the camera is pulled back far enough that
+ * the house never crops anywhere in this range, and no further. */
+export const TURN_FROM = -0.85;
+export const TURN_TO = 0.70;
+
 const ROOMS = [
   { name: 'Living',  x0: 0,  x1: 18, z0: 0,  z1: 14, floor: 0xb08456 },
   { name: 'Garage',  x0: 0,  x1: 18, z0: 14, z1: 23, floor: 0x8a8a8f },
@@ -79,7 +85,7 @@ export function buildHouse() {
   const stucco = mat(0xeae3d8, { rough: 0.95 });
   const inner = mat(0xf2ece2, { rough: 0.95 });
 
-  slab(house, -2.5, W + 2.5, -2.5, D + 2.5, -0.45, 0.45, mat(0xcfc6b6, { rough: 1 }));
+  slab(house, -1.2, W + 1.2, -1.2, D + 1.2, -0.45, 0.45, mat(0xcfc6b6, { rough: 1 }));
   for (const r of ROOMS) {
     slab(house, r.x0, r.x1, r.z0, r.z1, 0, 0.12, mat(r.floor, { rough: 0.65 }));
   }
@@ -188,15 +194,85 @@ export function mount(canvas) {
 
   const roofs = ['roofA', 'roofB'].map(n => house.getObjectByName(n)).filter(Boolean);
 
+  // The corners the camera has to keep in frame at a given rotation: the
+  // plan's footprint, at the ground and at the top of the cut walls. The roof
+  // is translucent and fades as it lifts, so it is allowed to run off the top
+  // rather than pushing the camera back and shrinking the house.
+  const HX = W / 2 + 1.2, HZ = D / 2 + 1.2;
+  const corners = [];
+  for (const x of [-HX, HX]) for (const z of [-HZ, HZ]) {
+    for (const y of [-0.5, CUT + 0.6]) corners.push(new THREE.Vector3(x, y, z));
+  }
+
+  const TARGET = new THREE.Vector3(0, 3.0, 0);
+  const DIR = new THREE.Vector3(0, 0.64, 1.00).normalize();
+  const probe = new THREE.Vector3();
+
+  /** Put the camera `dist` back along DIR and return the worst |ndc| of the
+   *  plan rotated by `t`. */
+  function worstAt(dist, t) {
+    camera.position.copy(DIR).multiplyScalar(dist).add(TARGET);
+    camera.lookAt(TARGET);
+    camera.updateMatrixWorld();
+    camera.updateProjectionMatrix();
+    const c = Math.cos(t), sn = Math.sin(t);
+    let worst = 0;
+    for (const p of corners) {
+      probe.set(p.x * c + p.z * sn, p.y, -p.x * sn + p.z * c).project(camera);
+      worst = Math.max(worst, Math.abs(probe.x), Math.abs(probe.y));
+    }
+    return worst;
+  }
+
+  /** Distance at which the plan rotated by `t` just fills the frame. */
+  function solve(t) {
+    let dist = 80;
+    for (let i = 0; i < 10; i++) {
+      const worst = worstAt(dist, t);
+      if (!isFinite(worst) || worst <= 0) break;
+      const next = dist * (worst / 0.96);
+      if (Math.abs(next - dist) < 0.05) { dist = next; break; }
+      dist = next;
+    }
+    return dist;
+  }
+
+  /* A rectangle sweeps a lot more of the frame on its diagonal than square on,
+   * so one fixed distance either crops at the extremes or leaves the house
+   * small in the middle. Instead the camera eases back and in with the turn.
+   * The distances are solved once per layout and read back by interpolation,
+   * which keeps the per-frame cost to arithmetic. */
+  const STEPS = 48;
+  const dists = new Float64Array(STEPS + 1);
+
+  function solveTable() {
+    for (let i = 0; i <= STEPS; i++) {
+      dists[i] = solve(TURN_FROM + (TURN_TO - TURN_FROM) * (i / STEPS));
+    }
+  }
+
+  function distanceFor(t) {
+    const span = TURN_TO - TURN_FROM;
+    const u = Math.min(1, Math.max(0, (t - TURN_FROM) / span)) * STEPS;
+    const i = Math.min(STEPS - 1, Math.floor(u));
+    return dists[i] + (dists[i + 1] - dists[i]) * (u - i);
+  }
+
   let turn = 0, lift = 0;
 
   function render() {
     rig.rotation.y = turn;
     // the roof lifts away as you scroll in, so the rooms open up
     for (const r of roofs) {
-      r.position.y = (r.name === 'roofA' ? ROOF : ROOF - 1.4) + 0.25 + lift * 7;
-      r.material.opacity = 0.2 * (1 - lift * 0.8);
+      r.position.y = (r.name === 'roofA' ? ROOF : ROOF - 1.4) + 0.25 + lift * 4.2;
+      // Gone by the time it has risen, so the finished state is six open
+      // rooms and not a pale slab hanging over them.
+      r.material.opacity = 0.22 * Math.max(0, 1 - lift);
+      r.visible = r.material.opacity > 0.004;
     }
+    camera.position.copy(DIR).multiplyScalar(distanceFor(turn)).add(TARGET);
+    camera.lookAt(TARGET);
+    camera.updateProjectionMatrix();
     renderer.render(scene, camera);
   }
 
@@ -206,15 +282,8 @@ export function mount(canvas) {
     const h = Math.max(1, Math.round(r.height));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-
-    // Frame the house. Narrow screens pull back so it never crops; the
-    // look-at sits above the slab so the mass fills the canvas instead of
-    // floating in its top half.
-    const portrait = w / h < 1;
-    const dist = portrait ? 96 : 72;
-    camera.position.set(0, dist * 0.58, dist * 0.74);
-    camera.lookAt(0, portrait ? 3.4 : 4.2, 0);
     camera.updateProjectionMatrix();
+    solveTable();
     render();
   }
 

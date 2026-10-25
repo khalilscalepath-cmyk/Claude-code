@@ -62,7 +62,7 @@ async function paintedRatio(page) {
 
     await page.screenshot({ path: `${OUT}/${label}-01-hero.png` });
 
-    // --- where does each pinned section actually live? ---
+    // --- section geometry ---
     const marks = await page.evaluate(() => {
       const out = {};
       const sec = s => {
@@ -71,130 +71,83 @@ async function paintedRatio(page) {
         const r = el.getBoundingClientRect();
         return { top: Math.round(r.top + window.scrollY), h: Math.round(r.height) };
       };
-      out.process = sec('.process');
-      out.figures = sec('.figures');
-      out.work = sec('.work');
-      out.tour = sec('.tour');
-      out.jamie = sec('.jamie');
+      out.work = sec('#work');
+      out.process = sec('#process');
+      out.jamie = sec('#jamie');
       out.contact = sec('#contact');
-      out.triggers = ScrollTrigger.getAll()
-        .filter(t => t.pin)
-        .map(t => ({
-          cls: (t.trigger.className || '').toString().split(' ')[1] || t.trigger.className,
-          start: Math.round(t.start), end: Math.round(t.end),
-        }));
+      out.figures = sec('.figures');
+      out.triggers = ScrollTrigger.getAll().filter(t => t.pin).length;
       return out;
     });
 
-    const workPin = marks.triggers.find(t => String(t.cls).includes('work'));
-
-    if (workPin && Math.abs(workPin.start - marks.work.top) > 40) {
-      problems.push(`${label}: work pin starts at ${workPin.start} but section is at ${marks.work.top}`);
+    for (const [name, m] of Object.entries(marks)) {
+      if (m === null) problems.push(`${label}: section ${name} is missing from the page`);
     }
 
-    // At most two pinned sections. Three fights native scroll and hurts
-    // mobile, per the UI/UX guidance; the 3D process scrub was the third.
-    if (marks.triggers.length > 2) {
-      problems.push(`${label}: ${marks.triggers.length} pinned sections (want at most 2): ` +
-        marks.triggers.map(t => t.cls).join(', '));
+    // Swiss layout: nothing is pinned. Pinning fights native scroll and the
+    // design does not need it.
+    if (marks.triggers > 0) {
+      problems.push(`${label}: ${marks.triggers} pinned sections (this layout wants 0)`);
     }
 
-    // --- process: all four phases plus the finished-house payoff ---
-    await scrollTo(page, marks.process.top - 80, 2200);
-    await page.screenshot({ path: `${OUT}/${label}-02-process.png` });
-    const proc = await page.evaluate(() => {
-      const rows = [...document.querySelectorAll('.phase-row')];
-      const fin = document.querySelector('.process__finish img');
+    // --- work: all nine projects, every photograph loaded ---
+    await scrollTo(page, marks.work.top + 200, 1800);
+    await page.screenshot({ path: `${OUT}/${label}-02-work.png` });
+    const work = await page.evaluate(() => {
+      const cards = [...document.querySelectorAll('.project')];
+      const imgs = cards.map(c => c.querySelector('img')).filter(Boolean);
       return {
-        rows: rows.length,
-        blank: rows.filter(r => !r.querySelector('h3')?.textContent.trim()).length,
-        hidden: rows.filter(r => parseFloat(getComputedStyle(r).opacity) < 0.05).length,
-        finishLoaded: !!fin && fin.complete && fin.naturalWidth > 0,
+        cards: cards.length,
+        broken: imgs.filter(i => i.complete && i.naturalWidth === 0).length,
+        unnamed: cards.filter(c => !c.querySelector('h3')?.textContent.trim()).length,
+        counts: cards.filter(c => /\d/.test(c.querySelector('.mark')?.textContent || '')).length,
+        offscreenRight: cards.filter(c => c.getBoundingClientRect().left > innerWidth + 4).length,
       };
     });
-    if (proc.rows !== 4) problems.push(`${label}: ${proc.rows} phase rows (want 4)`);
-    if (proc.blank) problems.push(`${label}: ${proc.blank} phase rows with no heading`);
-    if (!proc.finishLoaded) problems.push(`${label}: the finished-house photo did not load`);
+    if (work.cards !== 9) problems.push(`${label}: ${work.cards} project cards (want 9)`);
+    if (work.broken) problems.push(`${label}: ${work.broken} project photographs failed to load`);
+    if (work.unnamed) problems.push(`${label}: ${work.unnamed} project cards with no name`);
+    if (work.counts !== 9) problems.push(`${label}: only ${work.counts}/9 cards show a photo count`);
+    if (work.offscreenRight) problems.push(`${label}: ${work.offscreenRight} cards sit off the right edge`);
 
     // --- figures ---
     await scrollTo(page, marks.figures.top - 120, 2600);
     const figures = await page.evaluate(() =>
-      [...document.querySelectorAll('[data-countup]')].map(n => n.textContent.trim()));
+      [...document.querySelectorAll('[data-countup]')].map(e => e.textContent.trim()));
     if (figures.some(f => !f)) problems.push(`${label}: CountUp empty: ${JSON.stringify(figures)}`);
-    if (figures[0] && figures[0] !== '1986') problems.push(`${label}: first figure settled on "${figures[0]}" not 1986`);
-    await page.screenshot({ path: `${OUT}/${label}-03-figures.png` });
+    if (figures[0] && figures[0] !== '1986') {
+      problems.push(`${label}: first figure settled on "${figures[0]}" not 1986`);
+    }
 
-    // --- work, mid-track ---
-    const workMid = workPin ? workPin.start + (workPin.end - workPin.start) * 0.45 : marks.work.top + 400;
-    await scrollTo(page, workMid, 1100);
-
-    const workState = await page.evaluate(() => {
-      const first = document.querySelector('.project');
-      if (!first) return null;
-      const r = first.getBoundingClientRect();
-      const names = [...document.querySelectorAll('.project__name')]
-        .filter(n => { const b = n.getBoundingClientRect(); return b.left < window.innerWidth && b.right > 0; })
-        .map(n => n.textContent.trim());
-      return { firstLeft: Math.round(r.left), visibleNames: names, heading: !!document.querySelector('.work h2') };
+    // --- process: four phases, and the dollhouse if WebGL is available ---
+    await scrollTo(page, marks.process.top + 150, 2000);
+    await page.screenshot({ path: `${OUT}/${label}-03-process.png` });
+    const proc = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll('.phase')];
+      const house = document.querySelector('[data-house]');
+      const canvas = document.querySelector('[data-house-canvas]');
+      let gl = false;
+      try { const c = document.createElement('canvas');
+        gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) {}
+      return {
+        rows: rows.length,
+        blank: rows.filter(r => !r.querySelector('h3')?.textContent.trim()).length,
+        gl,
+        houseShown: !!house && !house.hidden,
+        canvasSized: !!canvas && canvas.width > 0 && canvas.height > 0,
+      };
     });
-    if (!workState || workState.visibleNames.length === 0) {
-      problems.push(`${label}: no project cards on screen mid-work (${JSON.stringify(workState)})`);
-    }
-    await page.screenshot({ path: `${OUT}/${label}-04-work.png` });
+    if (proc.rows !== 4) problems.push(`${label}: ${proc.rows} phase rows (want 4)`);
+    if (proc.blank) problems.push(`${label}: ${proc.blank} phase rows with no heading`);
+    // Only assert the dollhouse where the browser can actually run it.
+    if (proc.gl && !proc.houseShown) problems.push(`${label}: WebGL available but the dollhouse stayed hidden`);
+    if (proc.houseShown && !proc.canvasSized) problems.push(`${label}: dollhouse canvas has no size`);
 
-    // --- the house tour (desktop only) ---
-    if (label === 'desktop') {
-      const tourPin = marks.triggers.find(t => String(t.cls).includes('tour'));
-      if (!tourPin) {
-        problems.push('desktop: tour section never pinned');
-      } else {
-        if (Math.abs(tourPin.start - marks.tour.top) > 40) {
-          problems.push(`desktop: tour pin starts at ${tourPin.start} but section is at ${marks.tour.top}`);
-        }
-        // Each room holds for three quarters of its segment and dissolves over
-        // the last quarter, so across the scroll most samples must show exactly
-        // one room. A single sample is flaky — scroll position does not map
-        // cleanly onto settled scrub progress — so sample across the section
-        // and assert the proportion. The regression this guards is the
-        // double exposure: two rooms at half opacity for most of the scroll.
-        const span = tourPin.end - tourPin.start;
-        let singles = 0, samples = 0, maxLit = 0, lastCounter = '';
-        for (const f of [0.08, 0.2, 0.32, 0.44, 0.56, 0.68, 0.8, 0.92]) {
-          await scrollTo(page, tourPin.start + span * f, 650);
-          const st = await page.evaluate(() => {
-            const ops = [...document.querySelectorAll('[data-tour-frames] img')]
-              .map(i => +getComputedStyle(i).opacity);
-            return {
-              lit: ops.filter(o => o > 0.02).length,
-              counter: document.querySelector('[data-tour-counter]').textContent.trim(),
-            };
-          });
-          samples++;
-          if (st.lit === 1) singles++;
-          maxLit = Math.max(maxLit, st.lit);
-          lastCounter = st.counter;
-        }
-        if (maxLit > 2) problems.push(`desktop: ${maxLit} tour frames lit at once`);
-        if (singles < 5) {
-          problems.push(`desktop: only ${singles}/${samples} tour samples showed a single room — rooms are blending instead of holding`);
-        }
-        if (/Room 1 of/.test(lastCounter)) {
-          problems.push('desktop: tour never advanced past the first room');
-        }
-
-        const tour = await page.evaluate(() => ({
-          frames: document.querySelectorAll('[data-tour-frames] img').length,
-        }));
-        if (tour.frames < 12) problems.push(`desktop: only ${tour.frames} tour frames loaded`);
-
-        await page.screenshot({ path: `${OUT}/desktop-04b-tour.png` });
-      }
-    } else {
-      // phones keep the single static frame and must not fetch the rest
-      const mobileFrames = await page.evaluate(() =>
-        document.querySelectorAll('[data-tour-frames] img').length);
-      if (mobileFrames !== 1) problems.push(`mobile: ${mobileFrames} tour frames loaded (want 1)`);
-    }
+    // --- the type actually loaded, not a fallback ---
+    const typeOk = await page.evaluate(() =>
+      getComputedStyle(document.querySelector('h1')).fontFamily.includes('Outfit')
+      && document.fonts.status === 'loaded');
+    if (!typeOk) problems.push(`${label}: Outfit did not load`);
 
     // --- jamie ---
     await scrollTo(page, marks.jamie.top - 80, 1400);
@@ -236,8 +189,21 @@ async function paintedRatio(page) {
   page.on('pageerror', e => rmErrors.push(e.message));
   await page.goto(BASE, { waitUntil: 'load' });
   await page.waitForTimeout(1800);
-  const heroOpacity = await page.evaluate(() => getComputedStyle(document.querySelector('.hero__lede')).opacity);
-  if (Number(heroOpacity) < 0.9) problems.push(`reduced-motion: hero copy stuck at opacity ${heroOpacity}`);
+  // Reduced motion must mean no movement, never less content: everything
+  // that carries a reveal has to end up visible, and nothing may sit off
+  // the right edge where it cannot be reached.
+  const rm = await page.evaluate(() => {
+    const hidden = [...document.querySelectorAll('[data-reveal], .reveal')]
+      .filter(el => parseFloat(getComputedStyle(el).opacity) < 0.9)
+      .map(el => el.className.toString().slice(0, 40));
+    const offRight = [...document.querySelectorAll('.project')]
+      .filter(c => c.getBoundingClientRect().left > innerWidth + 4).length;
+    return { hidden, offRight };
+  });
+  if (rm.hidden.length) {
+    problems.push(`reduced-motion: ${rm.hidden.length} element(s) left invisible: ${rm.hidden.slice(0, 3).join(', ')}`);
+  }
+  if (rm.offRight) problems.push(`reduced-motion: ${rm.offRight} project cards unreachable off-screen`);
   await page.screenshot({ path: `${OUT}/reduced-motion.png` });
   if (rmErrors.length) problems.push(`reduced-motion errors: ${rmErrors.join(' | ')}`);
   await ctx.close();
