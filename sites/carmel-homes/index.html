@@ -90,172 +90,71 @@
   </section>
 
   <!-- ============ scroll-scrubbed walkthrough ============ -->
-  <section class="scrub" id="process" data-scrub>
-    <div class="scrub__stage">
-      <canvas class="scrub__canvas" data-scrub-canvas hidden></canvas>
+  <!-- ============ process ============
+       Five phases, type-led, unpinned. This replaced a pinned 3D wireframe
+       that rotated as you scrolled: it was decoration, it was the most
+       fragile thing in the build, and it never persuaded anyone. The story
+       it was wrapped around — one office draws it, permits it, builds it and
+       finishes it — is Carmel's actual differentiator, so the story stays
+       and the gimmick goes.
 
-      <img class="scrub__finish" data-scrub-finish
-           src="assets/img/finished-house.webp"
-           alt="Canyon Court, finished and lit at dusk"
-           width="1800" height="1012" loading="lazy" decoding="async">
-
-      <div class="scrub__fallback" data-scrub-fallback aria-hidden="true">
-        <svg viewBox="0 0 1200 780" preserveAspectRatio="xMidYMid meet" fill="none" data-plan>
-
-          <!-- the model: slab, partitions, frame, roof and glazing, projected
-               from 3D by site.js and re-rendered as the view rotates -->
-          <g data-model>
-            <path class="w" data-part="slab"/>
-            <path class="w" data-part="walls"/>
-            <path class="m" data-part="frame"/>
-            <path class="m" data-part="rooms"/>
-            <path class="m" data-part="roof"/>
-            <path class="g" data-part="glass"/>
-          </g>
-
-          <!-- flat plan annotation, true only while we are looking straight down -->
-          <g data-layer="planmarks">
-            <path class="d" d="M520 250 H580"/>
-            <path class="d" d="M580 250 A60 60 0 0 1 520 310"/>
-            <path class="d" d="M300 420 V360"/>
-            <path class="d" d="M300 360 A60 60 0 0 1 360 420"/>
-            <path class="d" d="M780 300 H720"/>
-            <path class="d" d="M720 300 A60 60 0 0 0 780 360"/>
-            <path class="d" d="M600 300 V240"/>
-            <path class="d" d="M600 240 A60 60 0 0 1 660 300"/>
-
-            <text class="plan-label" x="196" y="186">LIVING</text>
-            <text class="plan-label" x="196" y="464">GARAGE</text>
-            <text class="plan-label" x="548" y="186">KITCHEN</text>
-            <text class="plan-label" x="548" y="348">DINING</text>
-            <text class="plan-label" x="808" y="186">PRIMARY</text>
-            <text class="plan-label" x="808" y="424">BATH</text>
-
-            <rect class="f" x="240" y="332" width="190" height="52" rx="6"/>
-            <rect class="f" x="296" y="266" width="92" height="38" rx="4"/>
-            <rect class="f" x="570" y="232" width="160" height="44" rx="4"/>
-            <ellipse class="f" cx="650" cy="474" rx="74" ry="48"/>
-            <rect class="f" x="850" y="236" width="120" height="132" rx="6"/>
-            <rect class="f" x="820" y="452" width="92" height="56" rx="26"/>
-            <rect class="f" x="200" y="492" width="130" height="60" rx="8"/>
-            <rect class="f" x="360" y="492" width="130" height="60" rx="8"/>
-          </g>
-
-          <!-- ---------- phase 02: dimensions and the permit set ---------- -->
-          <g data-layer="dims">
-            <path class="dim" d="M160 96 H1040"/>
-            <path class="dim" d="M160 86 V106"/>
-            <path class="dim" d="M520 86 V106"/>
-            <path class="dim" d="M780 86 V106"/>
-            <path class="dim" d="M1040 86 V106"/>
-            <text class="plan-dim" x="340" y="80" text-anchor="middle">30'-0"</text>
-            <text class="plan-dim" x="650" y="80" text-anchor="middle">22'-0"</text>
-            <text class="plan-dim" x="910" y="80" text-anchor="middle">21'-6"</text>
-
-            <path class="dim" d="M112 140 V600"/>
-            <path class="dim" d="M102 140 H122"/>
-            <path class="dim" d="M102 420 H122"/>
-            <path class="dim" d="M102 600 H122"/>
-            <text class="plan-dim" x="96" y="286" text-anchor="middle" transform="rotate(-90 96 286)">23'-4"</text>
-            <text class="plan-dim" x="96" y="516" text-anchor="middle" transform="rotate(-90 96 516)">15'-0"</text>
-
-            <text class="plan-dim" x="196" y="208">486 SF</text>
-            <text class="plan-dim" x="548" y="208">312 SF</text>
-            <text class="plan-dim" x="808" y="208">404 SF</text>
-
-            <rect class="stamp" x="828" y="648" width="212" height="58"/>
-            <text class="plan-dim" x="934" y="672" text-anchor="middle">CITY OF SCOTTSDALE</text>
-            <text class="plan-dim" x="934" y="692" text-anchor="middle">PLAN REVIEW — APPROVED</text>
-          </g>
-
-          <!-- ---------- phase 03: structure ---------- -->
-          <g data-layer="structure">
-            <circle class="bub" cx="160" cy="48" r="17"/>
-            <text class="plan-dim" x="160" y="53" text-anchor="middle">A</text>
-            <circle class="bub" cx="520" cy="48" r="17"/>
-            <text class="plan-dim" x="520" y="53" text-anchor="middle">B</text>
-            <circle class="bub" cx="780" cy="48" r="17"/>
-            <text class="plan-dim" x="780" y="53" text-anchor="middle">C</text>
-            <circle class="bub" cx="1040" cy="48" r="17"/>
-            <text class="plan-dim" x="1040" y="53" text-anchor="middle">D</text>
-
-            <path class="grid" d="M160 65 V140"/>
-            <path class="grid" d="M520 65 V140"/>
-            <path class="grid" d="M780 65 V140"/>
-            <path class="grid" d="M1040 65 V140"/>
-
-            <path class="beam" d="M160 230 H1040"/>
-            <path class="beam" d="M160 500 H1040"/>
-            <text class="plan-dim" x="1052" y="226">GLULAM 6x16</text>
-            <text class="plan-dim" x="1052" y="496">GLULAM 6x16</text>
-
-            <path class="sect" d="M120 660 H200"/>
-            <path class="sect" d="M200 660 L186 648"/>
-            <path class="sect" d="M200 660 L186 672"/>
-            <text class="plan-dim" x="120" y="648">SECTION 3 / A-4.1</text>
-          </g>
-
-          <!-- always on: the title block -->
-          <g data-layer="titleblock">
-            <path class="tb" d="M828 716 H1040"/>
-            <text class="plan-dim" x="828" y="738">CARMEL HOMES DESIGN GROUP</text>
-            <text class="plan-dim" x="828" y="760">FLOOR PLAN — SHEET A-2.1</text>
-            <path class="tb" d="M120 716 H260"/>
-            <path class="tb" d="M120 710 V722"/>
-            <path class="tb" d="M190 710 V722"/>
-            <path class="tb" d="M260 710 V722"/>
-            <text class="plan-dim" x="120" y="740">0</text>
-            <text class="plan-dim" x="268" y="740">10 FT</text>
-          </g>
-        </svg>
+       Dropping the pin here also takes the page from three pinned sections
+       to two, which is what the UI/UX guidance asks for. -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>One office, start to finish.</h2>
+        <p class="lede">Most builders hand your house between firms. Every step below happens
+          under the same roof, directed by the person who drew it.</p>
       </div>
 
-      <div class="scrub__veil" aria-hidden="true"></div>
-
-      <div class="scrub__copy">
-        <div class="phase">
-          <div class="phase__list">
-            <article class="phase__item is-live" data-phase>
-              <div class="phase__no">Phase 01</div>
-              <h2 class="phase__title">Drawings</h2>
-              <p class="phase__note">The plans start in this office. Jamie draws the house, so there is no
-                architect to translate and no plan to inherit.</p>
-            </article>
-            <article class="phase__item" data-phase>
-              <div class="phase__no">Phase 02</div>
-              <h2 class="phase__title">Permits and engineering</h2>
-              <p class="phase__note">City permit procurement and engineering planning are handled in house,
-                on the same set of drawings.</p>
-            </article>
-            <article class="phase__item" data-phase>
-              <div class="phase__no">Phase 03</div>
-              <h2 class="phase__title">Construction</h2>
-              <p class="phase__note">Jamie personally directs every trade on site, from the footings through
-                to the finishing landscapers.</p>
-            </article>
-            <article class="phase__item" data-phase>
-              <div class="phase__no">Phase 04</div>
-              <h2 class="phase__title">Interiors</h2>
-              <p class="phase__note">Interior design closes the job under the same roof that drew it, so
-                nothing gets handed off at the end.</p>
-            </article>
-            <article class="phase__item" data-phase>
-              <div class="phase__no">Phase 05</div>
-              <h2 class="phase__title">The house</h2>
-              <p class="phase__note">Canyon Court, finished. Drawn, permitted, built and fitted out by
-                one office, which is the whole point of working this way.</p>
-            </article>
+      <ol class="phases">
+        <li class="phase-row reveal" data-reveal>
+          <span class="phase-row__no mark">Phase 01</span>
+          <div class="phase-row__body">
+            <h3>Drawings</h3>
+            <p>The plans start in this office. Jamie draws the house, so there is no architect
+              to translate and no plan to inherit.</p>
           </div>
-          <div class="phase__rail" aria-hidden="true">
-            <span class="phase__tick"><i data-tick></i></span>
-            <span class="phase__tick"><i data-tick></i></span>
-            <span class="phase__tick"><i data-tick></i></span>
-            <span class="phase__tick"><i data-tick></i></span>
-            <span class="phase__tick"><i data-tick></i></span>
+        </li>
+        <li class="phase-row reveal" data-reveal>
+          <span class="phase-row__no mark">Phase 02</span>
+          <div class="phase-row__body">
+            <h3>Permits and engineering</h3>
+            <p>City permit procurement and engineering planning are handled in house, on the
+              same set of drawings.</p>
           </div>
-        </div>
-      </div>
+        </li>
+        <li class="phase-row reveal" data-reveal>
+          <span class="phase-row__no mark">Phase 03</span>
+          <div class="phase-row__body">
+            <h3>Construction</h3>
+            <p>Jamie personally directs every trade on site, from the footings through to the
+              finishing landscapers.</p>
+          </div>
+        </li>
+        <li class="phase-row reveal" data-reveal>
+          <span class="phase-row__no mark">Phase 04</span>
+          <div class="phase-row__body">
+            <h3>Interiors</h3>
+            <p>Interior design closes the job under the same roof that drew it, so nothing gets
+              handed off at the end.</p>
+          </div>
+        </li>
+      </ol>
     </div>
+
+    <figure class="process__finish reveal" data-reveal>
+      <img src="assets/img/finished-house.webp"
+           alt="Canyon Court at dusk, finished: drawn, permitted, built and fitted out by one office"
+           width="1800" height="1012" loading="lazy" decoding="async">
+      <figcaption>
+        <span class="mark">Phase 05</span>
+        <strong>Canyon Court, finished.</strong>
+        Drawn, permitted, built and fitted out by one office, which is the whole point of
+        working this way.
+      </figcaption>
+    </figure>
   </section>
 
   <!-- ============ figures (React Bits CountUp) ============ -->
@@ -654,8 +553,50 @@
                 <option>Something else</option>
               </select>
             </div>
+            <!-- The qualifier. Three questions, all optional, all answerable
+                 in one tap. A name and a number tell Jamie someone is
+                 interested; these tell him whether to drive out there this
+                 week, and what to bring. Budget is a band, not a box: asking
+                 a figure on a first contact loses people. -->
+            <div class="field field--pair">
+              <div class="field">
+                <label for="f-stage">Where are you up to?</label>
+                <select id="f-stage" name="stage">
+                  <option value="">Choose one</option>
+                  <option>Still thinking about it</option>
+                  <option>I own the lot</option>
+                  <option>I own the house I want changed</option>
+                  <option>I have plans already drawn</option>
+                  <option>Ready to start</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-when">Roughly when?</label>
+                <select id="f-when" name="timing">
+                  <option value="">Choose one</option>
+                  <option>In the next 3 months</option>
+                  <option>This year</option>
+                  <option>Next year</option>
+                  <option>Just exploring</option>
+                </select>
+              </div>
+            </div>
             <div class="field">
-              <label for="f-msg">The house, the lot, roughly when</label>
+              <label for="f-budget">Budget you have in mind</label>
+              <select id="f-budget" name="budget">
+                <option value="">Prefer not to say</option>
+                <option>Under $100k</option>
+                <option>$100k to $500k</option>
+                <option>$500k to $1m</option>
+                <option>$1m to $3m</option>
+                <option>Over $3m</option>
+                <option>Not sure yet</option>
+              </select>
+              <p class="field__hint">A range is fine. Carmel builds from about $20,000
+                to $6 million, so it helps to know roughly where to start.</p>
+            </div>
+            <div class="field">
+              <label for="f-msg">Anything else about the house or the lot</label>
               <textarea id="f-msg" name="message"></textarea>
             </div>
             <button class="btn btn--block" type="submit">Request a meeting</button>

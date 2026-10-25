@@ -64,6 +64,17 @@ SERVICE_TYPES = {
 # validation
 # --------------------------------------------------------------------------- #
 
+STAGES = {
+    "Still thinking about it", "I own the lot", "I own the house I want changed",
+    "I have plans already drawn", "Ready to start",
+}
+TIMINGS = {"In the next 3 months", "This year", "Next year", "Just exploring"}
+BUDGETS = {
+    "Under $100k", "$100k to $500k", "$500k to $1m",
+    "$1m to $3m", "Over $3m", "Not sure yet",
+}
+
+
 def normalise_phone(raw: str) -> str | None:
     """Return E.164 for a US number, or None if it cannot be one."""
     digits = re.sub(r"\D", "", raw or "")
@@ -106,12 +117,28 @@ def clean_lead(payload: dict) -> tuple[dict | None, str | None]:
 
     message = str(payload.get("message") or "").strip()[:2000]
 
+    # The qualifier. All three are optional by design — a lead with a name
+    # and a number is still a lead, and making these required would lose
+    # people on a first contact. Values are checked against the lists the
+    # form offers so a hand-rolled POST cannot write arbitrary text into
+    # the notification Jamie reads.
+    def one_of(key: str, allowed: set[str]) -> str:
+        value = str(payload.get(key) or "").strip()
+        return value if value in allowed else ""
+
+    stage = one_of("stage", STAGES)
+    timing = one_of("timing", TIMINGS)
+    budget = one_of("budget", BUDGETS)
+
     return {
         "received_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "name": name,
         "phone": phone,
         "email": email,
         "type": service,
+        "stage": stage,
+        "timing": timing,
+        "budget": budget,
         "message": message,
         "page": str(payload.get("page") or "")[:200],
     }, None
@@ -153,6 +180,17 @@ def lead_summary(lead: dict) -> str:
     if lead["email"]:
         bits.append(f"Email: {lead['email']}")
     bits.append(f"Wants: {lead['type']}")
+
+    # The qualifier goes above the free-text note on purpose. This is a text
+    # message Jamie reads on site, so the three things that decide whether he
+    # drives out there have to be visible without scrolling.
+    if lead.get("budget"):
+        bits.append(f"Budget: {lead['budget']}")
+    if lead.get("stage"):
+        bits.append(f"Stage: {lead['stage']}")
+    if lead.get("timing"):
+        bits.append(f"Timing: {lead['timing']}")
+
     if lead["message"]:
         bits.append(f"Notes: {lead['message']}")
     return "\n".join(bits)

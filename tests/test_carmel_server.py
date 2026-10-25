@@ -149,3 +149,44 @@ def test_empty_honeypot_lets_a_real_lead_through():
     assert error is None
     assert lead["name"] == "Dana Whitfield"
     assert "company" not in lead
+
+
+def test_qualifier_fields_are_kept_when_valid():
+    lead, error = server.clean_lead({
+        "name": "Dana Whitfield", "phone": "6023482430",
+        "stage": "I own the lot", "timing": "This year", "budget": "$1m to $3m",
+    })
+    assert error is None
+    assert lead["stage"] == "I own the lot"
+    assert lead["timing"] == "This year"
+    assert lead["budget"] == "$1m to $3m"
+
+
+def test_qualifier_rejects_values_not_on_the_form():
+    """A hand-rolled POST must not write arbitrary text into Jamie's SMS."""
+    lead, error = server.clean_lead({
+        "name": "Dana Whitfield", "phone": "6023482430",
+        "stage": "<script>alert(1)</script>",
+        "timing": "whenever", "budget": "a trillion dollars",
+    })
+    assert error is None
+    assert lead["stage"] == ""
+    assert lead["timing"] == ""
+    assert lead["budget"] == ""
+
+
+def test_qualifier_is_optional():
+    lead, error = server.clean_lead({"name": "Dana Whitfield", "phone": "6023482430"})
+    assert error is None
+    assert lead["stage"] == lead["timing"] == lead["budget"] == ""
+
+
+def test_summary_puts_the_qualifier_above_the_notes():
+    lead, _ = server.clean_lead({
+        "name": "Dana Whitfield", "phone": "6023482430",
+        "budget": "$1m to $3m", "stage": "I own the lot",
+        "timing": "In the next 3 months", "message": "Hillside lot off Longlook.",
+    })
+    summary = server.lead_summary(lead)
+    assert "Budget: $1m to $3m" in summary
+    assert summary.index("Budget:") < summary.index("Notes:")

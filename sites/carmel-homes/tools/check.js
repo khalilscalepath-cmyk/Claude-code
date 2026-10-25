@@ -71,7 +71,7 @@ async function paintedRatio(page) {
         const r = el.getBoundingClientRect();
         return { top: Math.round(r.top + window.scrollY), h: Math.round(r.height) };
       };
-      out.scrub = sec('.scrub');
+      out.process = sec('.process');
       out.figures = sec('.figures');
       out.work = sec('.work');
       out.tour = sec('.tour');
@@ -87,25 +87,34 @@ async function paintedRatio(page) {
     });
 
     const workPin = marks.triggers.find(t => String(t.cls).includes('work'));
-    const scrubPin = marks.triggers.find(t => String(t.cls).includes('scrub'));
 
     if (workPin && Math.abs(workPin.start - marks.work.top) > 40) {
       problems.push(`${label}: work pin starts at ${workPin.start} but section is at ${marks.work.top}`);
     }
-    if (scrubPin && Math.abs(scrubPin.start - marks.scrub.top) > 40) {
-      problems.push(`${label}: scrub pin starts at ${scrubPin.start} but section is at ${marks.scrub.top}`);
+
+    // At most two pinned sections. Three fights native scroll and hurts
+    // mobile, per the UI/UX guidance; the 3D process scrub was the third.
+    if (marks.triggers.length > 2) {
+      problems.push(`${label}: ${marks.triggers.length} pinned sections (want at most 2): ` +
+        marks.triggers.map(t => t.cls).join(', '));
     }
 
-    // --- process, mid-scrub ---
-    await scrollTo(page, (scrubPin ? scrubPin.start + (scrubPin.end - scrubPin.start) * 0.45 : marks.scrub.top + 600));
+    // --- process: all four phases plus the finished-house payoff ---
+    await scrollTo(page, marks.process.top - 80, 2200);
     await page.screenshot({ path: `${OUT}/${label}-02-process.png` });
-    const liveCount = await page.evaluate(() => document.querySelectorAll('.phase__item.is-live').length);
-    if (liveCount !== 1) problems.push(`${label}: ${liveCount} live phases (want exactly 1)`);
-    const phaseText = await page.evaluate(() => {
-      const el = document.querySelector('.phase__item.is-live .phase__title');
-      return el ? el.textContent.trim() : '';
+    const proc = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll('.phase-row')];
+      const fin = document.querySelector('.process__finish img');
+      return {
+        rows: rows.length,
+        blank: rows.filter(r => !r.querySelector('h3')?.textContent.trim()).length,
+        hidden: rows.filter(r => parseFloat(getComputedStyle(r).opacity) < 0.05).length,
+        finishLoaded: !!fin && fin.complete && fin.naturalWidth > 0,
+      };
     });
-    if (!phaseText) problems.push(`${label}: no phase title showing mid-scrub`);
+    if (proc.rows !== 4) problems.push(`${label}: ${proc.rows} phase rows (want 4)`);
+    if (proc.blank) problems.push(`${label}: ${proc.blank} phase rows with no heading`);
+    if (!proc.finishLoaded) problems.push(`${label}: the finished-house photo did not load`);
 
     // --- figures ---
     await scrollTo(page, marks.figures.top - 120, 2600);

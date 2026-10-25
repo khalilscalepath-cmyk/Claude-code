@@ -135,38 +135,9 @@ body::before {
 
 /* ---------- process: the drawing glows ---------- */
 
-.scrub { background: transparent; }
-
-/* strokes go back to light-on-dark, which is what this drawing was built
-   for — on paper it had to be inverted and it lost the glow */
-.scrub__fallback .w    { stroke: #fff6f0; stroke-width: 4.5; }
-.scrub__fallback .m    { stroke: #9a93ab; stroke-width: 1.8; }
-.scrub__fallback .g    { stroke: var(--accent); stroke-width: 2.2; }
-.scrub__fallback .d    { stroke: #6f6980; stroke-width: 1.2; }
-.scrub__fallback .dim  { stroke: #55506a; stroke-width: 1; }
-.scrub__fallback .stamp{ stroke: var(--accent); }
-.scrub__fallback .bub  { stroke: #6f6980; }
-.scrub__fallback .grid { stroke: #39354c; }
-.scrub__fallback .beam { stroke: #6f6980; }
-.scrub__fallback .sect { stroke: var(--accent); }
-.scrub__fallback .f    { stroke: #6f6980; }
-.scrub__fallback .tb   { stroke: #55506a; }
-.scrub__fallback .plan-label { fill: #e8e4f0; }
-.scrub__fallback .plan-dim   { fill: #8b8599; }
-
 /* the model itself picks up a faint bloom, which is the whole point of
    putting it in a dark room */
-.scrub__fallback [data-model] {
-  filter: drop-shadow(0 0 14px rgba(255, 140, 90, 0.30));
-}
 
-.scrub__veil {
-  background: linear-gradient(to top,
-    var(--paper-sunk) 2%, rgba(11, 11, 20, 0.10) 46%, rgba(11, 11, 20, 0.45) 100%);
-}
-.scrub__copy::before {
-  background: linear-gradient(to top, var(--paper-sunk) 34%, rgba(11, 11, 20, 0));
-}
 .phase__title { color: var(--ink); }
 
 /* ---------- opening out: the work is lit, not dark ---------- */
@@ -215,7 +186,6 @@ body::before {
 
 ::selection { background: var(--accent); color: #0a0a12; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
 
 /* ============================================================
    Regressions from the token swap
@@ -312,16 +282,6 @@ body::before {
    The veil dimmed the top of the model by up to 45%, which is most of
    why the wireframe looked drab rather than lit. */
 
-.scrub__veil {
-  background: linear-gradient(to top,
-    var(--paper-sunk) 0%, rgba(11, 11, 20, 0.90) 18%,
-    rgba(11, 11, 20, 0.5) 40%, rgba(11, 11, 20, 0) 66%);
-}
-.scrub__fallback .m { stroke: #c9c2ff; }
-.scrub__fallback [data-model] {
-  filter: drop-shadow(0 0 3px rgba(190, 170, 255, 0.85))
-          drop-shadow(0 0 16px rgba(130, 100, 255, 0.5));
-}
 .phase__no { color: #ffb08f; text-shadow: 0 1px 12px #000; }
 .phase__note { color: #cfc9da; text-shadow: 0 1px 10px rgba(0,0,0,.7); }
 
