@@ -53,6 +53,40 @@ async function paintedRatio(page) {
       problems.push(`${label}: horizontal overflow ${overflow.scrollW} > ${overflow.clientW}`);
     }
 
+    // --- every picture is the shape the stylesheet asked for ---
+    //
+    // This is here because it was once wrong on every image at once and the
+    // suite said nothing. Each <img> carries width/height attributes so the
+    // browser can reserve its space, and those attributes land as
+    // presentational hints — a literal pixel height, which outranks
+    // aspect-ratio. Without height:auto the boxes take the photograph's full
+    // height and object-fit crops a tall strip out of a wide picture. Asserting
+    // "the file loaded" never catches that; asserting the shape does.
+    const shapes = await page.evaluate(() => {
+      const wrong = [], inset = [];
+      for (const img of document.querySelectorAll('img')) {
+        const cs = getComputedStyle(img);
+        if (cs.aspectRatio === 'auto') continue;
+        const [a, b] = cs.aspectRatio.split('/').map(Number);
+        const want = a / b;
+        const got = parseFloat(cs.width) / parseFloat(cs.height);
+        if (Math.abs(got - want) / want > 0.02) {
+          wrong.push(`${img.getAttribute('src')} wants ${want.toFixed(2)}, renders ${got.toFixed(2)}`);
+        }
+      }
+      // UA sheets inset figure, blockquote and friends by 40px a side. On a
+      // phone that is a fifth of the screen, and it is invisible in code.
+      for (const el of document.querySelectorAll('figure, blockquote, dl, fieldset, ol, ul')) {
+        const cs = getComputedStyle(el);
+        if (parseFloat(cs.marginLeft) >= 39 || parseFloat(cs.marginRight) >= 39) {
+          inset.push(`${el.tagName.toLowerCase()}.${el.className.toString().slice(0, 24)}`);
+        }
+      }
+      return { wrong, inset };
+    });
+    for (const w of shapes.wrong) problems.push(`${label}: ${w}`);
+    for (const i of shapes.inset) problems.push(`${label}: ${i} still carries the UA 40px side margin`);
+
     const callVisible = await page.evaluate(() =>
       [...document.querySelectorAll('a[href^="tel:"]')].some(el => {
         const r = el.getBoundingClientRect();
