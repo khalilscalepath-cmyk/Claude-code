@@ -1,6 +1,7 @@
 /** The one request handler, shared by the local server and every serverless target. */
 const { ask } = require("./providers");
 const { build, loadProfile, stripMarkers, readMarkers, CHANNELS } = require("./brain");
+const store = require("./store");
 
 const MAX_TURNS = 24;
 const MAX_CHARS = 4000;
@@ -31,14 +32,19 @@ async function handle(body) {
   try {
     // Generous caps: reasoning models bill their thinking against this before writing a word.
     const out = await ask(system, turns, { maxTokens: channel === "voice" ? 800 : 1500 });
+    const reply = stripMarkers(out.text);
+    const markers = readMarkers(out.text);
+
+    // Anything the agent captured is the whole point: persist it before replying, so a booking
+    // survives the customer closing the tab.
+    for (const m of markers) {
+      try { store.add("records", Object.assign({ client, channel }, m)); }
+      catch (e) { console.error("could not store a " + m.kind + ": " + e.message); }
+    }
+
     return {
       status: 200,
-      json: {
-        reply: stripMarkers(out.text),
-        markers: readMarkers(out.text),
-        provider: out.provider,
-        model: out.model
-      }
+      json: { reply, markers, provider: out.provider, model: out.model }
     };
   } catch (e) {
     return {
@@ -77,4 +83,74 @@ function corsHeaders(origin) {
   return h;
 }
 
-module.exports = { handle, profileFor, corsHeaders };
+/** The website form, and the review page's star clicks. Both are public by design. */
+function capture(kind, body) {
+  const b = body || {};
+  const client = String(b.client || "").toLowerCase();
+  if (!client) return { status: 400, json: { error: "client is required" } };
+
+  if (kind === "lead") {
+    if (!b.phone && !b.email) return { status: 400, json: { error: "a phone or email is required" } };
+    const row = store.add("records", {
+      client, kind: "lead", channel: "website",
+      name: String(b.name || "").slice(0, 200),
+      phone: String(b.phone || "").slice(0, 60),
+      email: String(b.email || "").slice(0, 200),
+      problem: String(b.message || "").slice(0, 4000)
+    });
+    return { status: 200, json: { ok: true, id: row.id } };
+  }
+
+  // review page: a rating, and optionally what went wrong
+  const rating = Number(b.rating);
+  const row = store.add("reviews", {
+    client,
+    contact: String(b.contact || "").slice(0, 120),
+    rating: Number.isFinite(rating) ? rating : null,
+    feedback: String(b.feedback || "").slice(0, 4000),
+    alertOwner: !!b.alert_owner
+  });
+  // An unhappy customer is a job for a human, not a row in a table nobody opens.
+  if (Number.isFinite(rating) && rating <= 3) {
+    store.add("records", {
+      client, kind: "escalation", channel: "review", reason: "low_rating",
+      detail: `Rated ${rating}. ${String(b.feedback || "").slice(0, 500)}`.trim(),
+      phone: String(b.phone || "")
+    });
+  }
+  return { status: 200, json: { ok: true, id: row.id } };
+}
+
+/** Console reads. Behind a shared token: these are real customers' names and numbers. */
+function consoleData(query, token) {
+  const expected = (process.env.CONSOLE_TOKEN || "").trim();
+  if (!expected) return { status: 503, json: { error: "CONSOLE_TOKEN is not set on the server" } };
+  if (token !== expected) return { status: 401, json: { error: "wrong or missing token" } };
+
+  const client = query.client && query.client !== "all" ? String(query.client) : null;
+  const days = Number(query.days) || 30;
+  const since = new Date(Date.now() - days * 864e5).toISOString();
+
+  const records = store.list("records", client ? { client } : null, 400)
+    .filter(r => r.at >= since);
+
+  return {
+    status: 200,
+    json: {
+      clients: store.clients(),
+      summary: store.summary(client, days),
+      records,
+      days,
+      client: client || "all"
+    }
+  };
+}
+
+function markHandled(body, token) {
+  const expected = (process.env.CONSOLE_TOKEN || "").trim();
+  if (!expected || token !== expected) return { status: 401, json: { error: "wrong or missing token" } };
+  const row = store.update("records", String((body || {}).id || ""), { handledAt: new Date().toISOString() });
+  return row ? { status: 200, json: { ok: true, row } } : { status: 404, json: { error: "no such record" } };
+}
+
+module.exports = { handle, profileFor, corsHeaders, capture, consoleData, markHandled };

@@ -10,7 +10,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const { handle, profileFor, corsHeaders } = require("./lib/handler");
+const { handle, profileFor, corsHeaders, capture, consoleData, markHandled } = require("./lib/handler");
 const { configured } = require("./lib/providers");
 
 // Minimal .env loader, so there is nothing to npm install.
@@ -56,6 +56,42 @@ http.createServer((req, res) => {
       try { body = JSON.parse(raw || "{}"); }
       catch (e) { return json(res, 400, { error: "bad JSON" }, origin); }
       const out = await handle(body);
+      json(res, out.status, out.json, origin);
+    });
+    return;
+  }
+
+  // public capture: website form and review-page clicks
+  if (url.pathname === "/api/lead" || url.pathname === "/api/review") {
+    if (req.method !== "POST") return json(res, 405, { error: "POST only" }, origin);
+    let raw = "";
+    req.on("data", c => { raw += c; if (raw.length > 1e6) req.destroy(); });
+    req.on("end", () => {
+      let body = {};
+      try { body = JSON.parse(raw || "{}"); }
+      catch (e) { return json(res, 400, { error: "bad JSON" }, origin); }
+      const out = capture(url.pathname === "/api/lead" ? "lead" : "review", body);
+      json(res, out.status, out.json, origin);
+    });
+    return;
+  }
+
+  // console: token-gated, holds real customers' details
+  if (url.pathname === "/api/console") {
+    const token = req.headers["x-console-token"] || url.searchParams.get("token") || "";
+    const out = consoleData(Object.fromEntries(url.searchParams), token);
+    return json(res, out.status, out.json, origin);
+  }
+
+  if (url.pathname === "/api/handled") {
+    if (req.method !== "POST") return json(res, 405, { error: "POST only" }, origin);
+    const token = req.headers["x-console-token"] || "";
+    let raw = "";
+    req.on("data", c => { raw += c; if (raw.length > 1e5) req.destroy(); });
+    req.on("end", () => {
+      let body = {};
+      try { body = JSON.parse(raw || "{}"); } catch (e) {}
+      const out = markHandled(body, token);
       json(res, out.status, out.json, origin);
     });
     return;

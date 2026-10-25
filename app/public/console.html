@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Scalepath Console</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* A run sheet, not a dashboard. Rows carry a status spine; colour only ever means status. */
+:root{
+  --paper:#eceef0; --card:#fff; --ink:#141b22; --ink-2:#55626e; --ink-3:#8795a1;
+  --rule:#c9d1d8;
+  --safety:#a4161a; --urgent:#8a5200; --booked:#12694a; --lead:#28527a; --quiet:#8795a1;
+  --ui:"Barlow Semi Condensed",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#11161b; --card:#19212a; --ink:#e7edf2; --ink-2:#9aa9b6; --ink-3:#6b7b89;
+  --rule:#2b3843;
+  --safety:#ff6b6b; --urgent:#e0a84a; --booked:#4ec38d; --lead:#7fb0e0; --quiet:#6b7b89;
+  color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --paper:#11161b; --card:#19212a; --ink:#e7edf2; --ink-2:#9aa9b6; --ink-3:#6b7b89;
+  --rule:#2b3843;
+  --safety:#ff6b6b; --urgent:#e0a84a; --booked:#4ec38d; --lead:#7fb0e0; --quiet:#6b7b89;
+  color-scheme:dark; }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:17px;
+  line-height:1.45;-webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px)}
+.wrap{max-width:900px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* the one thing he opens this for */
+.head{padding-block:22px 14px;border-bottom:2px solid var(--ink)}
+.open{font-size:clamp(28px,7vw,40px);font-weight:700;line-height:1.05;letter-spacing:-.01em}
+.open b{font-weight:700}
+.open.none{color:var(--ink-2);font-weight:600}
+.counts{margin-top:8px;color:var(--ink-2);font-size:16px}
+.counts span{white-space:nowrap}
+.counts i{font-style:normal;font-family:var(--mono);font-size:15px;color:var(--ink)}
+
+/* controls */
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-block:12px;
+  border-bottom:1px solid var(--rule)}
+select,.btn{font:inherit;font-size:15px;font-family:var(--ui);color:var(--ink);
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;padding:7px 11px;cursor:pointer}
+select:focus-visible,.btn:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.spacer{flex:1}
+.stamp{font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+
+/* day grouping */
+.day{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--paper);
+  padding-block:12px 6px;font-size:15px;font-weight:600;color:var(--ink-2);
+  border-bottom:1px solid var(--rule)}
+
+/* the run sheet */
+.row{display:grid;grid-template-columns:4px 62px 1fr auto;gap:0 12px;align-items:start;
+  background:var(--card);border-bottom:1px solid var(--rule);padding:12px 14px 12px 0}
+.spine{grid-row:1/-1;align-self:stretch;background:var(--quiet);border-radius:0}
+.row.booking .spine{background:var(--booked)}
+.row.lead .spine{background:var(--lead)}
+.row.escalation .spine{background:var(--urgent)}
+.row.safety .spine{background:var(--safety)}
+.row.done{opacity:.5}
+.time{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding-top:3px;padding-left:10px}
+.what{min-width:0}
+.who{font-weight:600;font-size:18px;overflow-wrap:anywhere}
+.kind{font-weight:600;font-size:14px;margin-bottom:2px}
+.row.booking .kind{color:var(--booked)}
+.row.lead .kind{color:var(--lead)}
+.row.escalation .kind{color:var(--urgent)}
+.row.safety .kind{color:var(--safety)}
+.detail{color:var(--ink-2);font-size:16px;margin-top:3px;overflow-wrap:anywhere}
+.meta{margin-top:6px;font-family:var(--mono);font-size:13px;color:var(--ink-3);
+  display:flex;gap:14px;flex-wrap:wrap}
+.meta a{color:var(--ink-2)}
+.act{align-self:center}
+.tick{font:inherit;font-family:var(--ui);font-size:14px;background:none;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:3px;padding:6px 10px;cursor:pointer;white-space:nowrap}
+.tick:hover{border-color:var(--ink);color:var(--ink)}
+.tick[disabled]{opacity:.45;cursor:default;border-style:dashed}
+
+.empty{background:var(--card);border:1px dashed var(--rule);border-radius:4px;
+  padding:34px 20px;text-align:center;color:var(--ink-2);margin-top:20px}
+.empty b{display:block;color:var(--ink);font-size:19px;font-weight:600;margin-bottom:6px}
+.gate{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--rule);
+  border-radius:4px;padding:24px}
+.gate h1{font-size:22px;margin:0 0 6px;font-weight:700}
+.gate p{margin:0 0 14px;color:var(--ink-2);font-size:16px}
+.gate input{width:100%;font:inherit;font-family:var(--mono);font-size:16px;padding:10px 12px;
+  border:1px solid var(--rule);border-radius:3px;background:var(--paper);color:var(--ink)}
+.gate .btn{width:100%;margin-top:10px;background:var(--ink);color:var(--paper);border-color:var(--ink);
+  font-size:17px;padding:11px}
+.err{color:var(--safety);font-size:15px;margin-top:10px}
+.foot{padding-block:18px 28px;color:var(--ink-3);font-size:14px}
+@media (max-width:560px){
+  .row{grid-template-columns:4px 1fr;row-gap:6px;padding-right:12px}
+  .time{grid-column:2;padding-left:12px;padding-top:0}
+  .what{grid-column:2;padding-left:12px}
+  .act{grid-column:2;padding-left:12px;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate" hidden>
+  <h1>Scalepath Console</h1>
+  <p>Enter the access token. It stays on this device.</p>
+  <input id="tok" type="password" autocomplete="current-password" placeholder="token" aria-label="Access token">
+  <button class="btn" id="go" type="button">Open the console</button>
+  <p class="err" id="gerr" hidden></p>
+</div>
+
+<div class="wrap" id="app" hidden>
+  <div class="head">
+    <div class="open" id="open">Loading</div>
+    <div class="counts" id="counts"></div>
+  </div>
+
+  <div class="bar">
+    <select id="client" aria-label="Client"></select>
+    <button class="btn" id="f-open" type="button" aria-pressed="false">Needs me</button>
+    <select id="days" aria-label="Period">
+      <option value="7">Last 7 days</option>
+      <option value="30" selected>Last 30 days</option>
+      <option value="90">Last 90 days</option>
+    </select>
+    <span class="spacer"></span>
+    <span class="stamp" id="stamp"></span>
+  </div>
+
+  <div id="sheet"></div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+var KEY="scalepath.console.token";
+var token="", data=null, onlyOpen=false;
+
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+try { token = localStorage.getItem(KEY) || ""; } catch(e) {}
+
+function showGate(msg){
+  $("gate").hidden=false; $("app").hidden=true;
+  if(msg){ $("gerr").textContent=msg; $("gerr").hidden=false; }
+}
+$("go").addEventListener("click", function(){
+  token=$("tok").value.trim();
+  if(!token) return;
+  try{ localStorage.setItem(KEY,token); }catch(e){}
+  $("gerr").hidden=true;
+  load();
+});
+$("tok").addEventListener("keydown",function(e){ if(e.key==="Enter") $("go").click(); });
+
+function label(r){
+  if(r.kind==="booking") return "Booking";
+  if(r.kind==="lead") return "Website enquiry";
+  if(r.kind==="optout") return "Opted out";
+  if(r.reason==="safety") return "Safety stop";
+  if(r.reason==="low_rating") return "Unhappy customer";
+  return "Needs a human";
+}
+function cls(r){
+  if(r.kind==="escalation" && r.reason==="safety") return "escalation safety";
+  return r.kind || "quiet";
+}
+function dayName(iso){
+  var d=new Date(iso), t=new Date(), y=new Date(Date.now()-864e5);
+  var same=function(a,b){return a.toDateString()===b.toDateString();};
+  if(same(d,t)) return "Today";
+  if(same(d,y)) return "Yesterday";
+  return d.toLocaleDateString([], {weekday:"long", day:"numeric", month:"long"});
+}
+
+function render(){
+  var s=data.summary, open=s.openItems;
+  $("open").className = "open" + (open?"":" none");
+  $("open").textContent = open
+    ? (open===1 ? "1 thing needs you" : open+" things need you")
+    : "Nothing needs you";
+  $("counts").innerHTML =
+    "<span><i>"+s.bookings+"</i> booked</span>, " +
+    "<span><i>"+s.leads+"</i> enquiries</span>, " +
+    "<span><i>"+s.escalations+"</i> passed to a human</span>" +
+    (s.safety?", <span style='color:var(--safety)'><i>"+s.safety+"</i> safety</span>":"") +
+    (s.afterHours?". <span><i>"+s.afterHours+"</i> came in outside 7am to 7pm</span>":"");
+
+  var sel=$("client");
+  if(sel.options.length<=1 || sel.dataset.n!=String(data.clients.length)){
+    sel.innerHTML='<option value="all">Every client</option>' +
+      data.clients.map(function(c){return '<option value="'+esc(c.client)+'">'+esc(c.client)+" ("+c.count+")</option>";}).join("");
+    sel.value=data.client; sel.dataset.n=String(data.clients.length);
+  }
+  $("stamp").textContent="updated "+new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+
+  var rows=data.records.filter(function(r){ return !onlyOpen || (r.kind!=="lead" && !r.handledAt); });
+  var sheet=$("sheet");
+  if(!rows.length){
+    sheet.innerHTML='<div class="empty"><b>'+(onlyOpen?"Nothing open":"Nothing here yet")+'</b>'+
+      (onlyOpen?"Everything in this period has been dealt with."
+               :"When an agent books a job or hands one to a human, it lands here.")+'</div>';
+    return;
+  }
+  var html="", lastDay="";
+  rows.forEach(function(r){
+    var d=dayName(r.at);
+    if(d!==lastDay){ html+='<div class="day">'+esc(d)+"</div>"; lastDay=d; }
+    var bits=[];
+    if(r.phone) bits.push('<a href="tel:'+esc(String(r.phone).replace(/[^0-9+]/g,""))+'">'+esc(r.phone)+"</a>");
+    if(r.address) bits.push(esc(r.address));
+    if(r.preferred) bits.push(esc(r.preferred));
+    if(r.client && data.client==="all") bits.push(esc(r.client));
+    if(r.channel) bits.push(esc(r.channel));
+    html+='<div class="row '+cls(r)+(r.handledAt?" done":"")+'">'+
+      '<div class="spine"></div>'+
+      '<div class="time">'+esc(new Date(r.at).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}))+"</div>"+
+      '<div class="what">'+
+        '<div class="kind">'+esc(label(r))+"</div>"+
+        '<div class="who">'+esc(r.name || r.service || r.detail || "No name given")+"</div>"+
+        (r.problem||r.detail&&r.name ? '<div class="detail">'+esc(r.problem||r.detail)+"</div>" : "")+
+        (bits.length?'<div class="meta">'+bits.map(function(x){return "<span>"+x+"</span>";}).join("")+"</div>":"")+
+      "</div>"+
+      '<div class="act">'+
+        (r.kind==="lead" ? "" :
+          '<button class="tick" data-id="'+esc(r.id)+'"'+(r.handledAt?" disabled":"")+'>'+
+          (r.handledAt?"Done":"Mark done")+"</button>")+
+      "</div>"+
+    "</div>";
+  });
+  sheet.innerHTML=html;
+}
+
+async function load(){
+  try{
+    var q=new URLSearchParams({client:$("client").value||"all", days:$("days").value||"30"});
+    var r=await fetch("api/console?"+q, {headers:{"x-console-token":token}});
+    var j=await r.json();
+    if(r.status===401){ showGate("That token was not accepted."); return; }
+    if(r.status===503){ showGate(j.error); return; }
+    if(!r.ok) throw new Error(j.error||"could not load");
+    data=j; $("gate").hidden=true; $("app").hidden=false;
+    render();
+    $("foot").textContent="Showing the last "+j.days+" days. Records are kept on the server, not in this browser.";
+  }catch(e){
+    showGate(e.message);
+  }
+}
+
+$("sheet").addEventListener("click", async function(e){
+  var b=e.target.closest("button.tick[data-id]");
+  if(!b || b.disabled) return;
+  b.disabled=true; b.textContent="Done";
+  b.closest(".row").classList.add("done");
+  try{
+    await fetch("api/handled",{method:"POST",
+      headers:{"content-type":"application/json","x-console-token":token},
+      body:JSON.stringify({id:b.dataset.id})});
+    load();
+  }catch(err){ b.disabled=false; b.textContent="Mark done"; }
+});
+$("client").addEventListener("change", load);
+$("days").addEventListener("change", load);
+$("f-open").addEventListener("click", function(){
+  onlyOpen=!onlyOpen;
+  this.setAttribute("aria-pressed", String(onlyOpen));
+  if(data) render();
+});
+
+if(token) load(); else showGate();
+</script>
+</body>
+</html>

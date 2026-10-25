@@ -32,6 +32,39 @@ The whole thing is static files plus two tiny functions. Any of these work:
 Never put the key in the front end. It only ever lives on the server, which is the whole reason
 `api/agent.js` exists.
 
+## The console
+
+`/console.html` is the part we own instead of renting. It answers one question: **what came in,
+and what needs a human.**
+
+```bash
+echo 'CONSOLE_TOKEN=some-long-random-string' >> app/.env
+node app/server.js            # http://localhost:8787/console.html
+```
+
+Everything the agents capture lands in it automatically: a booking from any channel, a hand-off to
+a human, a website enquiry, and a 1-3 star review, which raises an escalation on its own because an
+unhappy customer is a job for a person rather than a row in a table nobody opens.
+
+Records live in `data/*.jsonl` on the server, one JSON object per line, appended never rewritten.
+No database, no dependency, and you can read it with `cat` when something looks wrong. It is the
+right size for a few hundred records per client per month; the shape maps onto Postgres unchanged
+when a client outgrows it.
+
+`CONSOLE_TOKEN` gates every console read and write. Without it set, the console API refuses
+everything, because these are real customers' names, addresses and phone numbers. Set it before the
+app is reachable from the internet.
+
+## What this is not
+
+It is not GoHighLevel, and it is not trying to be. GHL is a CRM plus pipelines, funnels, email and
+SMS infrastructure, call tracking, workflows and white-label billing. More to the point, the
+expensive part of GHL is not its software: it is the carrier cost of sending SMS and owning phone
+numbers, and that bill arrives whoever writes the interface. Rebuilding GHL saves the subscription,
+not the per-message cost.
+
+What is worth owning is this: the capture, the record, and the one screen that says what needs you.
+
 ## One deploy, many clients
 
 Profiles live in `brains/clients/<slug>.json` — the same file `brains/compile.py` uses, so the app
