@@ -2,6 +2,8 @@
 const { ask } = require("./providers");
 const { build, loadProfile, stripMarkers, readMarkers, CHANNELS } = require("./brain");
 const store = require("./store");
+const report = require("./report");
+const crypto = require("crypto");
 
 const MAX_TURNS = 24;
 const MAX_CHARS = 4000;
@@ -153,4 +155,37 @@ function markHandled(body, token) {
   return row ? { status: 200, json: { ok: true, row } } : { status: 404, json: { error: "no such record" } };
 }
 
-module.exports = { handle, profileFor, corsHeaders, capture, consoleData, markHandled };
+/**
+ * A client's own link key, derived from the console token rather than stored. No key table, and
+ * rotating CONSOLE_TOKEN revokes every client link at once.
+ */
+function clientKey(client) {
+  const secret = (process.env.CONSOLE_TOKEN || "").trim();
+  if (!secret) return null;
+  return crypto.createHmac("sha256", secret).update("client:" + String(client)).digest("hex").slice(0, 24);
+}
+
+/** The client's own report. Readable with their key, or with the console token. */
+function reportFor(query, token) {
+  const client = String(query.client || "").toLowerCase();
+  if (!client) return { status: 400, json: { error: "client is required" } };
+
+  const secret = (process.env.CONSOLE_TOKEN || "").trim();
+  if (!secret) return { status: 503, json: { error: "CONSOLE_TOKEN is not set on the server" } };
+
+  const key = String(query.k || "");
+  const expected = clientKey(client);
+  const ok = (token && token === secret) ||
+    (key && expected && key.length === expected.length &&
+     crypto.timingSafeEqual(Buffer.from(key), Buffer.from(expected)));
+  if (!ok) return { status: 401, json: { error: "this link is not valid" } };
+
+  try {
+    return { status: 200, json: report.build(client, Number(query.days) || 7) };
+  } catch (e) {
+    return { status: 500, json: { error: e.message } };
+  }
+}
+
+module.exports = { handle, profileFor, corsHeaders, capture, consoleData, markHandled,
+                   reportFor, clientKey };

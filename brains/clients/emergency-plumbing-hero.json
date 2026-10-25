@@ -152,5 +152,7 @@
       "\"Great question! I'd be happy to help. What's your name, address, and when works for you?\"",
       "\"Thanks for reaching out. How can I assist you today?\""
     ]
-  }
+  },
+  "average_ticket": null,
+  "_average_ticket_note": "Ask the owner what an average job is worth. Until it is set, the weekly report shows revenue as 'not tracked yet' rather than guessing, which is the rule in skills/weekly-client-report."
 }

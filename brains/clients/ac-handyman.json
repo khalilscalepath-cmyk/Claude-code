@@ -119,5 +119,7 @@
     "Anything about after-hours or emergency visits outside 5am-7pm",
     "Financing, payment methods or card details",
     "Anything about a customer's existing invoice or account"
-  ]
+  ],
+  "average_ticket": null,
+  "_average_ticket_note": "Ask the owner what an average job is worth. Until it is set, the weekly report shows revenue as 'not tracked yet' rather than guessing, which is the rule in skills/weekly-client-report."
 }

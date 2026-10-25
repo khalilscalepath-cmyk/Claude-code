@@ -10,7 +10,8 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const { handle, profileFor, corsHeaders, capture, consoleData, markHandled } = require("./lib/handler");
+const { handle, profileFor, corsHeaders, capture, consoleData, markHandled,
+        reportFor, clientKey } = require("./lib/handler");
 const { configured } = require("./lib/providers");
 
 // Minimal .env loader, so there is nothing to npm install.
@@ -95,6 +96,24 @@ http.createServer((req, res) => {
       json(res, out.status, out.json, origin);
     });
     return;
+  }
+
+  // the client's own weekly report, opened with their link key
+  if (url.pathname === "/api/report") {
+    const token = req.headers["x-console-token"] || "";
+    const out = reportFor(Object.fromEntries(url.searchParams), token);
+    return json(res, out.status, out.json, origin);
+  }
+
+  // the agency asking for a client's share link
+  if (url.pathname === "/api/client-link") {
+    const token = req.headers["x-console-token"] || url.searchParams.get("token") || "";
+    if (!process.env.CONSOLE_TOKEN || token !== process.env.CONSOLE_TOKEN.trim())
+      return json(res, 401, { error: "wrong or missing token" }, origin);
+    const c = String(url.searchParams.get("client") || "");
+    if (!c) return json(res, 400, { error: "client is required" }, origin);
+    return json(res, 200, { client: c, key: clientKey(c),
+      path: "/client.html?c=" + encodeURIComponent(c) + "&k=" + clientKey(c) }, origin);
   }
 
   if (url.pathname === "/api/profile") {

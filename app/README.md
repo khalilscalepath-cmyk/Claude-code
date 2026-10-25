@@ -55,6 +55,25 @@ when a client outgrows it.
 everything, because these are real customers' names, addresses and phone numbers. Set it before the
 app is reachable from the internet.
 
+## The client's own page
+
+Each client gets a read-only page of their week at `/client.html?c=<slug>&k=<key>`. Ask the server
+for the link:
+
+```bash
+curl -H "x-console-token: $CONSOLE_TOKEN" "http://localhost:8787/api/client-link?client=<slug>"
+```
+
+The key is derived from `CONSOLE_TOKEN`, not stored, so there is no key table to leak and rotating
+the token revokes every client link at once. A client's key only opens their own client: used
+against another slug it returns 401.
+
+The page follows `skills/weekly-client-report`: one line, the numbers, what is worth a look, and
+what happens next. Anything the system does not measure says **"not tracked yet"** rather than
+showing a zero or a plausible guess, because a client who catches one invented number stops
+believing the other six. Revenue stays "not tracked yet" until `average_ticket` is set on the
+client profile, and it is always labelled estimated with the ticket shown.
+
 ## What this is not
 
 It is not GoHighLevel, and it is not trying to be. GHL is a CRM plus pipelines, funnels, email and

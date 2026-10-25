@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your week</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* A statement, not a dashboard. The client reads this on a phone between jobs and should be
+   finished in thirty seconds. Numbers are the only thing competing for attention. */
+:root{
+  --paper:#fbfaf7; --ink:#1b1a17; --ink-2:#56534c; --ink-3:#8b877e; --rule:#ddd9d0;
+  --good:#166242; --flag:#9a3b12;
+  --ui:"Barlow Semi Condensed",system-ui,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#17161a; --ink:#eeebe5; --ink-2:#a8a49b; --ink-3:#7a766e; --rule:#33302c;
+  --good:#5bbd91; --flag:#e08a5a; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --paper:#17161a; --ink:#eeebe5; --ink-2:#a8a49b; --ink-3:#7a766e; --rule:#33302c;
+  --good:#5bbd91; --flag:#e08a5a; color-scheme:dark; }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;
+  line-height:1.6;-webkit-font-smoothing:antialiased;padding-top:env(safe-area-inset-top,0px)}
+.wrap{max-width:620px;margin:0 auto;
+  padding-left:max(20px,env(safe-area-inset-left,0px));
+  padding-right:max(20px,env(safe-area-inset-right,0px));
+  padding-bottom:40px}
+
+.top{padding-block:30px 10px}
+.biz{font-family:var(--ui);font-weight:700;font-size:15px;letter-spacing:.04em;color:var(--ink-2)}
+.period{font-family:var(--ui);font-size:15px;color:var(--ink-3);margin-top:2px}
+.headline{font-size:clamp(24px,5.4vw,32px);line-height:1.25;margin:16px 0 0;font-weight:600;
+  text-wrap:balance}
+
+h2{font-family:var(--ui);font-size:15px;font-weight:700;letter-spacing:.04em;color:var(--ink-2);
+  margin:34px 0 0;padding-top:14px;border-top:1px solid var(--rule)}
+
+table{width:100%;border-collapse:collapse;margin-top:10px;font-family:var(--ui);font-size:17px}
+th{text-align:left;font-weight:500;color:var(--ink-2);padding:9px 12px 9px 0;
+  border-bottom:1px solid var(--rule);font-size:17px;width:45%;vertical-align:top}
+td{text-align:right;padding:9px 0;border-bottom:1px solid var(--rule);font-weight:700;
+  font-variant-numeric:tabular-nums;vertical-align:top}
+td.soft{font-weight:500;color:var(--ink-3);font-size:15px}
+tr:last-child th,tr:last-child td{border-bottom:0}
+.chg{display:block;font-weight:500;font-size:14px;color:var(--ink-3);line-height:1.35;margin-top:1px}
+
+ul{margin:10px 0 0;padding-left:20px}
+li{margin:7px 0}
+ol{margin:10px 0 0;padding-left:22px}
+
+.foot{margin-top:34px;padding-top:14px;border-top:1px solid var(--rule);
+  font-family:var(--ui);font-size:14px;color:var(--ink-3)}
+.err{margin:16vh auto;max-width:420px;text-align:center;color:var(--ink-2)}
+.err b{display:block;color:var(--ink);font-size:21px;font-weight:600;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap"><p class="period" id="loading">Loading your week.</p></div>
+<script>
+var q=new URLSearchParams(location.search);
+var client=(q.get("c")||q.get("client")||"").toLowerCase();
+var key=q.get("k")||"";
+var days=Number(q.get("days"))||7;
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+function fail(msg){
+  document.getElementById("wrap").innerHTML =
+    '<div class="err"><b>This link is not working</b>'+esc(msg)+
+    '<br><br>Ask Scalepath for a new one.</div>';
+}
+
+(async function(){
+  if(!client||!key) return fail("It is missing part of the address.");
+  var r,j;
+  try{
+    r=await fetch("api/report?client="+encodeURIComponent(client)+"&k="+encodeURIComponent(key)+"&days="+days);
+    j=await r.json();
+  }catch(e){ return fail("We could not reach the server."); }
+  if(!r.ok) return fail(j.error||"It was not accepted.");
+
+  var d=new Date(j.to), f=new Date(j.from);
+  var fmt=function(x){return x.toLocaleDateString([],{day:"numeric",month:"short"});};
+
+  var rows=j.numbers.map(function(n){
+    var soft=(typeof n.value==="string");
+    return "<tr><th>"+esc(n.name)+"</th><td"+(soft?' class="soft"':"")+">"+esc(n.value)+
+      (n.change?'<span class="chg">'+esc(n.change)+"</span>":"")+"</td></tr>";
+  }).join("");
+
+  document.getElementById("wrap").innerHTML =
+    '<div class="top">'+
+      '<div class="biz">'+esc(j.business)+"</div>"+
+      '<div class="period">'+esc(fmt(f))+" to "+esc(fmt(d))+"</div>"+
+      '<p class="headline">'+esc(j.headline)+"</p>"+
+    "</div>"+
+    "<h2>Numbers</h2><table><tbody>"+rows+"</tbody></table>"+
+    "<h2>Worth a look</h2><ul>"+j.look.map(function(l){return "<li>"+esc(l)+"</li>";}).join("")+"</ul>"+
+    "<h2>Next week</h2><ol>"+j.next.map(function(n){return "<li>"+esc(n)+"</li>";}).join("")+"</ol>"+
+    '<p class="foot">Prepared by Scalepath from what the agents handled. '+
+      'Anything marked "not tracked yet" is something we are not measuring, rather than a zero.</p>';
+  document.title = j.business + " - your week";
+})();
+</script>
+</body>
+</html>
