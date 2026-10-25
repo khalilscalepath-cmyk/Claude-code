@@ -13,9 +13,13 @@
  *  1. In the client's Google account: sheets.new, call it "<Business> Bookings". Copy its id from
  *     the URL (the long string between /d/ and /edit).
  *  2. Extensions -> Apps Script. Paste this whole file in. Rename the project.
- *  3. Project Settings -> Script properties -> add:
- *        ANTHROPIC_KEY   sk-ant-...        (yours, or theirs — see COST below)
+ *  3. Project Settings -> Script properties -> add ONE free model key plus the sheet id:
+ *        GROQ_KEY        gsk_...     console.groq.com/keys        (fastest)
+ *        GEMINI_KEY      AIza...     aistudio.google.com/apikey   (biggest daily allowance)
+ *        OPENROUTER_KEY  sk-or-...   openrouter.ai/keys           (backup)
  *        SHEET_ID        the id from step 1
+ *     Set more than one and they are tried in order, so a rate limit falls through
+ *     instead of dropping the lead.
  *  4. Paste the compiled email brain into BRAIN below:
  *        python3 brains/compile.py --client <client> --channel email
  *  5. Set LEAD_QUERY to match how their form arrives (see below).
@@ -24,9 +28,10 @@
  *  7. Leave REVIEW_MODE = true for the first two weeks: it drafts instead of sending, the office
  *     reads each one, and you fix the brain from what they change. Then flip it to false.
  *
- * COST: roughly a third of a cent per lead on Sonnet, less on Haiku. $5 of credits covers a small
- * shop for months. Put the key on the client's own Anthropic account where you can — then there is
- * no usage of yours to meter and nothing to reconcile when they leave.
+ * COST: nothing. These are free tiers, and a home-service shop's lead volume is nowhere near the
+ * daily caps. Create the key on the CLIENT's own account where you can — then there is no usage of
+ * yours to meter and nothing to reconcile when they leave. Free-tier limits move around; if a model
+ * name stops working, change MODELS below rather than the code.
  *
  * LIMITS to know before you promise anything: Gmail sends are capped (about 100/day on a free
  * account, 1,500 on Workspace) and Apps Script gets about 90 minutes of runtime a day. Both are far
@@ -42,7 +47,12 @@
 var LEAD_QUERY = 'is:unread (from:noreply@web3forms.com OR subject:"New form submission") -label:lead-handled';
 
 var REVIEW_MODE   = true;   // true = create a draft for the office to send. Start here. Always.
-var MODEL         = 'claude-sonnet-5-5';   // 'claude-haiku-5-5' is cheaper and fine for this
+/** Model per provider. Override if a provider's console says the default is gone. */
+var MODELS = {
+  groq:       'llama-3.3-70b-versatile',
+  gemini:     'gemini-2.0-flash',
+  openrouter: 'meta-llama/llama-3.3-70b-instruct:free'
+};
 var MAX_PER_RUN   = 5;      // threads per minute; protects the daily send quota
 var LABEL_DONE    = 'lead-handled';
 var LABEL_REVIEW  = 'lead-needs-human';
@@ -148,33 +158,84 @@ function cleanBody(s) {
 }
 
 function askClaude(turns) {
-  var key = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
-  if (!key) throw new Error('ANTHROPIC_KEY is not set in Script properties');
+  var props = PropertiesService.getScriptProperties();
+  var tried = [];
 
-  var res = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
-    method: 'post',
-    contentType: 'application/json',
-    muteHttpExceptions: true,
-    headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    payload: JSON.stringify({
-      model: MODEL,
-      max_tokens: 900,
-      system: BRAIN,
-      messages: turns
-    })
-  });
+  var providers = [
+    { name: 'groq',       prop: 'GROQ_KEY' },
+    { name: 'gemini',     prop: 'GEMINI_KEY' },
+    { name: 'openrouter', prop: 'OPENROUTER_KEY' }
+  ];
 
+  var any = false;
+  for (var i = 0; i < providers.length; i++) {
+    var key = (props.getProperty(providers[i].prop) || '').trim();
+    if (!key) continue;
+    any = true;
+    try {
+      var text = callProvider(providers[i].name, key, turns);
+      if (text) return text;
+      tried.push(providers[i].name + ': empty reply');
+    } catch (e) {
+      tried.push(providers[i].name + ': ' + e.message);
+      // a rate limit or outage is exactly what the next provider is for
+    }
+  }
+
+  if (!any) throw new Error('No model key set. Add GROQ_KEY, GEMINI_KEY or OPENROUTER_KEY in Script properties.');
+  throw new Error('All providers failed — ' + tried.join(' | '));
+}
+
+function callProvider(name, key, turns) {
+  var url, options, model = MODELS[name];
+
+  if (name === 'gemini') {
+    var contents = [];
+    for (var i = 0; i < turns.length; i++) {
+      contents.push({
+        role: turns[i].role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: turns[i].content }]
+      });
+    }
+    url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent';
+    options = {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { 'x-goog-api-key': key },
+      payload: JSON.stringify({
+        systemInstruction: { parts: [{ text: BRAIN }] },
+        contents: contents,
+        generationConfig: { maxOutputTokens: 900, temperature: 0.6 }
+      })
+    };
+  } else {
+    // Groq and OpenRouter are both OpenAI-shaped
+    var msgs = [{ role: 'system', content: BRAIN }].concat(turns);
+    url = name === 'groq'
+      ? 'https://api.groq.com/openai/v1/chat/completions'
+      : 'https://openrouter.ai/api/v1/chat/completions';
+    options = {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { Authorization: 'Bearer ' + key },
+      payload: JSON.stringify({ model: model, max_tokens: 900, temperature: 0.6, messages: msgs })
+    };
+  }
+
+  var res = UrlFetchApp.fetch(url, options);
   var code = res.getResponseCode();
   var raw = res.getContentText();
-  if (code === 429 || code >= 500) throw new Error('Anthropic ' + code + ' — will retry next run');
-  if (code !== 200) throw new Error('Anthropic ' + code + ': ' + raw.slice(0, 300));
+  if (code === 429 || code >= 500) throw new Error(code + ' (rate limited or down)');
+  if (code !== 200) throw new Error(code + ': ' + raw.slice(0, 200));
 
   var data = JSON.parse(raw);
-  var out = '';
-  for (var i = 0; i < (data.content || []).length; i++) {
-    if (data.content[i].type === 'text') out += data.content[i].text;
+  if (name === 'gemini') {
+    var c = data.candidates && data.candidates[0];
+    if (!c || !c.content || !c.content.parts) return '';
+    var out = '';
+    for (var j = 0; j < c.content.parts.length; j++) out += (c.content.parts[j].text || '');
+    return out.trim();
   }
-  return out.trim();
+  return (data.choices && data.choices[0] && data.choices[0].message &&
+          data.choices[0].message.content || '').trim();
 }
 
 // ---------------------------------------------------------------------------

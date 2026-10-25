@@ -44,12 +44,16 @@ placeholder review link means the review agent sends customers to a dead page.
 
 ## 3. Demo it before you sell it
 
-Edit the `CFG` block at the top of `demos/front-desk.html` to the client's real facts — same
-figures as the JSON — then publish it as an artifact with `capabilities: {sample, db, user}`.
-Free, nothing to host, works on a phone.
+Write their profile, then run the app:
 
-**It runs on the Claude account of whoever opens it**, so drive it yourself on the call (share
-your screen, or hand them your phone). A link sent to a prospect to open alone will not work.
+```bash
+cp app/.env.example app/.env     # one free key: Groq, Gemini or OpenRouter
+node app/server.js               # http://localhost:8787/?c=<client>
+```
+
+Deploy it free (Vercel, Netlify, Cloudflare — see `app/README.md`) and the link works for anyone,
+including the prospect opening it themselves on their own phone. The key stays on the server; it
+never costs you a Claude or Anthropic credit.
 
 On the call, run these three in this order — it takes two minutes and it closes:
 1. A routine question, so they see it knows their prices and hours.
@@ -58,6 +62,35 @@ On the call, run these three in this order — it takes two minutes and it close
    moment that sells it.** Every owner has imagined a robot doing something stupid on their phone;
    this is the answer.
 Then open Records: "that's what your office opens in the morning."
+
+## 3b. Build them the whole thing, free
+
+When a business is worth winning, don't build a demo — build the system and hand it over. Audit
+what they already have, then fill every gap you can at no cost. Five of the eight pieces are
+genuinely free to run; three are not, and those are exactly the ones the client should be paying
+for anyway.
+
+| Piece | Build it with | Free to run? | What you need from them |
+|---|---|---|---|
+| Website (if theirs is bad or missing) | `local-business-website` skill → Netlify | **Yes** | Their logo, photos, a domain eventually |
+| Web chat agent on their site | `app/` deployed, one `<script>` or an iframe | **Yes** | A line added to their site |
+| Email speed-to-lead | `production/gmail-speed-to-lead.gs` on their Gmail | **Yes** | 10 min on their Google account |
+| Booking sheet | Google Sheet, written by the Apps Script | **Yes** | Nothing |
+| Review landing page (star router) | Static page, same hosting | **Yes** | Their Google review link |
+| Review + reactivation **SMS** | GHL or any SMS provider | **No** — 1–3¢/text | A2P 10DLC under *their* brand, their customer list |
+| Voice receptionist | Vapi / Fish Audio / GHL voice | **No** — ~$15/mo + number | Call forwarding on their existing line |
+| WhatsApp | Meta Business + provider | **No** | WhatsApp Business number + Facebook Business account |
+
+Order to build in: website → web chat → email speed-to-lead → booking sheet → review page. That
+is the whole free package and it is already worth more than most agencies deliver for $1,000. Stop
+there until they say yes to paying for the three that cost money.
+
+**The handover is the sale.** Give them the free package working, with their real details in it,
+and then show the Jobs sheet filling up. You are not asking them to imagine anything.
+
+**What not to do:** don't take over their Google Business Profile, don't ask for their website
+login before they've agreed to anything, and don't register A2P under your own brand to save time —
+that one makes you the sender of record for their messages.
 
 ## 4. Deploy, per channel
 

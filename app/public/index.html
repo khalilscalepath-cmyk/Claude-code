@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Front Desk</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#eef1f2; --surface:#fff; --surface-2:#e3e9ea; --line:#ccd6d8;
+  --fg:#15232a; --fg-dim:#4d6168; --fg-faint:#7b8f96;
+  --accent:#b4451a; --accent-fg:#fff; --ok:#10664a; --crit:#a21d1d; --warn:#855400;
+  --b-agent:#fff; --b-cust:#d4ebdf;
+  --shadow:0 1px 2px rgba(21,35,42,.07), 0 10px 26px -20px rgba(21,35,42,.35);
+  --ff:"Archivo",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#0e1619; --surface:#162126; --surface-2:#1e2d33; --line:#2c3f46;
+  --fg:#e7eef0; --fg-dim:#a0b4bb; --fg-faint:#6d858d;
+  --accent:#ff7a45; --accent-fg:#1b0c05; --ok:#4ec38d; --crit:#ff6f6f; --warn:#e0a84a;
+  --b-agent:#1e2d33; --b-cust:#1b4536;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -20px rgba(0,0,0,.9);
+  color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0e1619; --surface:#162126; --surface-2:#1e2d33; --line:#2c3f46;
+  --fg:#e7eef0; --fg-dim:#a0b4bb; --fg-faint:#6d858d;
+  --accent:#ff7a45; --accent-fg:#1b0c05; --ok:#4ec38d; --crit:#ff6f6f; --warn:#e0a84a;
+  --b-agent:#1e2d33; --b-cust:#1b4536;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 26px -20px rgba(0,0,0,.9);
+  color-scheme:dark; }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:var(--ff); font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  display:flex; flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px);
+}
+img{max-width:100%} [hidden]{display:none!important}
+
+.wrap{
+  width:100%; max-width:760px; margin:0 auto; flex:1; min-height:0;
+  display:flex; flex-direction:column;
+  padding-left:max(14px,env(safe-area-inset-left,0px));
+  padding-right:max(14px,env(safe-area-inset-right,0px));
+}
+
+/* header: name and a status dot. Nothing else — it truncated on phones. */
+.bar{display:flex; align-items:center; gap:10px; padding-block:12px 10px}
+.mark{width:34px;height:34px;border-radius:9px;flex:none;background:var(--accent);
+  color:var(--accent-fg);display:grid;place-items:center;font-weight:700;font-size:14px}
+.bar b{flex:1;min-width:0;font-size:16px;font-weight:600;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--fg-faint);flex:none}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--warn)}
+.bar small{font-family:var(--fm);font-size:10.5px;color:var(--fg-faint);flex:none}
+
+/* tabs: five, short enough to fit a 360px screen without scrolling */
+.tabs{display:flex;gap:3px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;font:inherit;font-size:13px;font-weight:500;color:var(--fg-dim);
+  background:none;border:0;padding:8px 4px;border-radius:9px;cursor:pointer;
+  white-space:nowrap;min-width:0}
+.tabs button:hover{background:var(--surface-2);color:var(--fg)}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+
+.panel{flex:1;min-height:0;display:flex;flex-direction:column}
+.hint{font-size:12.5px;color:var(--fg-faint);padding-block:10px 4px;text-wrap:balance}
+
+.stream{flex:1;min-height:100px;overflow-y:auto;display:flex;flex-direction:column;
+  gap:9px;padding:8px 2px 14px}
+
+.msg{max-width:84%;padding:9px 13px;border-radius:17px;font-size:15px;box-shadow:var(--shadow);
+  overflow-wrap:anywhere;white-space:pre-wrap}
+.msg.agent{background:var(--b-agent);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.cust{background:var(--b-cust);border-bottom-right-radius:5px;align-self:flex-end}
+.msg.wait{color:var(--fg-faint);font-style:italic;box-shadow:none;background:var(--surface-2)}
+
+/* email */
+.mail{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--shadow);overflow:hidden}
+.mail .hd{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;gap:7px;
+  align-items:baseline;flex-wrap:wrap}
+.mail .hd b{font-size:13.5px;font-weight:600}
+.mail .hd span{font-family:var(--fm);font-size:10.5px;color:var(--fg-faint)}
+.mail .bd{padding:10px 12px;font-size:14.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+.mail.form .bd{font-family:var(--fm);font-size:12.5px;color:var(--fg-dim)}
+
+/* phone */
+.line{display:flex;flex-direction:column;gap:2px}
+.line .sp{font-family:var(--fm);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--fg-faint)}
+.line .sd{font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.line.a .sd{font-weight:500}
+.line.c .sd{color:var(--fg-dim)}
+
+.stars{display:flex;gap:6px;flex-wrap:wrap;padding-top:4px}
+.stars button{font:inherit;cursor:pointer;width:44px;height:44px;border-radius:11px;
+  border:1px solid var(--line);background:var(--surface);color:var(--fg-dim);font-size:17px}
+.stars button:hover{border-color:var(--accent);color:var(--accent)}
+
+.flag{border-left:3px solid var(--ok);background:var(--surface);border-radius:0 10px 10px 0;
+  padding:9px 12px;font-size:12.5px;color:var(--fg-dim)}
+.flag b{color:var(--ok);font-weight:600}
+.flag.bad{border-left-color:var(--crit)} .flag.bad b{color:var(--crit)}
+.flag.err{border-left-color:var(--warn)} .flag.err b{color:var(--warn)}
+
+.composer{display:flex;gap:8px;align-items:flex-end;padding-block:10px;
+  padding-bottom:max(12px,env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.composer textarea{flex:1;min-width:0;font:inherit;font-size:16px;resize:none;
+  background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:21px;
+  padding:11px 15px;max-height:120px;min-height:44px}
+.composer textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.go{font:inherit;font-weight:600;font-size:14px;cursor:pointer;flex:none;background:var(--accent);
+  color:var(--accent-fg);border:0;border-radius:21px;padding:12px 18px;min-height:44px}
+.go:disabled{opacity:.4;cursor:default}
+.sw{font:inherit;font-size:13px;cursor:pointer;background:var(--surface);color:var(--fg-dim);
+  border:1px solid var(--line);border-radius:21px;padding:11px 14px;flex:none;min-height:44px}
+.sw[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+
+/* records */
+.rec{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--shadow);overflow:hidden}
+.rec .rh{display:flex;align-items:center;gap:7px;padding:9px 12px;
+  border-bottom:1px solid var(--line);flex-wrap:wrap}
+.rec .rh b{font-size:14px;font-weight:600}
+.rec .rh .when{font-family:var(--fm);font-size:10px;color:var(--fg-faint);margin-left:auto}
+.tag{font-family:var(--fm);font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;
+  padding:3px 7px;border-radius:4px}
+.tag.routine{background:var(--surface-2);color:var(--fg-dim)}
+.tag.urgent{background:color-mix(in oklab,var(--warn) 18%,var(--surface));color:var(--warn)}
+.tag.emergency,.tag.safety,.tag.escalation{background:color-mix(in oklab,var(--crit) 15%,var(--surface));color:var(--crit)}
+.kv{display:grid;grid-template-columns:1fr;gap:0;padding:10px 12px;font-size:14px;margin:0}
+.kv dt{font-family:var(--fm);font-size:10.5px;color:var(--fg-faint);padding-top:7px}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:24px 16px;text-align:center;
+  color:var(--fg-dim)}
+.empty b{display:block;color:var(--fg);font-weight:600;font-size:15px;margin-bottom:4px}
+.empty p{margin:0 auto;max-width:40ch;font-size:13.5px}
+.foot{font-size:11.5px;color:var(--fg-faint);padding-block:9px;border-top:1px solid var(--line);
+  padding-bottom:max(9px,env(safe-area-inset-bottom,0px));display:flex;gap:8px;flex-wrap:wrap}
+.foot .sw{padding:3px 9px;font-size:11px;min-height:0;border-radius:999px}
+@media (min-width:620px){
+  .kv{grid-template-columns:96px 1fr;gap:3px 12px}
+  .kv dt{padding-top:2px}
+  .tabs button{flex:none;padding:8px 15px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <div class="mark" id="mark">··</div>
+    <b id="bizName">Front Desk</b>
+    <span class="dot" id="dot"></span>
+    <small id="prov">starting</small>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" aria-selected="true"  data-t="chat">Text</button>
+    <button role="tab" aria-selected="false" data-t="mail">Email</button>
+    <button role="tab" aria-selected="false" data-t="call">Phone</button>
+    <button role="tab" aria-selected="false" data-t="rev">Reviews</button>
+    <button role="tab" aria-selected="false" data-t="rec">Jobs</button>
+  </nav>
+
+  <section class="panel" id="p-chat" role="tabpanel">
+    <p class="hint" id="h-chat">A customer texts in. Type anything a real one would.</p>
+    <div class="stream" id="s-chat"></div>
+    <div class="composer">
+      <textarea id="i-chat" rows="1" placeholder="Message as the customer" aria-label="Message as the customer"></textarea>
+      <button class="go" id="g-chat">Send</button>
+    </div>
+  </section>
+
+  <section class="panel" id="p-mail" role="tabpanel" hidden>
+    <p class="hint">A website form arrives. The reply should come back inside five minutes.</p>
+    <div class="stream" id="s-mail"></div>
+    <div class="composer">
+      <textarea id="i-mail" rows="1" placeholder="Reply as the customer" aria-label="Reply as the customer"></textarea>
+      <button class="go" id="g-mail">Send</button>
+    </div>
+  </section>
+
+  <section class="panel" id="p-call" role="tabpanel" hidden>
+    <p class="hint">The phone, after hours. Turn sound on to hear it answer.</p>
+    <div class="stream" id="s-call"></div>
+    <div class="composer">
+      <textarea id="i-call" rows="1" placeholder="Speak as the caller" aria-label="Speak as the caller"></textarea>
+      <button class="sw" id="sound" aria-pressed="false" title="Read replies aloud">Sound</button>
+      <button class="go" id="g-call">Say</button>
+    </div>
+  </section>
+
+  <section class="panel" id="p-rev" role="tabpanel" hidden>
+    <p class="hint">After the job. One to three stars still gets the review link — never hidden.</p>
+    <div class="stream" id="s-rev"></div>
+    <div class="composer">
+      <textarea id="i-rev" rows="1" placeholder="Reply as the customer" aria-label="Reply as the customer"></textarea>
+      <button class="go" id="g-rev">Send</button>
+    </div>
+  </section>
+
+  <section class="panel" id="p-rec" role="tabpanel" hidden>
+    <p class="hint">What the office opens in the morning.</p>
+    <div class="stream" id="s-rec"></div>
+  </section>
+
+  <div class="foot">
+    <span id="foot">—</span>
+    <button class="sw" id="reset" type="button">Start over</button>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
