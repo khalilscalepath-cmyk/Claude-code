@@ -493,3 +493,20 @@ body { padding-bottom: 56px; }
 /* The process head sat a long way above its first row — the section
    padding and the head margin were stacking. */
 .process .section__head { margin-bottom: clamp(20px, 3vw, 34px); }
+
+/* ---------- the dollhouse ----------
+   Hidden until the module confirms WebGL, so a browser that cannot run it
+   never shows an empty box. */
+
+.house { position: relative; margin: clamp(28px, 4vw, 48px) 0 0; }
+.house[hidden] { display: none; }
+.house__canvas {
+  display: block; width: 100%;
+  height: clamp(320px, 46vh, 540px);
+  touch-action: pan-y;
+}
+.house__hint {
+  position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%);
+  margin: 0; color: var(--ink-faint); pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .house__hint { display: none; } }
