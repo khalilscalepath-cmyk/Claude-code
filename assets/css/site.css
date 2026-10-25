@@ -31,7 +31,10 @@
   --card: #fffaf4;
   --ink: #1b1713;
   --ink-soft: #6d6257;
-  --ink-faint: #a0948a;
+  /* Darkened from #a0948a, which was 2.4:1 on the sunk paper. This token
+     paints .mark, and .mark is 10px — the smallest type on the page and
+     the labels under every number. 4.56:1 at worst now, so it clears AA. */
+  --ink-faint: #72665c;
   --line: #e6d8c7;
   --accent: #e2562a;
   --accent-deep: #c74518;
@@ -119,7 +122,9 @@ p:last-child { margin-bottom: 0; }
   padding: 9px var(--gutter);
   text-align: center;
 }
-.disclosure span { color: #9a8f83; }
+/* The bar is the one dark surface on the page, so .mark's cream-ground
+   colour would fail on it. Set explicitly. */
+.disclosure, .disclosure span, .disclosure .mark { color: #9a8f83; }
 .disclosure b { color: var(--paper); font-weight: 500; }
 
 /* ---------- header ---------- */
