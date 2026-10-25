@@ -58,4 +58,23 @@ function profileFor(client) {
   }
 }
 
-module.exports = { handle, profileFor };
+/**
+ * The client's site lives on its own domain and this API on another, so the browser preflights
+ * every chat message. Without these the widget fails silently on the one page that matters.
+ * ALLOWED_ORIGINS (comma separated) locks it down; unset allows any origin, which is fine for a
+ * read-only agent holding no user data but should be set once the client's domain is known.
+ */
+function corsHeaders(origin) {
+  const allow = (process.env.ALLOWED_ORIGINS || "").split(",").map(s => s.trim()).filter(Boolean);
+  const ok = !allow.length ? "*" : (allow.includes(origin) ? origin : "");
+  const h = {
+    "access-control-allow-methods": "POST, GET, OPTIONS",
+    "access-control-allow-headers": "content-type",
+    "access-control-max-age": "86400"
+  };
+  if (ok) h["access-control-allow-origin"] = ok;
+  if (allow.length) h["vary"] = "Origin";
+  return h;
+}
+
+module.exports = { handle, profileFor, corsHeaders };

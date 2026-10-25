@@ -1,7 +1,8 @@
 /** Vercel / Netlify-compatible serverless entry point. The API key never leaves the server. */
-const { handle } = require("../lib/handler");
+const { handle, corsHeaders } = require("../lib/handler");
 
 module.exports = async function (req, res) {
+  for (const [k, v] of Object.entries(corsHeaders(req.headers.origin || ""))) res.setHeader(k, v);
   if (req.method === "OPTIONS") { res.statusCode = 204; return res.end(); }
   if (req.method !== "POST") {
     res.statusCode = 405; res.setHeader("content-type", "application/json");

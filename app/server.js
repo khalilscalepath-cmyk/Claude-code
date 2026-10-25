@@ -10,7 +10,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const { handle, profileFor } = require("./lib/handler");
+const { handle, profileFor, corsHeaders } = require("./lib/handler");
 const { configured } = require("./lib/providers");
 
 // Minimal .env loader, so there is nothing to npm install.
@@ -30,16 +30,22 @@ const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": 
                 ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png",
                 ".ico": "image/x-icon" };
 
-const json = (res, status, obj) => {
-  res.writeHead(status, { "content-type": "application/json" });
+const json = (res, status, obj, origin) => {
+  res.writeHead(status, Object.assign({ "content-type": "application/json" }, corsHeaders(origin)));
   res.end(JSON.stringify(obj));
 };
 
 http.createServer((req, res) => {
   const url = new URL(req.url, "http://localhost");
+  const origin = req.headers.origin || "";
+
+  if (req.method === "OPTIONS" && url.pathname.startsWith("/api/")) {
+    res.writeHead(204, corsHeaders(origin));
+    return res.end();
+  }
 
   if (url.pathname === "/api/agent") {
-    if (req.method !== "POST") return json(res, 405, { error: "POST only" });
+    if (req.method !== "POST") return json(res, 405, { error: "POST only" }, origin);
     let raw = "";
     req.on("data", c => {
       raw += c;
@@ -47,16 +53,17 @@ http.createServer((req, res) => {
     });
     req.on("end", async () => {
       let body = {};
-      try { body = JSON.parse(raw || "{}"); } catch (e) { return json(res, 400, { error: "bad JSON" }); }
+      try { body = JSON.parse(raw || "{}"); }
+      catch (e) { return json(res, 400, { error: "bad JSON" }, origin); }
       const out = await handle(body);
-      json(res, out.status, out.json);
+      json(res, out.status, out.json, origin);
     });
     return;
   }
 
   if (url.pathname === "/api/profile") {
     const out = profileFor(url.searchParams.get("client"));
-    return json(res, out.status, out.json);
+    return json(res, out.status, out.json, origin);
   }
 
   // static

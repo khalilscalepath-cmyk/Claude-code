@@ -39,6 +39,9 @@ in whatever inbox he gives Web3Forms.
 It answers from `brains/clients/ac-handyman.json`. Change a price there and the site, the email
 agent and the phone agent all change together.
 
+The site and the API sit on different domains, so the API sends CORS headers. Once his domain is
+known, set `ALLOWED_ORIGINS` on the deploy to that domain instead of leaving it open.
+
 **4. Email speed-to-lead.** `production/gmail-speed-to-lead.gs`, installed on *his* Google account.
 Paste `prompts/ac-handyman-email.md` into `BRAIN`, add a free Groq or Gemini key and the sheet id as
 script properties, run `setup()`. **Leave `REVIEW_MODE = true` for the first week** so it drafts and
