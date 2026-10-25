@@ -1,0 +1,217 @@
+/* ============================================================
+   Carmel Homes — dark direction
+
+   Loaded after site.css. Everything structural stays; this file
+   repaints. The reference is the set of sites in the clip Khalil
+   sent (Zentry, aether1.ai, Rejouice): a near-black room with one
+   lit object in it, display type split around that object, and
+   thin neon measurement hairlines over the top.
+
+   The one thing those sites do not have to solve is photography.
+   Carmel's asset is 349 photographs of nine finished houses, and
+   an earlier dark version of this page buried them. So the dark
+   is spent where it earns its keep — the hero and the process
+   scroll, where the 3D model and the line work glow — and the
+   page opens out to a lighter ground for the work, the tour and
+   the contact form.
+   ============================================================ */
+
+:root {
+  /* the room */
+  --paper: #07070c;
+  --paper-sunk: #0b0b14;
+  --card: #12121c;
+  --ink: #f4f1ec;
+  --ink-soft: #a9a3b4;
+  --ink-faint: #8b8599;      /* 5.3:1 on --paper, so .mark still reads */
+  --line: #23222f;
+
+  /* orange survives the move: in a dark room it reads as warm light
+     rather than as a brand colour, which is what the reference does
+     with violet. */
+  --accent: #ff6b35;
+  --accent-deep: #ff8a5c;
+
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9);
+  --glow: 0 0 60px -10px rgba(255, 107, 53, 0.45);
+}
+
+body { background: var(--paper); color: var(--ink); }
+
+/* A slow violet wash behind the top of the page. Fixed, so the hero
+   and the process scroll share one continuous room. */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(90vw 70vh at 72% -8%, rgba(92, 70, 170, 0.30), transparent 62%),
+    radial-gradient(70vw 60vh at 8% 12%, rgba(255, 107, 53, 0.12), transparent 60%),
+    var(--paper);
+}
+
+/* ---------- chrome ---------- */
+
+.disclosure { background: #04040a; border-bottom: 1px solid var(--line); }
+.disclosure, .disclosure span, .disclosure .mark { color: #8f8aa0; }
+.disclosure b { color: #e9e5f2; }
+
+.site-head {
+  background: rgba(7, 7, 12, 0.72);
+  border-bottom: 1px solid var(--line);
+}
+.site-nav a { color: var(--ink-soft); }
+.btn--ghost { border-color: var(--line); color: var(--ink); }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.callbar { background: #04040a; border-top: 1px solid var(--line); }
+.callbar a:first-child { color: var(--ink); }
+
+/* ---------- hero: the lit object ---------- */
+
+.hero { position: relative; padding-top: clamp(32px, 6vw, 72px); }
+
+/* The display type splits around the arch the way the reference splits
+   REDEFINE / REALITY around its bloom: first line sits behind the image,
+   second line rides in front of it. */
+@media (min-width: 1000px) {
+  .hero__grid { grid-template-columns: 1fr minmax(340px, 1fr) 0.8fr; }
+  .hero h1 { position: relative; z-index: 3; max-width: none; }
+  .hero h1 em { display: block; margin-left: 14%; }
+}
+
+.hero h1 {
+  letter-spacing: -0.035em;
+  text-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
+}
+.hero h1 em { color: var(--accent); }
+
+.arch {
+  position: relative;
+  background: #0d0d16;
+  box-shadow: var(--shadow), var(--glow);
+}
+/* a thin lit rim, like the reference's product shots */
+.arch::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 150, 100, 0.28);
+  pointer-events: none;
+}
+.arch img { filter: saturate(1.05) contrast(1.06) brightness(0.92); }
+
+/* Measurement hairlines over the hero image — the same technical-drawing
+   vocabulary the process section uses, so the two read as one idea. */
+.arch__marks {
+  position: absolute; inset: 0; z-index: 2;
+  pointer-events: none; overflow: visible;
+}
+.arch__marks line, .arch__marks circle, .arch__marks path {
+  stroke: rgba(255, 160, 115, 0.72);
+  stroke-width: 1;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  /* the photograph runs from bright sky to pale stone, so the marks carry
+     their own dark halo rather than relying on what is behind them */
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.9));
+}
+.arch__marks text {
+  fill: #ffcbb0;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  stroke: rgba(0, 0, 0, 0.85);
+  stroke-width: 2.5px;
+  paint-order: stroke fill;
+}
+
+.review-card {
+  background: rgba(18, 18, 28, 0.72);
+  border-color: var(--line);
+  backdrop-filter: blur(14px);
+}
+.hero__facts strong { color: var(--ink); }
+.thumbs img { border-color: #1a1a26; }
+
+/* ---------- process: the drawing glows ---------- */
+
+.scrub { background: transparent; }
+
+/* strokes go back to light-on-dark, which is what this drawing was built
+   for — on paper it had to be inverted and it lost the glow */
+.scrub__fallback .w    { stroke: #fff6f0; stroke-width: 4.5; }
+.scrub__fallback .m    { stroke: #9a93ab; stroke-width: 1.8; }
+.scrub__fallback .g    { stroke: var(--accent); stroke-width: 2.2; }
+.scrub__fallback .d    { stroke: #6f6980; stroke-width: 1.2; }
+.scrub__fallback .dim  { stroke: #55506a; stroke-width: 1; }
+.scrub__fallback .stamp{ stroke: var(--accent); }
+.scrub__fallback .bub  { stroke: #6f6980; }
+.scrub__fallback .grid { stroke: #39354c; }
+.scrub__fallback .beam { stroke: #6f6980; }
+.scrub__fallback .sect { stroke: var(--accent); }
+.scrub__fallback .f    { stroke: #6f6980; }
+.scrub__fallback .tb   { stroke: #55506a; }
+.scrub__fallback .plan-label { fill: #e8e4f0; }
+.scrub__fallback .plan-dim   { fill: #8b8599; }
+
+/* the model itself picks up a faint bloom, which is the whole point of
+   putting it in a dark room */
+.scrub__fallback [data-model] {
+  filter: drop-shadow(0 0 14px rgba(255, 140, 90, 0.30));
+}
+
+.scrub__veil {
+  background: linear-gradient(to top,
+    var(--paper-sunk) 2%, rgba(11, 11, 20, 0.10) 46%, rgba(11, 11, 20, 0.45) 100%);
+}
+.scrub__copy::before {
+  background: linear-gradient(to top, var(--paper-sunk) 34%, rgba(11, 11, 20, 0));
+}
+.phase__title { color: var(--ink); }
+
+/* ---------- opening out: the work is lit, not dark ---------- */
+
+/* Below the process scroll the room lifts. The photographs are the
+   product here and they need a ground that does not fight them. */
+.figures, .band, .work, .section, .points, .jamie {
+  position: relative;
+  background: #11111b;
+}
+.figures { border-color: var(--line); }
+.figure { border-color: var(--line); }
+.figure__value { color: var(--ink); }
+
+.band { border-block-color: var(--line); background: #0e0e17; }
+.band__shot img { box-shadow: 0 18px 40px -22px #000; }
+
+.project__frame { background: #0a0a12; }
+.project__name { color: var(--ink); }
+.section--paper { background: #0b0b14; }
+
+.award { border-bottom-color: var(--line); }
+.review { background: var(--card); border-color: var(--line); }
+.point { border-color: var(--line); }
+
+.pull { color: var(--ink); }
+.portrait { background: #0a0a12; }
+
+/* ---------- form ---------- */
+
+.field input, .field select, .field textarea {
+  background: #0c0c15;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--accent);
+  outline-color: var(--accent);
+}
+.field label { color: var(--ink-soft); }
+
+.site-foot { background: #04040a; border-top: 1px solid var(--line); }
+.site-foot .mark { color: #8b8599; }
+
+/* ---------- selection and focus stay visible on black ---------- */
+
+::selection { background: var(--accent); color: #0a0a12; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
