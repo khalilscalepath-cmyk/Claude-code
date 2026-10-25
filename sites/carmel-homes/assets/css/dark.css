@@ -215,3 +215,123 @@ body::before {
 
 ::selection { background: var(--accent); color: #0a0a12; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+/* ============================================================
+   Regressions from the token swap
+
+   site.css used var(--paper) in five places to mean "light text on a
+   dark surface" — the disclosure bold, the photo-count pills, the tour
+   captions and the footer. Redefining --paper as near-black inverted
+   every one of them into black-on-black. The disclosure was already
+   caught; these are the rest.
+
+   Found by the accessibility and design agents and confirmed by
+   measurement, not taken on trust: the footer was 1.02:1 and the photo
+   counts 1.13:1.
+   ============================================================ */
+
+.tour__copy { color: var(--ink); }
+.tour__sub { color: var(--ink-soft); }
+
+/* The tour veil was a warm brown wash across the top half of every
+   photograph, which muddied the interiors. Weight it to the bottom,
+   where the caption actually sits. */
+.tour__veil {
+  background: linear-gradient(to top,
+    rgba(7, 7, 12, 0.92) 0%,
+    rgba(7, 7, 12, 0.55) 26%,
+    rgba(7, 7, 12, 0) 54%);
+}
+
+.project__count { color: var(--ink); background: rgba(7, 7, 12, 0.82); }
+
+.site-foot { color: var(--ink-soft); }
+.site-foot a { color: var(--ink); }
+.site-foot a:hover { color: var(--accent); }
+.site-foot .wordmark__name { color: var(--ink); }
+.site-foot p, .site-foot span { color: var(--ink-soft); }
+
+/* White on this orange is 2.84:1, which fails AA, and it is on every
+   call to action: header, hero, submit, call bar. Near-black on the
+   same orange is 6.95:1 and reads hotter, not weaker. */
+.btn:not(.btn--ghost) { color: #0a0a12; }
+.callbar a + a { color: #0a0a12; }
+
+/* The ghost border was --line, which is all but invisible on this
+   ground, so "See the work" did not read as a button. */
+.btn--ghost { border-color: rgba(244, 241, 236, 0.34); }
+.btn--ghost:hover { border-color: var(--accent); }
+
+/* ---------- the glow was being clipped ----------
+   The hero reveal animates clip-path on .arch and leaves inset(0%) on
+   it, which crops the figure's own box-shadow to its rectangle — the
+   bloom ended in a hard edge and read as a brown square. The light
+   belongs on an unclipped ancestor. */
+
+.arch { box-shadow: 0 40px 90px -30px #000; }
+
+.hero__grid { position: relative; }
+.hero__grid::before {
+  content: '';
+  position: absolute; left: 58%; top: 52%;
+  width: min(66vw, 900px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side,
+    rgba(255, 107, 53, 0.30), rgba(110, 80, 230, 0.16) 55%, transparent);
+  filter: blur(26px);
+  z-index: 0; pointer-events: none;
+}
+.hero__lead, .hero__side, .arch { position: relative; z-index: 2; }
+
+/* ---------- tonal steps ----------
+   Every section below the hero sat within 1.07:1 of its neighbour,
+   which is not choreography, it is one flat slab. Widened, and each
+   section gets the hairline rule the drawing vocabulary already uses. */
+
+.band { background: #0c0b18; }
+.work { background: radial-gradient(100vw 70vh at 50% 0%, #1d1838 0%, #11111b 62%); }
+.jamie, .points { background: #0b0b14; }
+#contact {
+  background:
+    radial-gradient(70vw 60vh at 85% 100%, rgba(255, 107, 53, 0.14), transparent 60%),
+    #0d0a16;
+}
+
+.band, .work, .jamie, .points, #contact { position: relative; }
+.band::before, .work::before, .jamie::before, .points::before, #contact::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 150, 100, 0.45), transparent);
+}
+
+/* .points is max-width constrained, so the body ground showed as two
+   darker strips down its edges. Bleed it full-width. */
+.points { clip-path: inset(0 -100vmax); box-shadow: 0 0 0 100vmax #0b0b14; }
+
+/* ---------- the model is the lit object ----------
+   The veil dimmed the top of the model by up to 45%, which is most of
+   why the wireframe looked drab rather than lit. */
+
+.scrub__veil {
+  background: linear-gradient(to top,
+    var(--paper-sunk) 0%, rgba(11, 11, 20, 0.90) 18%,
+    rgba(11, 11, 20, 0.5) 40%, rgba(11, 11, 20, 0) 66%);
+}
+.scrub__fallback .m { stroke: #c9c2ff; }
+.scrub__fallback [data-model] {
+  filter: drop-shadow(0 0 3px rgba(190, 170, 255, 0.85))
+          drop-shadow(0 0 16px rgba(130, 100, 255, 0.5));
+}
+.phase__no { color: #ffb08f; text-shadow: 0 1px 12px #000; }
+.phase__note { color: #cfc9da; text-shadow: 0 1px 10px rgba(0,0,0,.7); }
+
+/* carried over from the light build, not a dark regression */
+.review { margin: 0; }
+
+/* The mirror of the --paper bug, and the one the audits missed because
+   they measured text rather than grounds: site.css used var(--ink) as a
+   dark BACKGROUND in three places. In dark mode --ink is near-white, so
+   .tour's ground was white behind the photographs — visible wherever a
+   frame letterboxes or crossfades. The disclosure and the footer were
+   already given explicit grounds above; this is the third. */
+.tour { background: #07070c; }
