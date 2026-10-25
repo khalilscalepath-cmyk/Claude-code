@@ -63,73 +63,21 @@
     }
   }
 
-  /* The hero arrives as one piece: the arch unmasks from the floor while the
-   * photograph inside it settles out of a slight zoom, then the side column
-   * and the thumbnail strip follow the headline in. Those elements carry
-   * data-hero rather than data-reveal so the scroll reveals below do not also
-   * claim them and fire a second, competing tween. */
+  /* The hero now leads with type on a Swiss grid rather than an arched
+   * image, so the old arch-reveal and parallax are gone with it. What is
+   * left is the headline split, plus a slow drift on the full-bleed
+   * photograph underneath it — enough to give the page depth without
+   * anything sliding about. */
 
-  var arch = document.querySelector('.arch');
-  var archImg = arch && arch.querySelector('img');
-
-  if (arch && !REDUCED) {
-    var intro = gsap.timeline({ delay: 0.1 });
-
-    intro.fromTo(arch,
-      { clipPath: 'inset(100% 0% 0% 0%)', opacity: 1 },
-      { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.15, ease: 'power3.inOut' }, 0);
-
-    if (archImg) {
-      intro.from(archImg, { scale: 1.2, duration: 1.7, ease: 'power3.out' }, 0);
-    }
-
-    intro.from('.hero__side > [data-hero]',
-      { y: 26, opacity: 0, duration: 0.8, ease: 'power2.out', stagger: 0.14 }, 0.45);
-
-    intro.from('.thumbs img',
-      { scale: 0.3, opacity: 0, duration: 0.55, ease: 'back.out(2.2)', stagger: 0.06 }, 0.6);
-
-    intro.from('.thumbs .mark', { opacity: 0, x: -10, duration: 0.5 }, 0.85);
-
-    // Two speeds across the hero: the photograph creeps up inside its fixed
-    // mask, the side column leaves a little faster than the page. Small
-    // numbers on purpose — this should read as depth, not as a slide.
-    gsap.to(archImg || arch, {
-      yPercent: -8,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-
-    gsap.to('.hero__side', {
-      y: -52,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
-  }
-
-  gsap.utils.toArray('[data-hero]').forEach(function (el) {
-    if (el.closest('.hero__side') || el.classList.contains('thumbs') || el.classList.contains('arch')) return;
-    if (REDUCED) { gsap.set(el, { opacity: 1 }); return; }
-    gsap.from(el, { opacity: 0, y: 20, duration: 0.8, ease: 'power2.out', delay: 0.35 });
-  });
-
-  /* The archive strip drifts sideways as it crosses the viewport. The photo
-   * set is printed twice in the markup, so moving the track by a quarter of
-   * its width never exposes an end. */
-
-  var band = document.querySelector('[data-band]');
-  if (band && !REDUCED) {
-    gsap.fromTo(band,
-      { xPercent: -4 },
+  var heroShot = document.querySelector('.hero__shot img');
+  if (heroShot && !REDUCED) {
+    gsap.fromTo(heroShot,
+      { scale: 1.08, yPercent: -2 },
       {
-        xPercent: -26,
-        ease: 'none',
+        scale: 1, yPercent: 2, ease: 'none',
         scrollTrigger: {
-          trigger: '.band',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.6
-        }
+          trigger: '.hero__shot', start: 'top bottom', end: 'bottom top', scrub: 0.6,
+        },
       });
   }
 
@@ -147,133 +95,6 @@
     });
   }
 
-
-  /* ---------------- work, horizontal on desktop ---------------- */
-
-  var viewport = document.querySelector('[data-work-viewport]');
-  var track = document.querySelector('[data-work-track]');
-  var workHint = document.querySelector('[data-work-hint]');
-
-  if (viewport && track && !REDUCED) {
-    var mm = gsap.matchMedia();
-
-    mm.add('(min-width: 900px)', function () {
-      var distance = function () { return track.scrollWidth - viewport.clientWidth; };
-
-      var tween = gsap.to(track, {
-        x: function () { return -distance(); },
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.work',
-          start: 'top top',
-          end: function () { return '+=' + Math.max(1, distance()); },
-          pin: true,
-          scrub: 0.7,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          refreshPriority: 1
-        }
-      });
-
-      return function () {
-        tween.scrollTrigger && tween.scrollTrigger.kill();
-        tween.kill();
-        gsap.set(track, { clearProps: 'x' });
-      };
-    });
-
-    mm.add('(max-width: 899px)', function () {
-      if (workHint) workHint.textContent = 'Nine projects, from Arcadia to Mountain Shadows';
-    });
-  }
-
-  /* ---------------- one house, scrubbed through ----------------
-   * Twelve photographs from Carmel's own Classic Contemporary archive, in the
-   * photographer's shoot order, cross-dissolved against scroll so you walk
-   * through the house. Hard cuts between rooms would strobe, hence the blend.
-   * Phones keep the single static frame already in the HTML: the other eleven
-   * images are never fetched there. */
-
-  var tourSection = document.querySelector('[data-tour]');
-
-  if (tourSection && !REDUCED && window.matchMedia('(min-width: 900px)').matches) {
-    var tourFrames = tourSection.querySelector('[data-tour-frames]');
-    var tourCaption = tourSection.querySelector('[data-tour-caption]');
-    var tourCounter = tourSection.querySelector('[data-tour-counter]');
-
-    // Built now, not in the fetch callback: a pin created after the page has
-    // settled makes every pin below it measure against a stale height.
-    var tourPainter = null;
-
-    ScrollTrigger.create({
-      trigger: tourSection,
-      start: 'top top',
-      end: '+=' + (window.innerHeight * 3.4),
-      pin: '.tour__stage',
-      scrub: 0.5,
-      refreshPriority: 0,
-      invalidateOnRefresh: true,
-      onUpdate: function (self) {
-        if (tourPainter) tourPainter(self.progress);
-      }
-    });
-
-    fetch('assets/tour/manifest.json', { cache: 'no-store' })
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (manifest) {
-        if (!manifest || !manifest.frames || manifest.frames.length < 2) return;
-
-        var frames = manifest.frames;
-        var images = [tourFrames.querySelector('img')];
-
-        // frame 0 is already in the markup; add the rest
-        frames.slice(1).forEach(function (frame) {
-          var img = new Image();
-          img.src = 'assets/tour/' + frame.file;
-          img.alt = '';
-          img.width = 1440;
-          img.height = 810;
-          img.decoding = 'async';
-          tourFrames.appendChild(img);
-          images.push(img);
-        });
-
-        var last = -1;
-
-        // Each room holds for most of its slot and dissolves over the last
-        // quarter. An even blend across the whole slot leaves two rooms at
-        // half opacity for most of the scroll, which reads as a double
-        // exposure rather than a walk through the house.
-        var HOLD = 0.75;
-
-        tourPainter = function (progress) {
-          var pos = progress * (frames.length - 1);
-          var index = Math.floor(pos);
-          var raw = pos - index;
-          var blend = raw <= HOLD ? 0 : (raw - HOLD) / (1 - HOLD);
-
-          for (var i = 0; i < images.length; i++) {
-            var opacity = 0;
-            if (i === index) opacity = 1;
-            else if (i === index + 1) opacity = blend;
-            gsap.set(images[i], { opacity: opacity });
-          }
-
-          // the caption flips with the image, not with the raw position
-          var shown = blend > 0.5 ? Math.min(frames.length - 1, index + 1) : index;
-          if (shown !== last) {
-            last = shown;
-            tourCaption.textContent = frames[shown].caption;
-            tourCounter.textContent = 'Room ' + (shown + 1) + ' of ' + frames.length
-              + ', from 183 photographs';
-          }
-        };
-
-        tourPainter(0);
-        ScrollTrigger.refresh();
-      })
-      .catch(function () { /* the single static frame is a fine fallback */ });
-  }
 
   /* ---------------- React Bits ---------------- */
 
