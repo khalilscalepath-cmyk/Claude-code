@@ -157,9 +157,22 @@ function build(profile, channel, opts) {
     REACTIVATION_SERVICE: rv.reactivation_service || "a check-up"
   };
 
-  // Headline price: the first service with a real figure, for the "give the listed price" example.
+  // Worked examples teach tone, so they have to be in THIS trade. A profile can supply its own;
+  // otherwise build them from the trade and whatever price the business actually publishes.
   const priced = (p.services || []).find(s => s.price_from != null);
-  vals.HEADLINE_PRICE = priced ? money(priced) : "the figure the office confirms";
+  vals.HEADLINE_PRICE = priced ? money(priced) : "";
+  const ex = p.examples || {};
+  const good = ex.good && ex.good.length ? ex.good : [
+    `"That sounds like a bad one. How long has it been going on?"`,
+    priced
+      ? `"${priced.name} is ${money(priced)}. What's it doing right now?"`
+      : `"I'd have to have the office confirm the price. What's it doing right now?"`
+  ];
+  const bad = ex.bad && ex.bad.length ? ex.bad : [
+    `"Great question! I'd be happy to help. What's your name, address, and when works for you?"`,
+    `"Thanks for reaching out. How can I assist you today?"`
+  ];
+  vals.EXAMPLES = good.map(g => "Good: " + g).concat(bad.map(x => "Bad: " + x)).join("\n");
   vals.HOURS_SHORT = (p.hours && p.hours.regular) || "our opening hours";
   vals.PHONE = b.phone || "";
 

@@ -2,7 +2,6 @@
   "_note": "REAL BUSINESS. Facts taken from emergencyplumbinghero.com and their public Google listing on 2026-10-25. Nothing invented. They publish no prices and no street address, so both are in `unknowns` and the agent says the office will confirm. Re-check before go-live.",
   "_source": "https://www.emergencyplumbinghero.com/ and Google Maps listing 0xac9bb85d97a88e1f:0x37c86e634a7e57ac",
   "_evidence": "1-star, edited 6 months ago: 'A no show when they told me they'd be here between 10-2pm. Would not answer their phones would not answer text messages.' The owner's public reply explains why: 'The nature of our business prioritizes emergency calls and we were regretfully stuck helping... so the hose bib you requested became lower priority.' 45 Google reviews at 4.9 against Bumble Bee's 4,389 in the same market.",
-
   "agent_name": "Alex",
   "business": {
     "name": "Emergency Plumbing Hero",
@@ -16,46 +15,115 @@
     "license": "AZ ROC #349522",
     "website": "emergencyplumbinghero.com"
   },
-
   "hours": {
     "regular": "24 hours a day, 7 days a week",
     "closed": "Never. They advertise 24/7 emergency cover",
     "after_hours": "Emergency calls are the core of the business. Night and weekend calls are normal and expected, not an exception."
   },
-
   "services": [
-    { "name": "Emergency plumbing repairs", "price_from": null, "price_to": null, "unit": "job", "notes": "The main reason people call. Burst pipes, no water, active leaks." },
-    { "name": "Drain cleaning", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Hydro jetting", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Sewer camera inspection", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Sewer repair and replacement", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Leak detection and locating", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Water heater repair and installation", "price_from": null, "price_to": null, "unit": "job", "notes": "They source the heater as well as fitting it." },
-    { "name": "Kitchen and bathroom plumbing", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Water softeners and reverse osmosis", "price_from": null, "price_to": null, "unit": "job", "notes": null },
-    { "name": "Commercial plumbing maintenance", "price_from": null, "price_to": null, "unit": "job", "notes": null }
+    {
+      "name": "Emergency plumbing repairs",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": "The main reason people call. Burst pipes, no water, active leaks."
+    },
+    {
+      "name": "Drain cleaning",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Hydro jetting",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Sewer camera inspection",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Sewer repair and replacement",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Leak detection and locating",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Water heater repair and installation",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": "They source the heater as well as fitting it."
+    },
+    {
+      "name": "Kitchen and bathroom plumbing",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Water softeners and reverse osmosis",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    },
+    {
+      "name": "Commercial plumbing maintenance",
+      "price_from": null,
+      "price_to": null,
+      "unit": "job",
+      "notes": null
+    }
   ],
-
   "policies": {
     "emergency": "No water, an active leak, a burst pipe, sewage backing up, or water near anything electrical is treated as an emergency, day or night",
     "warranty": "They mention providing a warranty on installs. The office confirms the terms.",
     "payment": "Not published. The office handles payment, never the agent."
   },
-
   "faqs": [
-    { "q": "Are you really available at night?", "a": "Yes. Emergency plumbing is what we do, and night and weekend calls are normal for us." },
-    { "q": "How much will it cost?", "a": "That depends on what we find. Tom will confirm the price with you before any work starts." },
-    { "q": "Are you licensed?", "a": "Yes, AZ ROC #349522." },
-    { "q": "Do you do commercial work?", "a": "Yes, including ongoing commercial plumbing maintenance." },
-    { "q": "Do you supply the water heater?", "a": "Yes, we can source it as well as install it." }
+    {
+      "q": "Are you really available at night?",
+      "a": "Yes. Emergency plumbing is what we do, and night and weekend calls are normal for us."
+    },
+    {
+      "q": "How much will it cost?",
+      "a": "That depends on what we find. Tom will confirm the price with you before any work starts."
+    },
+    {
+      "q": "Are you licensed?",
+      "a": "Yes, AZ ROC #349522."
+    },
+    {
+      "q": "Do you do commercial work?",
+      "a": "Yes, including ongoing commercial plumbing maintenance."
+    },
+    {
+      "q": "Do you supply the water heater?",
+      "a": "Yes, we can source it as well as install it."
+    }
   ],
-
   "booking": {
     "windows": "Not published. For an emergency say someone will call straight back; otherwise offer morning or afternoon.",
     "lead_time": "Emergencies are same-day. Never promise a specific arrival time.",
     "confirm_by": "Tom calls back to confirm"
   },
-
   "review": {
     "link": "https://search.google.com/local/writereview?placeid=ChIJH46ol124m6wRrFd-SmNuyDc",
     "_link_note": "Built from their Google place_id. Open it once and confirm it lands on Emergency Plumbing Hero before any message goes out.",
@@ -63,13 +131,10 @@
     "reactivation_service": "a drain check before it backs up again",
     "sms_window": "9am to 7pm"
   },
-
   "safety": {
     "gas_emergency_line": "Southwest Gas on 877-860-6020"
   },
-
   "tone": "Calm and fast. People reaching this business are often standing in water at 3am and frightened. Their best reviews describe Tom talking a panicking customer down and arriving in fifteen minutes. Steady, no fuss, no upselling, and never make an emergency caller wait through small talk.",
-
   "unknowns": [
     "Any price at all. They publish none.",
     "How soon Tom can actually get there, and where he is right now",
@@ -77,5 +142,15 @@
     "How many years they have been trading",
     "The exact warranty terms",
     "Payment methods and anything about an existing invoice"
-  ]
+  ],
+  "examples": {
+    "good": [
+      "\"Water coming through the ceiling is urgent. Have you been able to shut the main off?\"",
+      "\"I'd have to have Tom confirm the price on that. What's the water doing right now?\""
+    ],
+    "bad": [
+      "\"Great question! I'd be happy to help. What's your name, address, and when works for you?\"",
+      "\"Thanks for reaching out. How can I assist you today?\""
+    ]
+  }
 }
