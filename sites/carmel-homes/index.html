@@ -144,6 +144,17 @@
       </ol>
     </div>
 
+    <!-- The dollhouse. Real 3D geometry built from Carmel's plan, turned by
+         scroll position. Progressive: without WebGL or with reduced motion
+         the canvas stays hidden and the finished-house photograph below
+         carries the section on its own. -->
+    <div class="house" data-house hidden>
+      <canvas class="house__canvas" data-house-canvas
+              aria-label="A cutaway 3D view of a Carmel house, turning as you scroll"
+              role="img"></canvas>
+      <p class="house__hint mark" data-house-hint>Scroll to turn the house</p>
+    </div>
+
     <figure class="process__finish reveal" data-reveal>
       <img src="assets/img/finished-house.webp"
            alt="Canyon Court at dusk, finished: drawn, permitted, built and fitted out by one office"
@@ -696,5 +707,60 @@
 <script src="vendor/react-dom.production.min.js"></script>
 <script src="assets/js/reactbits.js"></script>
 <script src="assets/js/site.js"></script>
+
+<!-- The dollhouse is an ES module because Three.js is one. Browsers without
+     module support simply never run it, and the section still works. -->
+<script type="module">
+  import { mount } from './assets/js/dollhouse.js';
+
+  const holder = document.querySelector('[data-house]');
+  const canvas = document.querySelector('[data-house-canvas]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function webgl() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch (e) { return false; }
+  }
+
+  if (holder && canvas && webgl()) {
+    let view;
+    try {
+      view = mount(canvas);
+    } catch (err) {
+      console.warn('dollhouse failed to start:', err);
+    }
+
+    if (view) {
+      holder.hidden = false;
+      view.resize();
+      addEventListener('resize', () => view.resize(), { passive: true });
+
+      if (reduced) {
+        // a single readable angle, no movement
+        view.set(-0.52, 1);
+      } else {
+        gsap.to({ t: 0 }, {
+          t: 1, ease: 'none',
+          scrollTrigger: {
+            trigger: holder,
+            start: 'top 85%',
+            end: 'bottom 15%',
+            scrub: 0.8,
+            onUpdate(self) {
+              const p = self.progress;
+              // turn through about 100 degrees, and lift the roof over the
+              // first third so the rooms are open for most of the pass
+              view.set(-0.95 + p * 1.75, Math.min(1, p / 0.34));
+            },
+          },
+        });
+        view.set(-0.95, 0);
+        ScrollTrigger.refresh();
+      }
+    }
+  }
+</script>
 </body>
 </html>
