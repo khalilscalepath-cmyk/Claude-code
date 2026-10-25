@@ -5,9 +5,12 @@ air-conditioning-arizona.com and his Google listing on 2026-10-25.
 
 ```
 index.html      the new site, with the chat agent built in
-review.html     the review page (star router, compliant)
 prompts/        the four compiled agent prompts
 ```
+
+The review page is shared by every client and served by the app at
+`/review.html?c=ac-handyman&id=<customer>`, reading its details from the same profile. One page
+means one place to fix it.
 
 ## What this replaces
 
@@ -47,14 +50,14 @@ Paste `prompts/ac-handyman-email.md` into `BRAIN`, add a free Groq or Gemini key
 script properties, run `setup()`. **Leave `REVIEW_MODE = true` for the first week** so it drafts and
 he sends. Bookings append to a Google Sheet he owns.
 
-**5. The review page.** Already compliant, see below. It needs a logger URL before it can tell him
-who rated what:
+**5. The review page.** Served by the app, already compliant, see below. It needs a logger URL
+before it can tell him who rated what:
 
 ```html
 <script>window.TRACK_URL = "https://<your-deploy>/api/review";</script>
 ```
 
-Send one link per customer: `review.html?c=<their id>`.
+Send one link per customer: `/review.html?c=ac-handyman&id=<their id>`.
 
 ## The compliance line, and why it is drawn where it is
 

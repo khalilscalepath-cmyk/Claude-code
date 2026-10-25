@@ -107,11 +107,15 @@ function groundTruth(p) {
   return o.join("\n");
 }
 
+// Values like "Not published" are placeholders, not facts; feeding them in makes the agent read
+// like a form with blanks in it.
+const said = v => v && !/^(not published|n\/a|none|unknown)\.?$/i.test(String(v).trim());
+
 function groundTruthCompact(p) {
   const b = p.business, o = [];
-  o.push(`${b.name}, ${b.trade}${b.years_in_business ? ", " + b.years_in_business : ""}. Covers ${b.service_area}.`);
-  if (b.address) o.push(`Address: ${b.address}.`);
-  if (b.phone) o.push(`Phone: ${b.phone}.`);
+  o.push(`${b.name}, ${b.trade}${said(b.years_in_business) ? ", " + b.years_in_business : ""}. Covers ${b.service_area}.`);
+  if (said(b.address)) o.push(`Address: ${String(b.address).replace(/\.+$/, "")}.`);
+  if (said(b.phone)) o.push(`Phone: ${b.phone}.`);
   const h = p.hours || {};
   if (Object.keys(h).length)
     o.push(`Hours: ${h.regular || ""} Closed ${h.closed || "—"}. ${h.after_hours || ""}`.trim());
