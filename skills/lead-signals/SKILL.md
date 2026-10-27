@@ -20,7 +20,25 @@ test 10–12 first, then scale (Patrick Dang's rule).
 | No website, or website fails the audit (no mobile layout, no HTTPS, © 5+ yrs old, no tap-to-call) | +15 | Free website + receptionist |
 | Pays for leads (Google ads tag, LSA, Angi/HomeAdvisor/Thumbtack listing) | +10 | Speed-to-Lead |
 | 15–600 Google reviews (owner-operated sweet spot) | ×1.0 | |
-| Franchise or 1,500+ reviews (likely has a call center) | ×0.4 | |
+| Franchisee-owned location (One Hour, Benjamin Franklin, Mister Sparky, Mr. Rooter, Aire Serv, Mr. Electric…) | ×1.0 + **MASTER KEY** flag | Full bundle |
+| Company-owned brand (Roto-Rooter, ARS, Service Experts…) or 1,500+ reviews (likely a call center) | ×0.4 | |
+| Retailer / home warranty (Home Depot, Sears, Frontdoor) | ×0 | not a prospect |
+
+## Franchise owners (master-key clients)
+From JP Middleton: franchise owners don't compete with each other, sit on advisory boards and
+meet at conventions, so one happy owner tells the others. He got 200+ gym clients from one
+Anytime Fitness owner with 12 locations. One win = a case study the whole network trusts.
+1. Pick 1–2 franchise brands in the trade (HVAC: One Hour, Aire Serv; plumbing: Benjamin
+   Franklin, Mr. Rooter; electrical: Mister Sparky, Mr. Electric).
+2. Find the owners: the brand's Franchise Disclosure Document (FDD) lists current franchisees with
+   location and phone. FDDs are public through state franchise registries (e.g. California
+   DFPI, Wisconsin DFI, Minnesota CARDS). Prefer **multi-unit owners** (one owner, several territories).
+3. Check the location: Google reviews for missed calls, and call after hours. If it rings a
+   brand call center, lead with reactivation, reviews, sales coaching and ads, not the receptionist.
+4. Find the owner on LinkedIn or the state business registry, then use `cold-outreach`. Mention
+   other owners in the brand only with their permission.
+5. Treat the first franchise client as a showcase: overdeliver, measure everything, ask for an
+   intro to 2 other owners at day 60.
 
 ## Is the niche worth it? (Noah's 3-point filter)
 1. Size: 50,000+ businesses in the US (HVAC ≈ 115k, roofing ≈ 135–166k).

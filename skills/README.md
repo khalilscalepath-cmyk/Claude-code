@@ -1,6 +1,7 @@
 # Scalepath Claude Skills
 
-Eight skills that run the agency workflow from the videos (see `docs/04-video-playbook.md`):
+Eleven skills that run the agency workflow from the videos (see `docs/04-video-playbook.md`).
+Together they build the 7 AI employees of the Growth Team bundle (`docs/03-offer-playbook.md`):
 
 | Skill | Use it when you say things like |
 |---|---|
@@ -10,7 +11,10 @@ Eight skills that run the agency workflow from the videos (see `docs/04-video-pl
 | `cold-outreach` | "write the email for this lead", "Loom script for Emergency Air" |
 | `discovery-call` | "prep me for my call with X", "write the proposal", "how much should I charge?" |
 | `weekly-client-report` | "make this week's report for my client" |
-| `client-delivery-agents` | "set up the follow-up agent for my new client", "review campaign" |
+| `client-delivery-agents` | "set up the follow-up agent for my new client", "review campaign", "referrals" |
+| `database-reactivation` | "text their old customer list", "wake up their database", "unsold estimates" |
+| `sales-coach` | "review this call", "role-play a price objection", "my client's team can't close" |
+| `ads-funnel` | "run Facebook ads for this client", "write lead ads", "get clients without cold calling" |
 | `video-to-skill` | "watch this video and add what's useful" (any YouTube link) |
 
 ## Install

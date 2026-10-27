@@ -3,14 +3,39 @@ import re
 
 from .signals import ReviewSignals
 
-# Big brands usually route calls through a franchisor call center, so they're a hard sale.
-FRANCHISES = re.compile(
-    r"one hour|roto-?rooter|mr\.? rooter|benjamin franklin|mister sparky|aire serv|"
-    r"service experts|\bars\b|rescue rooter|mr\.? electric|horizon services|any hour|"
-    r"len the plumber|parker & sons|goettl|abc home|baker brothers|frontdoor|cinch|"
-    r"home depot|lowe'?s|sears",
+# Franchise brands whose locations are owned by local franchisees. These are "master key" clients
+# (JP Middleton): owners compare notes on advisory boards and at conventions, so one win can spread
+# across the network. Check whether the location's calls go to a brand call center before pitching
+# the receptionist; reactivation, reviews, sales coaching and ads usually still fit.
+FRANCHISE_BRANDS = re.compile(
+    r"one hour|mr\.? rooter|benjamin franklin|ben franklin plumbing|mister sparky|aire serv|"
+    r"mr\.? electric|bluefrog plumbing|zoom drain|rooter-?man|plumbing paramedics",
     re.I,
 )
+# Company-owned or private-equity groups with central dispatch: a hard sale, keep downweighted.
+CORPORATE_BRANDS = re.compile(
+    r"roto-?rooter|service experts|\bars\b|rescue rooter|horizon services|any hour|"
+    r"len the plumber|parker & sons|goettl|abc home|baker brothers",
+    re.I,
+)
+# Retailers and home-warranty companies are not prospects.
+NOT_PROSPECTS = re.compile(r"frontdoor|cinch|home depot|lowe'?s|sears", re.I)
+
+# Kept for anything importing the old name.
+FRANCHISES = FRANCHISE_BRANDS
+
+
+def brand_type(name: str) -> str:
+    """'franchise', 'corporate', 'not_prospect' or 'independent'."""
+    name = name or ""
+    if NOT_PROSPECTS.search(name):
+        return "not_prospect"
+    if FRANCHISE_BRANDS.search(name):
+        return "franchise"
+    if CORPORATE_BRANDS.search(name):
+        return "corporate"
+    return "independent"
+
 
 OFFERS = {
     "voice_ai": "After-Hours Voice AI Receptionist",
@@ -82,11 +107,18 @@ def score_business(biz: dict, rev: ReviewSignals, web: dict[str, bool]) -> dict:
     strong = [k for k, v in scores.items() if v >= 45]
     scores["flagship"] = _cap(sum(scores.values()) / 2) if len(strong) >= 2 else 0
 
-    # Fit: owner-operated sweet spot is roughly 15-600 Google reviews, not a franchise.
+    # Fit: owner-operated sweet spot is roughly 15-600 Google reviews. Franchisee-owned locations
+    # are as good a fit as independents and are flagged as master-key clients.
     n = biz.get("review_count") or 0
-    is_franchise = bool(FRANCHISES.search(biz.get("name") or ""))
-    if is_franchise:
-        fit, fit_note = 0.4, "franchise/large brand (likely has call center)"
+    kind = brand_type(biz.get("name") or "")
+    is_franchise = kind == "franchise"
+    if kind == "not_prospect":
+        fit, fit_note = 0.0, "retailer / home warranty (not a prospect)"
+    elif kind == "corporate":
+        fit, fit_note = 0.4, "company-owned brand (likely central call center)"
+    elif is_franchise:
+        fit, fit_note = 1.0, ("franchise location: MASTER KEY (one win can spread across the "
+                              "network; check if calls go to a brand call center)")
     elif n > 1500:
         fit, fit_note = 0.6, "very large (may already have dispatch staff)"
     elif n < 5:
@@ -106,6 +138,7 @@ def score_business(biz: dict, rev: ReviewSignals, web: dict[str, bool]) -> dict:
         "fit_note": fit_note,
         "pain_counts": dict(c),
         "is_franchise": is_franchise,
+        "brand_type": kind,
         "reasons": reasons,
         "evidence": [
             {"rating": h.rating, "categories": h.categories, "quote": _quote(h.text)}

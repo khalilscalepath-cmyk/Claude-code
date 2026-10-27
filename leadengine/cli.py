@@ -2,6 +2,7 @@
 
   python -m leadengine run --trade plumber --city "Houston, TX" --limit 40
   python -m leadengine demo --lead out/houston-tx-plumber/leads/<slug> [--live]
+  python -m leadengine reactivate --list export.csv --business "X" --trade hvac --offer "..."
 
 Pipeline per business: Google Places (listing, hours, 5 reviews) → Outscraper (full reviews,
 optional) → website audit → pain scoring → cold email + voice-AI prompt + knowledge base.
@@ -111,7 +112,7 @@ def cmd_run(args) -> None:
 
 
 def write_csv(leads: list[dict], path: Path) -> None:
-    cols = ["need_score", "name", "recommended_offer", "fit_note", "phone", "emails", "website",
+    cols = ["need_score", "name", "recommended_offer", "fit_note", "brand_type", "phone", "emails", "website",
             "address", "rating", "review_count", "reviews_scanned", "voice_ai", "text_back",
             "speed_to_lead", "flagship", "reasons", "top_evidence", "maps_url"]
     with path.open("w", newline="") as f:
@@ -166,8 +167,33 @@ def main() -> None:
     dm.add_argument("--lead", required=True, help="path to out/<run>/leads/<business>")
     dm.add_argument("--live", action="store_true")
     dm.set_defaults(func=cmd_demo)
+    ra = sub.add_parser("reactivate", help="turn a client's customer export into a text campaign")
+    ra.add_argument("--list", required=True, help="CSV export from the client's CRM")
+    ra.add_argument("--business", required=True, help="the client's business name")
+    ra.add_argument("--trade", default="hvac", help="hvac, plumbing or electrical")
+    ra.add_argument("--offer", required=True,
+                    help='the client-approved promo, e.g. "a $79 AC tune-up (normally $149)"')
+    ra.add_argument("--ticket", type=float, default=350, help="average ticket in dollars")
+    ra.add_argument("--no-consent-check", action="store_true",
+                    help="keep rows even if the consent column says no (only with written OK)")
+    ra.add_argument("--out", default=str(ROOT / "out"))
+    ra.set_defaults(func=cmd_reactivate)
     args = p.parse_args()
     args.func(args)
+
+
+def cmd_reactivate(args) -> None:
+    from . import reactivation
+    path = Path(args.list)
+    res = reactivation.build(path, args.business, args.trade, args.offer,
+                             require_consent=not args.no_consent_check)
+    with path.open(newline="", encoding="utf-8-sig") as f:
+        headers = next(csv.reader(f), [])
+    consent_found = reactivation._col(headers, "consent") is not None
+    out_dir = Path(args.out) / f"reactivation-{slug(args.business)}"
+    reactivation.write_outputs(res, out_dir, args.business, args.ticket, consent_found)
+    print(f"{len(res.contacts)} of {res.total_rows} contacts ready. "
+          f"Wrote {out_dir}/ghl_import.csv and summary.md")
 
 
 if __name__ == "__main__":

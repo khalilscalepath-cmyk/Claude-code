@@ -10,6 +10,38 @@ pick what you pitch and how you open.
 | Web form with no chat, runs Google/Meta ads, on Angi/Thumbtack, "took days to get a quote" | **Speed-to-Lead** | Add-on or part of flagship | "How fast does someone call back a new web lead today, honestly?" |
 | Two or more of the above, decent size (30–600 reviews) | **Full Lead Recovery (flagship)** | $2,000–3,000 setup + $997–1,497/mo | "Let's add up where jobs are leaking: after hours, during jobs, and web leads." |
 
+## The full Growth Team: 7 AI employees (bundle)
+From JP Middleton's video: selling one fix plugs one hole in a leaky bucket, so the result is
+small, the fee is small and the client cancels. Selling the connected system plugs every hole.
+Each "employee" is a part we already build:
+
+| # | AI employee | What it does for the owner | How we build it |
+|---|---|---|---|
+| 1 | Web developer | Fast, phone-first site that turns visitors into calls | `local-business-website` |
+| 2 | Outreach specialist | Texts the old customer list and unsold quotes, books them back in | `database-reactivation` + `leadengine reactivate` |
+| 3 | Reputation manager | Asks every customer for a rating and a Google review, alerts owner on bad ones, referrals | `client-delivery-agents` |
+| 4 | Lead responder | Answers every web/ad/Angi lead in under a minute, follows up until booked | `client-delivery-agents` (speed-to-lead) |
+| 5 | Receptionist | Answers calls 24/7, missed-call text-back, books, reminds, reschedules no-shows | `voice-receptionist` + text-back template |
+| 6 | Sales coach | Role-plays with CSRs and techs, scores their recorded calls weekly | `sales-coach` |
+| 7 | Marketing director | Runs lead ads to a landing page, hands every lead to #4 | `ads-funnel` |
+Reporting ties it together: `weekly-client-report` shows each employee's numbers every week.
+
+**Rollout (don't launch all 7 on day 1):**
+- Week 1, stop the leaks: receptionist + text-back (#5), lead responder (#4).
+- Week 2, quick win: reactivation (#2) and reputation manager (#3). Bookings in days prove it works.
+- Weeks 3–4: website (#1) if theirs is slow (show the PageSpeed score before and after).
+- Month 2: ads (#7), only once 4 and 5 are answering every lead.
+- Month 2–3: sales coach (#6), once there's call volume to review.
+
+**Price (starting points to test, not market data):** $3,500–5,000 setup + $1,997–2,997/mo.
+Ad spend is paid by the client straight to Meta. Each extra location of the same owner is cloned
+from the first: about $500–1,000 setup + $500–900/mo. That's why franchise and multi-location
+owners are the best fit (see "Franchise owners" in `lead-signals`).
+Payment: 50% of setup upfront, 50% at go-live of week 1, monthly from go-live.
+
+**Who it's for:** 10+ techs, already spending on marketing, or several locations. Smaller shops
+get one or two employees from the table above. Never pitch all 7 to a 2-truck shop.
+
 ## Diagnosis call (20 min): diagnose → quantify → present
 1. **Diagnose (8 min):** How many calls a day? Who answers after 5pm and on weekends? What happens
    to voicemails? How fast are web leads called back? Do you pay for leads (Angi, LSA, ads)?

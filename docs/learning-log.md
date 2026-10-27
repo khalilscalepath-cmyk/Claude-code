@@ -3,6 +3,11 @@
 Every video or source Khalil shares, what we took from it, and where it now lives.
 Newest first. Method: `skills/video-to-skill`.
 
+## 2026-10-27
+| Video | Creator | Takeaways | Saved in |
+|---|---|---|---|
+| [The Largest Wealth Transfer in History Just Started](https://youtu.be/01mQFYgAdV0) | JP Middleton | Sell 7 connected "AI employees", not one fix (leaky bucket): website, database reactivation, reviews + referrals, lead responder, receptionist, sales coach, ads. Target franchise owners as "master key" clients (advisory boards spread word; 1 owner → 200+ clients). Get clients with Meta lead ads: Leads objective, broad targeting, creative calls out the niche. Ignore: revenue/valuation screenshots, partnership pitch, unsourced stats. Changed: his review gating (only 4–5 stars to Google) breaks Google policy, so every customer gets the link and unhappy ones get an owner callback. | New: `database-reactivation` (+ `leadengine reactivate`), `sales-coach`, `ads-funnel`. Updated: `client-delivery-agents` (reputation manager), `lead-signals` + scoring (franchise = master key), `discovery-call` (bundle price, leaky bucket), `cold-outreach` (openers), `docs/03-offer-playbook.md` (Growth Team bundle) |
+
 ## 2026-10-22
 | Video | Creator | Takeaways | Saved in |
 |---|---|---|---|

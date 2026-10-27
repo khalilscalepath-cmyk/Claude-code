@@ -17,6 +17,13 @@ description: Write Scalepath cold emails, follow-ups, LinkedIn/WhatsApp messages
 6. Two easy options: Calendly link, or reply for WhatsApp. Low pressure.
 Max 120 words. No AI jargon (LLM, agent, automation stack). Digits not words.
 
+## Other openers
+- **Reactivation (any size):** "You have years of past customers and quotes nobody chased. I can
+  turn that list into booked jobs this month, no ad spend. Want me to run the numbers on yours?"
+- **Franchise owner:** lead with the network, not the brand: "I work with franchise owners on the
+  calls and old leads that slip through between the brand's systems. Happy to show what it looks
+  like for your locations." Never claim a brand partnership or name other owners without permission.
+
 ## Follow-ups
 - Day 3: one line + the demo again ("call it at 9pm like a customer would").
 - Day 7: the math: missed calls/week × ~40% booking rate × average ticket × 52.

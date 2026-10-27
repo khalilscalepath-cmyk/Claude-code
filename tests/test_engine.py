@@ -78,13 +78,24 @@ def test_scoring_picks_flagship_for_multi_pain():
     assert any("24/7" in r for r in s["reasons"])
 
 
-def test_franchise_is_downweighted():
+def test_franchise_locations_are_master_key_not_downweighted():
     rev = scan_reviews([{"text": t, "rating": r} for t, r in REAL_COMPLAINTS])
     indie = score_business(_biz(), rev, {})
-    franchise = score_business(_biz("One Hour Heating & Air"), rev, {})
-    assert franchise["is_franchise"] and franchise["need_score"] < indie["need_score"]
-    # "Stars" must not match the ARS franchise pattern
-    assert not score_business(_biz("Five Stars Plumbing"), rev, {})["is_franchise"]
+    franchise = score_business(_biz("One Hour Heating & Air of Mesa"), rev, {})
+    assert franchise["is_franchise"] and franchise["brand_type"] == "franchise"
+    assert "MASTER KEY" in franchise["fit_note"]
+    assert franchise["need_score"] == indie["need_score"]
+    # "Stars" must not match the ARS pattern
+    assert score_business(_biz("Five Stars Plumbing"), rev, {})["brand_type"] == "independent"
+
+
+def test_corporate_brands_and_retailers_downweighted():
+    rev = scan_reviews([{"text": t, "rating": r} for t, r in REAL_COMPLAINTS])
+    indie = score_business(_biz(), rev, {})
+    corp = score_business(_biz("Roto-Rooter Plumbing & Water Cleanup"), rev, {})
+    shop = score_business(_biz("Sears Home Services"), rev, {})
+    assert corp["brand_type"] == "corporate" and corp["need_score"] < indie["need_score"]
+    assert shop["brand_type"] == "not_prospect" and shop["need_score"] < corp["need_score"]
 
 
 def test_happy_business_scores_low():

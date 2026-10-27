@@ -53,7 +53,15 @@ and you'd be one of my only clients, so you get me directly."
 | 1–3 techs (< 50 reviews) | Text-Back or Voice AI lite (+ free site if theirs is bad) | $0–500 | $197–397 |
 | 4–10 techs (50–300 reviews) | After-Hours Voice AI + Text-Back | $750–1,500 | $497–797 |
 | 10–30 techs (300–1,000, runs ads) | Full Lead Recovery | $1,500–3,000 | $997–1,497 |
+| 10+ techs, multi-location or franchise owner | Full Growth Team (all 7 AI employees) | $3,500–5,000 | $1,997–2,997 + $500–900 per extra location |
 Optional performance version: lower monthly + $25–50 per booked job.
+Full bundle details, build order and the "leaky bucket" pitch: `docs/03-offer-playbook.md`.
+
+## The leaky bucket (use when they have 2+ problems)
+"Think of the business as a bucket. Revenue is the water. Missed calls, slow callbacks, old
+quotes nobody chased, no reviews: each is a hole. Fixing one hole and leaving the rest is why
+most agencies get fired. We plug all of them as one system." Then list *their* holes from the
+diagnosis, in their words.
 
 ## Objections
 "Customers hate robots" → let them call it; it says it's an AI if asked and books in 2 minutes.

@@ -1,6 +1,6 @@
 ---
 name: client-delivery-agents
-description: Set up the automations Scalepath delivers to a signed home-service client after the sale: speed-to-lead follow-up agent, lead triage/scoring agent, weekly executive report agent, AI booking bot for web forms, and Google review campaign, in Base44 Super Agents, GoHighLevel or Make. Use when asked to build, configure, prompt or test a client's agents, automations, follow-up sequence, lead scoring, booking bot, review request campaign, or "deliver the service" for an HVAC, plumbing or electrical client.
+description: Set up the automations Scalepath delivers to a signed home-service client after the sale: speed-to-lead follow-up agent, lead triage/scoring agent, weekly executive report agent, AI booking bot for web forms, and the reputation manager (review requests after every job plus referrals), in Base44 Super Agents, GoHighLevel or Make. Use when asked to build, configure, prompt or test a client's agents, automations, follow-up sequence, lead scoring, booking bot, review request campaign, Google reviews, reputation management, referral program, or "deliver the service" for an HVAC, plumbing or electrical client.
 ---
 
 # Client delivery agents
@@ -57,11 +57,34 @@ Trigger: form submitted → internal notification to owner → SMS now: "Hi {fir
 We got your request about {issue}. A tech can come out {window}." → wait 2 min → "Is now a good time
 for a quick call?" → AI conversation qualifies (address, timeline, problem) and books.
 
-## Google review campaign (past customers, with consent)
-> Hi {first}, this is {owner} from {Business}. Hope the {service} is still working well! Would you be
-> open to leaving us a quick Google review? It really helps a small local business: {review link}
-Send only to past customers who gave their number for service updates. Don't offer rewards for
-reviews (Google's policy prohibits incentivised reviews, so skip "raffle" tactics).
+## Reputation manager (AI employee #3): reviews after every job, plus referrals
+Trigger: job marked complete in the CRM (or invoice paid) → wait 2 hours → run this. It never
+forgets, which is the whole point: most techs never ask.
+
+1. **Rating text:**
+   > Hi {first}, it's {Business}. Thanks for having {tech} out today! Quick one: how did we do,
+   > 1 to 5? Reply STOP to opt out.
+2. **Every reply gets the review link** (whatever the number):
+   > Thank you! If you have 30 seconds, a Google review helps a small local business more than
+   > anything: {review link}
+3. **If they rate 1–3:** also alert the owner immediately ({owner phone}) with the customer's name,
+   job and reply, so someone calls them **today** and fixes it. That's the real protection against
+   bad reviews: an unhappy customer who gets a call often changes their mind on their own.
+4. **Referral (3 days later, separate message, only to 4–5 ratings):**
+   > Hi {first}, if a friend or neighbour ever needs {trade} help, send them this and they get
+   > {referral offer}: {referral link}. We'll take care of them.
+   The referral link goes to a short form; submissions enter the speed-to-lead agent.
+5. No reply to step 1 after 2 days → one nudge, then stop.
+
+**What we don't copy from the video** (JP Middleton routes 4–5 to Google and 1–3 to a private form):
+- Sending only happy customers to Google is "review gating". Google's review policy prohibits
+  selectively asking for positive reviews or discouraging negative ones. A listing caught doing it
+  can have reviews removed. So every customer gets the link, and unhappy ones also get a call.
+- No rewards, discounts or raffles for leaving a review (also against Google's policy). The referral
+  offer is for the *friend's* first job and never depends on leaving a review.
+- Only text customers who gave their number for service updates. A2P registration first.
+
+Show results weekly: requests sent, ratings, new Google reviews, owner callbacks, referrals booked.
 
 ## Client communication
 Clients churn over silence more than results. Send a short weekly update even when quiet, and reply

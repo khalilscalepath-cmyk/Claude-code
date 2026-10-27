@@ -36,7 +36,8 @@ For each business it:
 3. Audits the website: 24/7 claims, booking widget, chat, forms, ad pixels, emails.
 4. Scans reviews for pain: *no answer, voicemail, never called back, after hours, went with
    another company, slow quote*.
-5. Scores all 4 offers, flags franchises/very large shops, and explains why.
+5. Scores all 4 offers, flags franchise locations as master-key targets, downweights
+   company-owned brands and very large shops, and explains why.
 6. Writes `out/<city-trade>/`:
    - `leads.csv`: ranked, with reasons and evidence quotes
    - `instantly_import.csv`: ready for Instantly/Smartlead (subject, body, 2 follow-ups)
@@ -53,6 +54,25 @@ Or paste `voice_ai_prompt.md` into GoHighLevel/Hexona Voice AI → Prompting Adv
 `knowledge_base.md` into its knowledge base (steps 1–9 of the operating guide).
 
 **Always read the evidence before emailing.** The score is a filter. You still decide who to contact.
+
+## Database reactivation (AI employee #2)
+
+Turn a client's customer export into a segmented text campaign and a money summary:
+
+```bash
+python -m leadengine reactivate --list export.csv --business "Emergency Air" --trade hvac \
+    --ticket 350 --offer "a \$79 AC tune-up (normally \$149)"
+```
+
+Writes `out/reactivation-<business>/ghl_import.csv` (GoHighLevel import, tagged by segment, 3 texts
+each) and `summary.md`. Removes bad numbers, duplicates, opt-outs and rows marked "no consent".
+Read the `database-reactivation` skill before sending anything.
+
+## The Growth Team bundle
+
+The full offer is 7 "AI employees" (website, reactivation, reviews, lead responder, receptionist,
+sales coach, ads), rolled out over about 90 days and sold to multi-location and franchise owners.
+See `docs/03-offer-playbook.md`. Franchise locations are flagged **MASTER KEY** in `leads.csv`.
 
 ## Tests
 
