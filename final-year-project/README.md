@@ -82,6 +82,7 @@ When a live copy changes, export it again and replace the file here, so this fol
 
 - **Stack:** Python and Django, Django templates with Tailwind CSS and HTMX, installable on phones as a web app with push notifications, PostgreSQL with pgvector, Redis, Celery, Jitsi Meet for video, and Claude through the Anthropic API for the AI features.
 - **Demo first:** the system is built as a working demo with sample accounts for students, lecturers and office staff, then piloted in selected courses.
+- **Standalone, portal-ready:** MIU Connect is built on its own, not inside the school's existing portal. Data comes in through one import step, so it can be connected to the portal later through a data export or API. Say this at the defence: we can connect it, but it was outside the scope.
 - **Fees:** the system shows fee records only. It does not take payments.
 - **Study assistant:** answers from the lecturer's own course materials, shows its sources, and gives guidance instead of complete assignment answers.
 - **Public AI agents:** answer only from information approved by office staff, never reveal a student's records, and pass anything else to staff as a CRM ticket. The admissions advisor recommends; it does not decide.

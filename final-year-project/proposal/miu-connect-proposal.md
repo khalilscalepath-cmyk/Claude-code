@@ -132,7 +132,7 @@ The system will be a responsive web application that can be installed on a phone
 ### 7.2 Limitations
 
 - The fee module shows payment records but does not process payments. Students will continue to pay through the University's existing channels, and bursary staff will update records manually or by CSV import.
-- Integration with the University's central portal is outside the scope. Student, lecturer and course data will be imported from CSV files.
+- MIU Connect is built as a standalone system. Connecting it to the University's existing student portal is outside the scope, but the system is designed for it: student, lecturer and course data enter through one import step (CSV files for now), which could later read directly from the portal through a data export or API.
 - The AI features depend on an external language model service, so they need internet access, have a usage cost and can make mistakes. Their answers are based on approved materials and clearly labelled as AI help; they do not replace lecturers or staff.
 - The AI receptionist and admissions advisor give general information only, such as fee schedules, entry requirements and dates. They never reveal a particular student's records; such requests become tickets for staff to verify and answer.
 - The admissions advisor recommends; it does not decide. Final course choice and admission remain with the applicant and the University's admission process.
