@@ -121,7 +121,7 @@ seg(128, 128, (t, a) => {
 // Billions of red dwarfs
 seg(129, 131, (t, a) => {
   let w = space(t, 260, '#05081a', 40);
-  for (let i = 0; i < 90; i++) { const sh = pop(t, a(130) - .3 + rnd(i + 5) * 2.5); if (sh <= 0) continue; const x = 60 + rnd(i + 400) * 1160, y = 150 + rnd(i + 450) * 470, r = 5 + rnd(i) * 7; w += `<circle cx="${x}" cy="${y}" r="${r * 2.6}" fill="url(#gRed)" opacity=".7"/><circle cx="${x}" cy="${y}" r="${r * sh}" fill="#f0704f" stroke="${C.ink}" stroke-width="2"/>`; if (t > a(131) + rnd(i) * 2.4) w += `<circle cx="${x + r * 2.4}" cy="${y - r}" r="4" fill="#8fe3ff"/>`; }
+  for (let i = 0; i < 90; i++) { const sh = pop(t, .2 + rnd(i + 5) * 4.5); if (sh <= 0) continue; const x = 60 + rnd(i + 400) * 1160, y = 150 + rnd(i + 450) * 470, r = 5 + rnd(i) * 7; w += `<circle cx="${x}" cy="${y}" r="${r * 2.6}" fill="url(#gRed)" opacity=".7"/><circle cx="${x}" cy="${y}" r="${r * sh}" fill="#f0704f" stroke="${C.ink}" stroke-width="2"/>`; if (t > a(131) + rnd(i) * 2.4) w += `<circle cx="${x + r * 2.4}" cy="${y - r}" r="4" fill="#8fe3ff"/>`; }
   return cam(w, 640, 360, lerp(1.3, 1, easeOut(prog(t, 0, 9)))) + pl(640, 90, 'red dwarfs: the most common stars', 54, '#ff9d80', pop(t, a(130) + .4)) + pl(640, 680, 'billions of places worth checking', 54, '#8fe3ff', pop(t, a(131) + 2.4));
 });
 // And if it doesn't
