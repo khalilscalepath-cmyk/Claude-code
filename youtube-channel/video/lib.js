@@ -117,11 +117,75 @@ function frame(inner, t, o = {}) {
   const seed = Math.floor(t * 6) % 5;
   const wob = o.noWobble ? '' : 'filter="url(#boil)"';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
-  <defs>
+  <defs>${DEFS}
     <filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="${seed}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${seed + 9}"/><feColorMatrix values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.9 -0.25"/></filter>
   </defs>
-  <g ${wob}><g transform="translate(${W/2} ${H/2}) scale(1.025) translate(${-W/2} ${-H/2})">${inner}</g></g>
+  ${o.under||''}<g ${wob}><g transform="translate(${W/2} ${H/2}) scale(1.025) translate(${-W/2} ${-H/2})">${inner}</g></g>${o.noVig?'':vignette(o.vig??1)}
   <rect width="${W}" height="${H}" filter="url(#grain)" opacity="${o.grain ?? .22}" style="mix-blend-mode:multiply"/>
   </svg>`;
 }
+
+// ---------- v2: lit scenes, camera, in-scene characters ----------
+const DEFS = `
+  <radialGradient id="gVig" cx="50%" cy="50%" r="72%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".72"/></radialGradient>
+  <radialGradient id="gBlue"><stop offset="0%" stop-color="#8fe3ff" stop-opacity=".95"/><stop offset="45%" stop-color="#3fb4ff" stop-opacity=".35"/><stop offset="100%" stop-color="#3fb4ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gWarm"><stop offset="0%" stop-color="#ffe6a8" stop-opacity=".95"/><stop offset="50%" stop-color="#ffb347" stop-opacity=".3"/><stop offset="100%" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gRed"><stop offset="0%" stop-color="#ff9a8a" stop-opacity=".9"/><stop offset="55%" stop-color="#ff5a45" stop-opacity=".28"/><stop offset="100%" stop-color="#ff5a45" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#070b1a"/><stop offset="60%" stop-color="#10254a"/><stop offset="100%" stop-color="#1d4a66"/></linearGradient>
+  <linearGradient id="gSpot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="100%" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+  <linearGradient id="gHall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0d1c"/><stop offset="100%" stop-color="#1a2140"/></linearGradient>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter>
+  <filter id="soft2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>`;
+// camera: look at (cx,cy) with zoom z
+const cam = (inner, cx, cy, z) => `<g transform="translate(${W / 2} ${H / 2}) scale(${z}) translate(${-cx} ${-cy})">${inner}</g>`;
+const glow = (x, y, r, id, o = 1) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#${id})" opacity="${o}"/>`;
+function stars(t, n = 120, w = W, h = H, seed = 0) {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const x = rnd(i + seed) * w, y = rnd(i + seed + 100) * h, r = .8 + rnd(i + seed + 200) * 2.2;
+    const tw = .35 + .65 * Math.abs(Math.sin(t * (.5 + rnd(i + 300)) + i));
+    s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#fff8e7" opacity="${tw.toFixed(2)}"/>`;
+  }
+  return s;
+}
+// The big glowing "Earth 2.0": the video's recurring object.
+function earth2(x, y, r, t, o = {}) {
+  const id = 'e2' + Math.round(x) + Math.round(r);
+  const drift = (t * 14) % (r * 4);
+  let land = '';
+  for (let k = -1; k < 2; k++) {
+    const dx = k * r * 4 - drift + r;
+    land += `<path transform="translate(${dx} 0)" d="M${-r * .9} ${-r * .35} q${r * .3} ${-r * .45} ${r * .75} ${-r * .15} q${r * .25} ${r * .3} ${-r * .05} ${r * .55} q${-r * .35} ${r * .2} ${-r * .7} ${-r * .4}z M${r * .5} ${r * .2} q${r * .4} ${-r * .2} ${r * .6} ${r * .15} q${-r * .1} ${r * .4} ${-r * .6} ${-r * .15}z M${r * 1.5} ${-r * .5} q${r * .5} ${-r * .1} ${r * .5} ${r * .35} q${-r * .3} ${r * .25} ${-r * .5} ${-r * .35}z" fill="#57c785"/>`;
+  }
+  let s = glow(0, 0, r * 2.1, 'gBlue', o.glow ?? .9);
+  s += `<clipPath id="${id}"><circle r="${r}"/></clipPath><circle r="${r}" fill="#2f8fd6"/>`;
+  s += `<g clip-path="url(#${id})">${land}<ellipse cx="${-r * .3}" cy="${-r * .62}" rx="${r * .5}" ry="${r * .09}" fill="#fff" opacity=".8"/><ellipse cx="${r * .35}" cy="${r * .5}" rx="${r * .45}" ry="${r * .08}" fill="#fff" opacity=".7"/><circle cx="${r * .5}" cy="${r * .45}" r="${r * 1.15}" fill="#061a3a" opacity=".38"/></g>`;
+  s += `<circle r="${r}" fill="none" stroke="${C.ink}" stroke-width="${o.sw ?? 6}"/><path d="M${-r * .72} ${-r * .38} A${r * .82} ${r * .82} 0 0 1 ${-r * .2} ${-r * .8}" fill="none" stroke="#fff" stroke-width="${r * .05}" stroke-linecap="round" opacity=".7"/>`;
+  return g(s, at(x, y));
+}
+// In-scene person: round head, bean body, thin legs.
+function person(x, y, s = 1, o = {}) {
+  const { coat = C.white, skin = '#f6d7b0', hair = '#5b3a29', mood = 'flat', look = 0, armR = 10, armL = -10, glasses = true, scarf = C.orange, lit = '' } = o;
+  const ink = C.ink; let b = '';
+  b += `<ellipse cx="0" cy="182" rx="52" ry="9" fill="#000" opacity=".35"/>`;
+  b += `<line x1="-13" y1="120" x2="-15" y2="176" stroke="${ink}" stroke-width="8" stroke-linecap="round"/><line x1="13" y1="120" x2="15" y2="176" stroke="${ink}" stroke-width="8" stroke-linecap="round"/><path d="M-30 180 h18 M12 180 h18" stroke="${ink}" stroke-width="9" stroke-linecap="round"/>`;
+  b += `<g transform="translate(-30 52) rotate(${armL})"><path d="M0 0 q-10 30 -4 58" fill="none" stroke="${ink}" stroke-width="15" stroke-linecap="round"/><path d="M0 0 q-10 30 -4 58" fill="none" stroke="${coat}" stroke-width="7" stroke-linecap="round"/></g>`;
+  b += `<g transform="translate(30 52) rotate(${armR})"><path d="M0 0 q10 30 4 58" fill="none" stroke="${ink}" stroke-width="15" stroke-linecap="round"/><path d="M0 0 q10 30 4 58" fill="none" stroke="${coat}" stroke-width="7" stroke-linecap="round"/></g>`;
+  b += `<path d="M-34 60 q0 -26 34 -26 q34 0 34 26 v48 q0 24 -34 24 q-34 0 -34 -24z" fill="${coat}" stroke="${ink}" stroke-width="6"/><line x1="0" y1="52" x2="0" y2="130" stroke="${ink}" stroke-width="3" opacity=".5"/>`;
+  b += `<path d="M-26 36 q26 16 52 0 l4 14 q-30 14 -60 0z" fill="${scarf}" stroke="${ink}" stroke-width="5"/>`;
+  b += `<circle cx="0" cy="-18" r="52" fill="${skin}" stroke="${ink}" stroke-width="6"/>`;
+  b += `<path d="M-50 -30 q6 -44 50 -42 q44 -2 50 42 q-22 -24 -50 -22 q-28 -2 -50 22z" fill="${hair}" stroke="${ink}" stroke-width="5"/>`;
+  const ex = 17, ey = -14 + (o.lookY || 0);
+  if (glasses) b += `<circle cx="${-ex + look}" cy="${ey}" r="14" fill="#fff" stroke="${ink}" stroke-width="4"/><circle cx="${ex + look}" cy="${ey}" r="14" fill="#fff" stroke="${ink}" stroke-width="4"/><line x1="${-3 + look}" y1="${ey}" x2="${3 + look}" y2="${ey}" stroke="${ink}" stroke-width="4"/>`;
+  b += `<circle cx="${-ex + look * 1.4}" cy="${ey + (o.lookY || 0) * .4}" r="5" fill="${ink}"/><circle cx="${ex + look * 1.4}" cy="${ey + (o.lookY || 0) * .4}" r="5" fill="${ink}"/>`;
+  const my = 12;
+  if (mood === 'ooh') b += `<ellipse cx="${look}" cy="${my + 2}" rx="7" ry="10" fill="${ink}"/>`;
+  if (mood === 'flat') b += `<line x1="${-10 + look}" y1="${my}" x2="${10 + look}" y2="${my}" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>`;
+  if (mood === 'happy') b += `<path d="M${-12 + look} ${my - 3} Q${look} ${my + 13} ${12 + look} ${my - 3}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/>`;
+  if (mood === 'worry') b += `<path d="M${-11 + look} ${my + 5} Q${look} ${my - 6} ${11 + look} ${my + 5}" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/><path d="M44 -44 q-9 16 0 24 q9 -8 0 -24z" fill="#9ddcff" stroke="${ink}" stroke-width="3"/>`;
+  if (lit) b += `<path d="M-46 -40 A52 52 0 0 1 10 -69" fill="none" stroke="${lit}" stroke-width="7" stroke-linecap="round" opacity=".9"/><path d="M-33 62 q0 -22 22 -26" fill="none" stroke="${lit}" stroke-width="6" stroke-linecap="round" opacity=".8"/>`;
+  return g(b, at(x, y, s));
+}
+const tag = (x, y, str, fill = C.red, k = 1, rot = 0, size = 34) => { const w = str.length * size * .5 + 36; return g(`<rect x="0" y="${-size * .8}" width="${w}" height="${size * 1.5}" rx="6" fill="${fill}" stroke="${C.ink}" stroke-width="5"/>` + text(w / 2, size * .3, str, size, C.white, { font: 'Brush' }), at(x, y, k, rot)); };
+const vignette = (o = 1) => `<rect width="${W}" height="${H}" fill="url(#gVig)" opacity="${o}"/>`;
