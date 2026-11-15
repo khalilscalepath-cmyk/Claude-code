@@ -189,3 +189,50 @@ function person(x, y, s = 1, o = {}) {
 }
 const tag = (x, y, str, fill = C.red, k = 1, rot = 0, size = 34) => { const w = str.length * size * .5 + 36; return g(`<rect x="0" y="${-size * .8}" width="${w}" height="${size * 1.5}" rx="6" fill="${fill}" stroke="${C.ink}" stroke-width="5"/>` + text(w / 2, size * .3, str, size, C.white, { font: 'Brush' }), at(x, y, k, rot)); };
 const vignette = (o = 1) => `<rect width="${W}" height="${H}" fill="url(#gVig)" opacity="${o}"/>`;
+
+// ---------- v3: sentence-timed scenes and shared props ----------
+// TIMING (sentence list) is injected by the renderer.
+const TS = () => TIMING;
+const cutAt = i => i <= 0 ? 0 : i >= TS().length ? TS()[TS().length - 1].end + .2 : (TS()[i - 1].end + TS()[i].start) / 2;
+// seg(first sentence, last sentence, draw(t, a)) where a(i, f) = local time of sentence i (+ fraction f of its length)
+function seg(i0, i1, draw, o = {}) {
+  const st = cutAt(i0), en = cutAt(i1 + 1);
+  SCENES.push({ start: st, end: en, o, draw: (t, T) => draw(t, (i, f = 0) => TS()[i].start + f * (TS()[i].end - TS()[i].start) - st, T) });
+}
+const fade = (t, at0, d = .4) => prog(t, at0, at0 + d);
+const space = (t, seed = 0, fill = '#070b1a', n = 120) => `<rect x="-200" y="-200" width="${W + 400}" height="${H + 400}" fill="${fill}"/>` + stars(t, n, W, H, seed);
+const label = (x, y, str, size = 44, fill = C.cream, o = {}) => text(x, y, str, size, fill, Object.assign({ font: 'Brush', stroke: C.ink, sw: size * .16 }, o));
+const pl = (x, y, str, size, fill, k, rot = 0, o = {}) => k <= 0 ? '' : g(label(0, 0, str, size, fill, o), at(x, y, k, rot));
+const paper = (x, y, w, h, rot = 0, fill = C.cream) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="${fill}" stroke="${C.ink}" stroke-width="6" transform="rotate(${rot} ${x + w / 2} ${y + h / 2})"/>`;
+function arrow(x1, y1, x2, y2, col = C.cream, sw = 7) {
+  const a = Math.atan2(y2 - y1, x2 - x1), h = 20;
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/><path d="M${x2} ${y2} L${x2 - h * Math.cos(a - .45)} ${y2 - h * Math.sin(a - .45)} M${x2} ${y2} L${x2 - h * Math.cos(a + .45)} ${y2 - h * Math.sin(a + .45)}" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" fill="none"/>`;
+}
+// Red dwarf star TRAPPIST-1
+function rstar(x, y, r, t, o = {}) {
+  let s = glow(0, 0, r * (2.6 + .12 * Math.sin(t * 2.2)), 'gRed', o.glow ?? .9);
+  if (o.flare) for (let i = 0; i < 7; i++) { const a = i * 51 + 20 * Math.sin(t * 3 + i), L = r * (1.25 + o.flare * (.5 + .5 * Math.abs(Math.sin(t * 5 + i * 2)))); s += `<path d="M${r * .8} -10 Q${L} 0 ${r * .8} 10z" fill="#ffd0a0" stroke="${C.ink}" stroke-width="4" transform="rotate(${a})"/>`; }
+  s += `<circle r="${r}" fill="#f0704f"/><circle r="${r * .72}" fill="#f78b63" opacity=".8"/><circle cx="${-r * .2}" cy="${-r * .2}" r="${r * .38}" fill="#ffab85" opacity=".7"/><circle r="${r}" fill="none" stroke="${C.ink}" stroke-width="${o.sw ?? 6}"/>`;
+  if (o.face) s += faceSvg(r, o.face);
+  return g(s, at(x, y));
+}
+// TRAPPIST-1e. o.air 0..1 blue halo, o.rock 0..1 turns grey, o.lock = angle (deg) of the lit side, o.face
+function tp(x, y, r, t, o = {}) {
+  const id = 'tp' + Math.round(x) + '_' + Math.round(y) + '_' + Math.round(r), rock = o.rock || 0;
+  let s = '';
+  if (o.air) s += glow(0, 0, r * 1.7, 'gBlue', .8 * o.air) + `<circle r="${r + r * .13}" fill="none" stroke="#8fe3ff" stroke-width="${r * .12}" opacity="${.75 * o.air}"/>`;
+  s += `<clipPath id="${id}"><circle r="${r}"/></clipPath><circle r="${r}" fill="#c96a3d"/>`;
+  let inn = `<path d="M${-r} ${-r * .15} q${r * .4} ${-r * .4} ${r * .8} ${-r * .1} q${r * .5} ${r * .3} ${r * 1.2} ${-r * .1} v${r * .55} q${-r * .6} ${r * .3} ${-r * 1.1} 0 q${-r * .4} ${-r * .25} ${-r * .9} ${r * .1}z" fill="#2a9d8f"/><ellipse cx="${-r * .35}" cy="${-r * .6}" rx="${r * .35}" ry="${r * .1}" fill="#e9b08a"/><ellipse cx="${r * .3}" cy="${r * .68}" rx="${r * .4}" ry="${r * .1}" fill="#a84f2a"/>`;
+  if (rock) inn += `<circle r="${r}" fill="#8a8f98" opacity="${rock}"/><circle cx="${-r * .3}" cy="${-r * .2}" r="${r * .18}" fill="#6d727b" opacity="${rock}"/><circle cx="${r * .35}" cy="${r * .3}" r="${r * .24}" fill="#6d727b" opacity="${rock}"/><circle cx="${r * .2}" cy="${-r * .5}" r="${r * .1}" fill="#6d727b" opacity="${rock}"/>`;
+  if (o.lock !== undefined) inn += `<g transform="rotate(${o.lock})"><rect x="0" y="${-r}" width="${r}" height="${r * 2}" fill="#050a1c" opacity=".82"/><rect x="${-r}" y="${-r}" width="${r}" height="${r * 2}" fill="#ffb347" opacity=".25"/></g>`;
+  else inn += `<circle cx="${r * .5}" cy="${r * .45}" r="${r * 1.12}" fill="#000" opacity=".28"/>`;
+  s += `<g clip-path="url(#${id})">${inn}</g><circle r="${r}" fill="none" stroke="${C.ink}" stroke-width="${o.sw ?? 6}"/>`;
+  if (o.face) s += faceSvg(r, o.face);
+  return g(s, at(x, y));
+}
+function thermo(x, y, h, lvl, col, str, k = 1) {
+  const fh = h * clamp(lvl);
+  return g(`<rect x="-16" y="${-h}" width="32" height="${h + 10}" rx="16" fill="${C.white}" stroke="${C.ink}" stroke-width="6"/><rect x="-8" y="${-fh}" width="16" height="${fh + 10}" fill="${col}"/><circle cy="24" r="30" fill="${col}" stroke="${C.ink}" stroke-width="6"/>` + label(0, 110, str, 56, col), at(x, y, k));
+}
+const catchTag = (x, y, str, k, swing = 0) => k <= 0 ? '' : g(`<line x1="0" y1="-120" x2="0" y2="0" stroke="${C.cream}" stroke-width="4"/>` + g(`<path d="M-30 0 L4 -46 H${str.length * 25 + 40} V46 H4z" fill="${C.cream}" stroke="${C.ink}" stroke-width="6"/><circle cx="-2" cy="0" r="9" fill="#06121f" stroke="${C.ink}" stroke-width="4"/>` + text(26, 17, str, 46, C.red, { font: 'Brush', anchor: 'start' }), 'translate(2 0)'), `translate(${x} ${y}) rotate(${swing}) scale(${k})`);
+const qcard = (lines) => (t) => card(t, lines);
