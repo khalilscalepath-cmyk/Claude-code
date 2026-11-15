@@ -1,0 +1,1106 @@
+[
+ {
+  "i": 0,
+  "para": 0,
+  "start": 0.0,
+  "end": 4.65,
+  "gap": 0.44,
+  "text": "Every few months, a headline tells you that scientists have found another Earth."
+ },
+ {
+  "i": 1,
+  "para": 1,
+  "start": 4.65,
+  "end": 5.91,
+  "gap": 0.36,
+  "text": "A second home."
+ },
+ {
+  "i": 2,
+  "para": 1,
+  "start": 5.91,
+  "end": 7.6,
+  "gap": 0.44,
+  "text": "Earth two point zero."
+ },
+ {
+  "i": 3,
+  "para": 2,
+  "start": 7.6,
+  "end": 10.66,
+  "gap": 0.38,
+  "text": "And every time, nobody tells you the catch."
+ },
+ {
+  "i": 4,
+  "para": 3,
+  "start": 10.66,
+  "end": 19.24,
+  "gap": 0.34,
+  "text": "So today we're going to pick the best candidate we have, the single most Earth-like planet anyone knows about, and ask three simple questions."
+ },
+ {
+  "i": 5,
+  "para": 3,
+  "start": 19.24,
+  "end": 20.21,
+  "gap": 0.42,
+  "text": "Where is it?"
+ },
+ {
+  "i": 6,
+  "para": 3,
+  "start": 20.21,
+  "end": 22.15,
+  "gap": 0.37,
+  "text": "What is it actually like there?"
+ },
+ {
+  "i": 7,
+  "para": 3,
+  "start": 22.15,
+  "end": 24.63,
+  "gap": 0.55,
+  "text": "And could a human being ever live on it?"
+ },
+ {
+  "i": 8,
+  "para": 4,
+  "start": 24.63,
+  "end": 27.43,
+  "gap": 0.5,
+  "text": "The answers are stranger than the headlines."
+ },
+ {
+  "i": 9,
+  "para": 5,
+  "start": 27.43,
+  "end": 30.85,
+  "gap": 0.58,
+  "text": "Let's start with why you keep hearing about a new Earth."
+ },
+ {
+  "i": 10,
+  "para": 6,
+  "start": 30.85,
+  "end": 35.71,
+  "gap": 0.32,
+  "text": "Astronomers have now confirmed more than six thousand planets around other stars."
+ },
+ {
+  "i": 11,
+  "para": 6,
+  "start": 35.71,
+  "end": 38.07,
+  "gap": 0.42,
+  "text": "Almost all of them are terrible."
+ },
+ {
+  "i": 12,
+  "para": 6,
+  "start": 38.07,
+  "end": 40.37,
+  "gap": 0.28,
+  "text": "Balls of gas hotter than a furnace."
+ },
+ {
+  "i": 13,
+  "para": 6,
+  "start": 40.37,
+  "end": 42.17,
+  "gap": 0.41,
+  "text": "Frozen rocks in the dark."
+ },
+ {
+  "i": 14,
+  "para": 6,
+  "start": 42.17,
+  "end": 45.03,
+  "gap": 0.37,
+  "text": "Worlds where it may rain molten glass."
+ },
+ {
+  "i": 15,
+  "para": 7,
+  "start": 45.03,
+  "end": 54.37,
+  "gap": 0.38,
+  "text": "So when one turns up that is roughly the size of Earth, and sits at a distance from its star where water could stay liquid, it makes the news."
+ },
+ {
+  "i": 16,
+  "para": 7,
+  "start": 54.37,
+  "end": 57.86,
+  "gap": 0.43,
+  "text": "That distance has a name: the habitable zone."
+ },
+ {
+  "i": 17,
+  "para": 7,
+  "start": 57.86,
+  "end": 59.87,
+  "gap": 0.36,
+  "text": "Not too hot, not too cold."
+ },
+ {
+  "i": 18,
+  "para": 8,
+  "start": 59.87,
+  "end": 62.81,
+  "gap": 0.43,
+  "text": "But here is the first catch."
+ },
+ {
+  "i": 19,
+  "para": 8,
+  "start": 62.81,
+  "end": 65.96,
+  "gap": 0.25,
+  "text": "Habitable zone does not mean habitable."
+ },
+ {
+  "i": 20,
+  "para": 8,
+  "start": 65.96,
+  "end": 71.68,
+  "gap": 0.33,
+  "text": "Venus sits near the edge of our Sun's habitable zone, and its surface is hot enough to melt lead."
+ },
+ {
+  "i": 21,
+  "para": 8,
+  "start": 71.68,
+  "end": 73.33,
+  "gap": 0.21,
+  "text": "The zone only tells you a planet has a chance."
+ },
+ {
+  "i": 22,
+  "para": 8,
+  "start": 73.33,
+  "end": 76.91,
+  "gap": 0.52,
+  "text": "It is a ticket to the lottery, not the prize."
+ },
+ {
+  "i": 23,
+  "para": 9,
+  "start": 76.91,
+  "end": 79.15,
+  "gap": 0.43,
+  "text": "So which planet holds the best ticket?"
+ },
+ {
+  "i": 24,
+  "para": 10,
+  "start": 79.15,
+  "end": 81.24,
+  "gap": 0.21,
+  "text": "It's called TRAPPIST-1e."
+ },
+ {
+  "i": 25,
+  "para": 11,
+  "start": 81.24,
+  "end": 84.69,
+  "gap": 0.45,
+  "text": "It was announced in twenty seventeen, one of seven rocky planets circling the same small star."
+ },
+ {
+  "i": 26,
+  "para": 11,
+  "start": 84.69,
+  "end": 87.3,
+  "gap": 0.35,
+  "text": "It is ninety-two percent as wide as Earth."
+ },
+ {
+  "i": 27,
+  "para": 11,
+  "start": 87.3,
+  "end": 97.79,
+  "gap": 0.45,
+  "text": "Its gravity is about four fifths of ours, so a person who weighs eighty kilograms here would feel like sixty-five there."
+ },
+ {
+  "i": 28,
+  "para": 11,
+  "start": 97.79,
+  "end": 100.72,
+  "gap": 0.32,
+  "text": "And it receives about two thirds of the sunlight Earth does."
+ },
+ {
+  "i": 29,
+  "para": 12,
+  "start": 100.72,
+  "end": 105.93,
+  "gap": 0.38,
+  "text": "Here is the number that gets scientists excited."
+ },
+ {
+  "i": 30,
+  "para": 12,
+  "start": 105.93,
+  "end": 110.44,
+  "gap": 0.52,
+  "text": "Take away Earth's air, and our planet would average about minus eighteen degrees Celsius."
+ },
+ {
+  "i": 31,
+  "para": 12,
+  "start": 110.44,
+  "end": 114.38,
+  "gap": 0.43,
+  "text": "Do the same sum for TRAPPIST-1e and you get about minus twenty-three."
+ },
+ {
+  "i": 32,
+  "para": 12,
+  "start": 114.38,
+  "end": 115.48,
+  "gap": 0.42,
+  "text": "On paper, these two worlds start from almost the same place."
+ },
+ {
+  "i": 33,
+  "para": 13,
+  "start": 115.48,
+  "end": 118.28,
+  "gap": 0.56,
+  "text": "On paper."
+ },
+ {
+  "i": 34,
+  "para": 14,
+  "start": 118.28,
+  "end": 120.97,
+  "gap": 0.39,
+  "text": "Because now we have to talk about its sun."
+ },
+ {
+  "i": 35,
+  "para": 15,
+  "start": 120.97,
+  "end": 126.04,
+  "gap": 0.42,
+  "text": "The star TRAPPIST-1 is a red dwarf."
+ },
+ {
+  "i": 36,
+  "para": 15,
+  "start": 126.04,
+  "end": 128.37,
+  "gap": 0.41,
+  "text": "It has nine percent of the mass of our Sun, and it is barely wider than the planet Jupiter."
+ },
+ {
+  "i": 37,
+  "para": 15,
+  "start": 128.37,
+  "end": 131.81,
+  "gap": 0.42,
+  "text": "It glows a dim salmon red."
+ },
+ {
+  "i": 38,
+  "para": 16,
+  "start": 131.81,
+  "end": 134.26,
+  "gap": 0.36,
+  "text": "A star that weak only warms what is very close to it."
+ },
+ {
+  "i": 39,
+  "para": 16,
+  "start": 134.26,
+  "end": 137.79,
+  "gap": 0.44,
+  "text": "So TRAPPIST-1e huddles in tight, thirty times closer to its star than Earth is to the Sun."
+ },
+ {
+  "i": 40,
+  "para": 16,
+  "start": 137.79,
+  "end": 140.31,
+  "gap": 0.36,
+  "text": "One trip around takes six days."
+ },
+ {
+  "i": 41,
+  "para": 17,
+  "start": 140.31,
+  "end": 141.38,
+  "gap": 0.23,
+  "text": "That's a year."
+ },
+ {
+  "i": 42,
+  "para": 17,
+  "start": 141.38,
+  "end": 142.79,
+  "gap": 0.41,
+  "text": "Six days."
+ },
+ {
+  "i": 43,
+  "para": 17,
+  "start": 142.79,
+  "end": 147.78,
+  "gap": 0.42,
+  "text": "If you are thirty years old on Earth, you'd be about eighteen hundred on TRAPPIST-1e."
+ },
+ {
+  "i": 44,
+  "para": 17,
+  "start": 147.78,
+  "end": 152.06,
+  "gap": 0.45,
+  "text": "You would have a birthday every week, and frankly you'd stop buying cake."
+ },
+ {
+  "i": 45,
+  "para": 18,
+  "start": 152.06,
+  "end": 154.36,
+  "gap": 0.26,
+  "text": "Being that close has a second effect."
+ },
+ {
+  "i": 46,
+  "para": 18,
+  "start": 154.36,
+  "end": 160.58,
+  "gap": 0.36,
+  "text": "The star's gravity has almost certainly locked the planet in place, the same way Earth has locked the Moon."
+ },
+ {
+  "i": 47,
+  "para": 18,
+  "start": 160.58,
+  "end": 163.01,
+  "gap": 0.34,
+  "text": "One side always faces the star."
+ },
+ {
+  "i": 48,
+  "para": 18,
+  "start": 163.01,
+  "end": 164.9,
+  "gap": 0.32,
+  "text": "The other side never does."
+ },
+ {
+  "i": 49,
+  "para": 19,
+  "start": 164.9,
+  "end": 169.34,
+  "gap": 0.32,
+  "text": "So on TRAPPIST-1e the sun does not rise, and it does not set."
+ },
+ {
+  "i": 50,
+  "para": 19,
+  "start": 169.34,
+  "end": 175.39,
+  "gap": 0.35,
+  "text": "It hangs in one spot in the sky forever, about four times wider than our Sun looks to us."
+ },
+ {
+  "i": 51,
+  "para": 19,
+  "start": 175.39,
+  "end": 178.46,
+  "gap": 0.32,
+  "text": "One half of the planet lives in permanent afternoon."
+ },
+ {
+  "i": 52,
+  "para": 19,
+  "start": 178.46,
+  "end": 181.46,
+  "gap": 0.43,
+  "text": "The other half lives in a night that never ends."
+ },
+ {
+  "i": 53,
+  "para": 20,
+  "start": 181.46,
+  "end": 183.64,
+  "gap": 0.33,
+  "text": "And the star is not gentle."
+ },
+ {
+  "i": 54,
+  "para": 20,
+  "start": 183.64,
+  "end": 189.63,
+  "gap": 0.29,
+  "text": "Red dwarfs throw off violent flares, bursts of radiation that can peel the air off a nearby planet, layer by layer, over billions of years."
+ },
+ {
+  "i": 55,
+  "para": 21,
+  "start": 189.63,
+  "end": 192.48,
+  "gap": 0.41,
+  "text": "Which brings us to the only question that really matters."
+ },
+ {
+  "i": 56,
+  "para": 22,
+  "start": 192.48,
+  "end": 195.9,
+  "gap": 0.44,
+  "text": "Does TRAPPIST-1e still have air?"
+ },
+ {
+  "i": 57,
+  "para": 23,
+  "start": 195.9,
+  "end": 202.42,
+  "gap": 0.33,
+  "text": "Without an atmosphere, there is no pressure to hold water as a liquid."
+ },
+ {
+  "i": 58,
+  "para": 23,
+  "start": 202.42,
+  "end": 205.93,
+  "gap": 0.36,
+  "text": "No blanket to move heat from the day side to the night side."
+ },
+ {
+  "i": 59,
+  "para": 23,
+  "start": 205.93,
+  "end": 207.61,
+  "gap": 0.54,
+  "text": "Nothing to breathe."
+ },
+ {
+  "i": 60,
+  "para": 23,
+  "start": 207.61,
+  "end": 208.72,
+  "gap": 0.24,
+  "text": "Without air, this is not Earth two point zero."
+ },
+ {
+  "i": 61,
+  "para": 23,
+  "start": 208.72,
+  "end": 210.83,
+  "gap": 0.41,
+  "text": "It is a rock."
+ },
+ {
+  "i": 62,
+  "para": 24,
+  "start": 210.83,
+  "end": 217.07,
+  "gap": 0.46,
+  "text": "So how do you check for air on a planet you cannot even see, forty light-years away?"
+ },
+ {
+  "i": 63,
+  "para": 25,
+  "start": 217.07,
+  "end": 219.72,
+  "gap": 0.44,
+  "text": "You wait for it to cross in front of its star."
+ },
+ {
+  "i": 64,
+  "para": 26,
+  "start": 219.72,
+  "end": 225.47,
+  "gap": 0.42,
+  "text": "When it does, a tiny sliver of starlight passes through the planet's atmosphere on its way to us, if there is an atmosphere."
+ },
+ {
+  "i": 65,
+  "para": 26,
+  "start": 225.47,
+  "end": 230.22,
+  "gap": 0.35,
+  "text": "Each gas swallows its own particular colours of light."
+ },
+ {
+  "i": 66,
+  "para": 26,
+  "start": 230.22,
+  "end": 232.68,
+  "gap": 0.4,
+  "text": "So the missing colours work like a fingerprint."
+ },
+ {
+  "i": 67,
+  "para": 26,
+  "start": 232.68,
+  "end": 235.62,
+  "gap": 0.46,
+  "text": "Find the gaps, and you know what the air is made of."
+ },
+ {
+  "i": 68,
+  "para": 27,
+  "start": 235.62,
+  "end": 238.0,
+  "gap": 0.39,
+  "text": "The problem is the size of the signal."
+ },
+ {
+  "i": 69,
+  "para": 27,
+  "start": 238.0,
+  "end": 243.33,
+  "gap": 0.44,
+  "text": "For a planet this small, the change in the star's light is a few thousandths of one percent."
+ },
+ {
+  "i": 70,
+  "para": 27,
+  "start": 243.33,
+  "end": 248.5,
+  "gap": 0.54,
+  "text": "It is like trying to notice a single gnat crossing a searchlight, from another city."
+ },
+ {
+  "i": 71,
+  "para": 28,
+  "start": 248.5,
+  "end": 250.53,
+  "gap": 0.45,
+  "text": "Only one machine can do it."
+ },
+ {
+  "i": 72,
+  "para": 28,
+  "start": 250.53,
+  "end": 258.79,
+  "gap": 0.42,
+  "text": "The James Webb Space Telescope, floating one and a half million kilometres from Earth, with a golden mirror six and a half metres across."
+ },
+ {
+  "i": 73,
+  "para": 29,
+  "start": 258.79,
+  "end": 264.59,
+  "gap": 0.46,
+  "text": "Webb has now watched TRAPPIST-1e cross its star four times."
+ },
+ {
+  "i": 74,
+  "para": 29,
+  "start": 264.59,
+  "end": 265.45,
+  "gap": 0.2,
+  "text": "Here is what it found."
+ },
+ {
+  "i": 75,
+  "para": 30,
+  "start": 265.45,
+  "end": 273.55,
+  "gap": 0.36,
+  "text": "First, the planet does not have a thick hydrogen atmosphere, the puffy kind it was probably born with."
+ },
+ {
+  "i": 76,
+  "para": 30,
+  "start": 273.55,
+  "end": 275.42,
+  "gap": 0.24,
+  "text": "The star's flares would have blown that away long ago, and they did."
+ },
+ {
+  "i": 77,
+  "para": 31,
+  "start": 275.42,
+  "end": 282.8,
+  "gap": 0.51,
+  "text": "Second, it is unlikely to have air dominated by carbon dioxide, like Venus or Mars."
+ },
+ {
+  "i": 78,
+  "para": 32,
+  "start": 282.8,
+  "end": 286.12,
+  "gap": 0.27,
+  "text": "That leaves two possibilities standing."
+ },
+ {
+  "i": 79,
+  "para": 32,
+  "start": 286.12,
+  "end": 291.95,
+  "gap": 0.38,
+  "text": "One: a heavier atmosphere rich in nitrogen, the same gas that makes up most of the air in your lungs right now."
+ },
+ {
+  "i": 80,
+  "para": 32,
+  "start": 291.95,
+  "end": 292.79,
+  "gap": 0.15,
+  "text": "Two: no air at all."
+ },
+ {
+  "i": 81,
+  "para": 32,
+  "start": 292.79,
+  "end": 293.11,
+  "gap": 0.47,
+  "text": "Bare rock."
+ },
+ {
+  "i": 82,
+  "para": 33,
+  "start": 293.11,
+  "end": 300.06,
+  "gap": 0.42,
+  "text": "And the scientists who ran the study say the odds are about even."
+ },
+ {
+  "i": 83,
+  "para": 34,
+  "start": 300.06,
+  "end": 301.26,
+  "gap": 0.45,
+  "text": "That is the honest state of Earth two point zero."
+ },
+ {
+  "i": 84,
+  "para": 34,
+  "start": 301.26,
+  "end": 303.28,
+  "gap": 0.44,
+  "text": "Fifty fifty."
+ },
+ {
+  "i": 85,
+  "para": 34,
+  "start": 303.28,
+  "end": 305.3,
+  "gap": 0.28,
+  "text": "A coin that is still in the air."
+ },
+ {
+  "i": 86,
+  "para": 35,
+  "start": 305.3,
+  "end": 309.82,
+  "gap": 0.39,
+  "text": "It is not the only contender."
+ },
+ {
+  "i": 87,
+  "para": 35,
+  "start": 309.82,
+  "end": 313.32,
+  "gap": 0.36,
+  "text": "Forty-eight light-years away sits LHS 1140 b, a bigger world about seventy percent wider than Earth."
+ },
+ {
+  "i": 88,
+  "para": 35,
+  "start": 313.32,
+  "end": 323.93,
+  "gap": 0.42,
+  "text": "A new study in the journal Science reports that a telescope in Chile caught helium gas streaming off it in twenty twenty-four, a sign it may hold a thin atmosphere."
+ },
+ {
+  "i": 89,
+  "para": 35,
+  "start": 323.93,
+  "end": 326.84,
+  "gap": 0.23,
+  "text": "But when the team looked again in twenty twenty-five, the signal was not there."
+ },
+ {
+  "i": 90,
+  "para": 35,
+  "start": 326.84,
+  "end": 328.53,
+  "gap": 0.39,
+  "text": "Maybe it faded."
+ },
+ {
+  "i": 91,
+  "para": 35,
+  "start": 328.53,
+  "end": 332.15,
+  "gap": 0.35,
+  "text": "Maybe it was hiding in the noise."
+ },
+ {
+  "i": 92,
+  "para": 36,
+  "start": 332.15,
+  "end": 334.59,
+  "gap": 0.29,
+  "text": "That is what this search really looks like."
+ },
+ {
+  "i": 93,
+  "para": 36,
+  "start": 334.59,
+  "end": 336.86,
+  "gap": 0.34,
+  "text": "Not a photograph of a blue planet."
+ },
+ {
+  "i": 94,
+  "para": 36,
+  "start": 336.86,
+  "end": 343.66,
+  "gap": 0.47,
+  "text": "A faint wobble in a line of data, and a group of very careful people refusing to say more than they know."
+ },
+ {
+  "i": 95,
+  "para": 37,
+  "start": 343.66,
+  "end": 345.04,
+  "gap": 0.21,
+  "text": "But let's be generous."
+ },
+ {
+  "i": 96,
+  "para": 37,
+  "start": 345.04,
+  "end": 346.94,
+  "gap": 0.39,
+  "text": "Let's say the coin lands well."
+ },
+ {
+  "i": 97,
+  "para": 37,
+  "start": 346.94,
+  "end": 348.87,
+  "gap": 0.16,
+  "text": "TRAPPIST-1e has air, and somewhere on it, liquid water."
+ },
+ {
+  "i": 98,
+  "para": 38,
+  "start": 348.87,
+  "end": 351.14,
+  "gap": 0.41,
+  "text": "Could humans live there?"
+ },
+ {
+  "i": 99,
+  "para": 39,
+  "start": 351.14,
+  "end": 352.55,
+  "gap": 0.41,
+  "text": "Start with the weather."
+ },
+ {
+  "i": 100,
+  "para": 39,
+  "start": 352.55,
+  "end": 363.77,
+  "gap": 0.42,
+  "text": "With one side always facing the star, the best real estate may be the ring between day and night, a strip of endless sunset running all the way around the planet."
+ },
+ {
+  "i": 101,
+  "para": 39,
+  "start": 363.77,
+  "end": 370.15,
+  "gap": 0.36,
+  "text": "If there is an ocean, it might be a single round sea directly under the star, surrounded by ice."
+ },
+ {
+  "i": 102,
+  "para": 40,
+  "start": 370.15,
+  "end": 373.99,
+  "gap": 0.27,
+  "text": "Above you, the six sister planets would drift across the sky, some of them appearing larger than our Moon."
+ },
+ {
+  "i": 103,
+  "para": 41,
+  "start": 373.99,
+  "end": 376.44,
+  "gap": 0.35,
+  "text": "It would be beautiful."
+ },
+ {
+  "i": 104,
+  "para": 41,
+  "start": 376.44,
+  "end": 382.19,
+  "gap": 0.38,
+  "text": "It would also be bathed in radiation every time the star flared."
+ },
+ {
+  "i": 105,
+  "para": 41,
+  "start": 382.19,
+  "end": 383.86,
+  "gap": 0.32,
+  "text": "You would not walk outside."
+ },
+ {
+  "i": 106,
+  "para": 41,
+  "start": 383.86,
+  "end": 385.49,
+  "gap": 0.21,
+  "text": "You would live under shielding, or underground."
+ },
+ {
+  "i": 107,
+  "para": 42,
+  "start": 385.49,
+  "end": 389.12,
+  "gap": 0.35,
+  "text": "And that is assuming you could arrive."
+ },
+ {
+  "i": 108,
+  "para": 42,
+  "start": 389.12,
+  "end": 391.92,
+  "gap": 0.36,
+  "text": "Which is the last catch, and the biggest."
+ },
+ {
+  "i": 109,
+  "para": 43,
+  "start": 391.92,
+  "end": 394.65,
+  "gap": 0.39,
+  "text": "TRAPPIST-1 is forty light-years away."
+ },
+ {
+  "i": 110,
+  "para": 43,
+  "start": 394.65,
+  "end": 397.37,
+  "gap": 0.22,
+  "text": "Light itself, the fastest thing there is, takes forty years to make the trip."
+ },
+ {
+  "i": 111,
+  "para": 44,
+  "start": 397.37,
+  "end": 399.74,
+  "gap": 0.38,
+  "text": "We are much slower than light."
+ },
+ {
+  "i": 112,
+  "para": 45,
+  "start": 399.74,
+  "end": 406.58,
+  "gap": 0.37,
+  "text": "The fastest thing humans have ever sent out of the solar system is Voyager 1."
+ },
+ {
+  "i": 113,
+  "para": 45,
+  "start": 406.58,
+  "end": 413.38,
+  "gap": 0.39,
+  "text": "It launched in nineteen seventy-seven and has been flying ever since at about seventeen kilometres every second."
+ },
+ {
+  "i": 114,
+  "para": 45,
+  "start": 413.38,
+  "end": 415.9,
+  "gap": 0.18,
+  "text": "This month, after forty-nine years, it reaches a milestone."
+ },
+ {
+  "i": 115,
+  "para": 45,
+  "start": 415.9,
+  "end": 417.63,
+  "gap": 0.42,
+  "text": "It is now one light-day from Earth."
+ },
+ {
+  "i": 116,
+  "para": 45,
+  "start": 417.63,
+  "end": 420.16,
+  "gap": 0.4,
+  "text": "One day of light's travel."
+ },
+ {
+  "i": 117,
+  "para": 46,
+  "start": 420.16,
+  "end": 424.52,
+  "gap": 0.17,
+  "text": "TRAPPIST-1 is more than fourteen thousand light-days away."
+ },
+ {
+  "i": 118,
+  "para": 47,
+  "start": 424.52,
+  "end": 429.52,
+  "gap": 0.19,
+  "text": "At Voyager's speed, the journey takes over seven hundred thousand years."
+ },
+ {
+  "i": 119,
+  "para": 47,
+  "start": 429.52,
+  "end": 434.79,
+  "gap": 0.35,
+  "text": "Our entire species has existed for about three hundred thousand."
+ },
+ {
+  "i": 120,
+  "para": 47,
+  "start": 434.79,
+  "end": 440.11,
+  "gap": 0.39,
+  "text": "You would need to leave twice as long ago as there have been humans, and you still would not be there yet."
+ },
+ {
+  "i": 121,
+  "para": 48,
+  "start": 440.11,
+  "end": 441.41,
+  "gap": 0.26,
+  "text": "So no."
+ },
+ {
+  "i": 122,
+  "para": 48,
+  "start": 441.41,
+  "end": 444.01,
+  "gap": 0.31,
+  "text": "Nobody is moving to Earth two point zero."
+ },
+ {
+  "i": 123,
+  "para": 48,
+  "start": 444.01,
+  "end": 446.51,
+  "gap": 0.19,
+  "text": "Not us, not our grandchildren, not anyone we can imagine."
+ },
+ {
+  "i": 124,
+  "para": 49,
+  "start": 446.51,
+  "end": 448.0,
+  "gap": 0.52,
+  "text": "Then why does any of this matter?"
+ },
+ {
+  "i": 125,
+  "para": 50,
+  "start": 448.0,
+  "end": 450.32,
+  "gap": 0.4,
+  "text": "Because the real prize was never a place to move to."
+ },
+ {
+  "i": 126,
+  "para": 51,
+  "start": 450.32,
+  "end": 464.87,
+  "gap": 0.41,
+  "text": "Right now, Webb is in the middle of fifteen more observations of TRAPPIST-1e, timed so that it crosses its star right after a neighbouring planet that we are fairly sure is bare rock."
+ },
+ {
+  "i": 127,
+  "para": 51,
+  "start": 464.87,
+  "end": 467.65,
+  "gap": 0.3,
+  "text": "Compare the two, subtract the star's noise, and whatever is left over is the planet's air."
+ },
+ {
+  "i": 128,
+  "para": 52,
+  "start": 467.65,
+  "end": 478.91,
+  "gap": 0.23,
+  "text": "When those results arrive, we may know, for the first time in history, whether a planet the size of ours, in the right place around another star, has an atmosphere."
+ },
+ {
+  "i": 129,
+  "para": 53,
+  "start": 478.91,
+  "end": 481.32,
+  "gap": 0.25,
+  "text": "If it does, the galaxy just got a lot more interesting."
+ },
+ {
+  "i": 130,
+  "para": 53,
+  "start": 481.32,
+  "end": 484.05,
+  "gap": 0.51,
+  "text": "Red dwarfs are the most common stars there are."
+ },
+ {
+  "i": 131,
+  "para": 53,
+  "start": 484.05,
+  "end": 489.59,
+  "gap": 0.18,
+  "text": "If their planets can hold on to air, there could be billions of places worth checking."
+ },
+ {
+  "i": 132,
+  "para": 54,
+  "start": 489.59,
+  "end": 491.59,
+  "gap": 0.52,
+  "text": "And if it doesn't?"
+ },
+ {
+  "i": 133,
+  "para": 54,
+  "start": 491.59,
+  "end": 495.88,
+  "gap": 0.41,
+  "text": "One of the scientists on the team put it best."
+ },
+ {
+  "i": 134,
+  "para": 54,
+  "start": 495.88,
+  "end": 501.61,
+  "gap": 0.46,
+  "text": "Finding nothing could teach us that we are special here on Earth, and to love our planet even more."
+ },
+ {
+  "i": 135,
+  "para": 55,
+  "start": 501.61,
+  "end": 505.33,
+  "gap": 0.39,
+  "text": "Either way, there is no Earth two point zero we can reach."
+ },
+ {
+  "i": 136,
+  "para": 55,
+  "start": 505.33,
+  "end": 511.99,
+  "gap": 0.37,
+  "text": "There is one planet we know of with air you can breathe, water you can drink, and a sun that actually sets."
+ },
+ {
+  "i": 137,
+  "para": 56,
+  "start": 511.99,
+  "end": 513.72,
+  "gap": 0,
+  "text": "You are standing on it."
+ }
+]
