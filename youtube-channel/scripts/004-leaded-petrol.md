@@ -1,4 +1,4 @@
-# Long video 003: This Chemical Was in Everyone's Fuel
+# Long video 004: This Chemical Was in Everyone's Fuel
 
 - **Voice:** one narrator only, same as video 001
 - **Length:** about 1,400 words, roughly 9 minutes
@@ -224,7 +224,7 @@ The narrator is the only voice, but the characters still talk: speech bubbles ap
 
 ---
 
-# Shorts from video 003 (one narrator)
+# Shorts from video 004 (one narrator)
 
 ## Short 1: He washed his hands in it
 
