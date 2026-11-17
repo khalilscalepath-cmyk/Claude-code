@@ -26,7 +26,7 @@ Start with biology and space; add technology and chemistry once the numbers show
 Video 001 was called "good but too educational". The fixes, in order of impact:
 
 1. **Script as a story, not a lecture.** Cold open with stakes in the first 10 seconds. One question carries the video; every chapter ends on a hook into the next.
-2. **A second voice.** The narrator plus a character who interrupts, asks the dumb question, jokes ("A birthday every week? I'm not buying cake."). Two ElevenLabs voices. This is what Paper Billions does and what 001 lacks.
+2. **One narrator who talks like a person (decided 17 Nov 2026: one voice only, recording several is too much work).** The narrator asks the question the viewer is thinking, then answers with a punchline. Characters still "speak" through on-screen speech bubbles while the narrator reads their lines. Video 003 is the template.
 3. **A joke or surprise at least every 30 seconds.**
 4. **Characters that act.** Mouths move when they speak, they react, point, panic. No one just stands there.
 5. **Point-of-view shots.** Standing on Venus with heat haze, the view from inside the spacecraft, not only diagrams from outside.
