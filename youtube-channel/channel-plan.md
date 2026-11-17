@@ -1,74 +1,69 @@
-# Channel plan: science, space and technology
+# Channel plan: Science to Earth
 
-## Positioning
+Check the name and handle are free on YouTube before creating the channel. Backups: "Back to Earth", "Second Sky".
 
-**One line:** the honest answer behind the space headline.
+## What the channel is
 
-Every video takes a claim people have already seen ("NASA found another Earth", "signs of alien life", "an object that shouldn't exist") and answers what was actually found, how we know, and what it means for humans. The tone is curious and a little funny, never hyped.
+Broad science, explained as a story: space, the human body, technology, and chemistry (dangerous chemicals, told as what they do to the body and why, never how to make or handle them).
+The idea behind every video is "what actually happens when…?", but that wording never goes on screen.
 
-**Why this angle.** I searched YouTube for the main space topics on 15 November 2026:
+Start with biology and space; add technology and chemistry once the numbers show what people watch.
 
-- Titles in the "NASA Just Found..." mould are flooded with low-effort uploads sitting at 0 to 200 views after a day.
-- Careful, well-made videos on the same topics reach six and seven figures: "There are no known habitable exoplanets" (2.2M), "Why Scientists Think This Is Our Strongest Evidence of Aliens" (1.2M in four months), "JWST May Have Discovered a New Cosmic Object" (2.8M in two months), "Scientists Just Found a New Potentially Habitable Planet With an Atmosphere" (110K in one month).
+## Titles and thumbnails
 
-So the topic demand is there, and the gap is trust. This is a small sample from search results, not a full market study.
+- Short, plain words, a bit of mystery, a question the viewer already wants answered.
+  Examples: "How Does Diarrhea Happen?", "Does Your Phone Know You Better Than You Do?", "This Chemical Was Banned", "What Do You Know About Earth 2.0?"
+- Thumbnail: one object, one to three words, same dark glowing look as the videos. The title finishes the thought; never repeat it.
+- Upload two thumbnails per video and use YouTube's "Test & compare".
 
-## Visual style
+## Schedule
 
-Taken from the Paper Billions recording you sent, changed enough to be our own:
+- Long videos: 3 a week, 8 to 15 minutes.
+- Shorts: 4 a day (a test). Slots: one cut from that week's long video, one "you are standing on…" POV, one number explained, one news item.
 
-| Element | Paper Billions | Our version |
-|---|---|---|
-| Drawing | Flat 2D cartoon, thick outlines, paper texture | Same flat paper-cartoon approach |
-| Characters | Round-headed stick-body people, caricatures of real CEOs | Two recurring invented characters: an astronaut and a scientist. No real people. |
-| Palette | Cream paper, green and red for money | Deep navy "night paper" for space, cream for diagrams, one orange accent |
-| Explaining | Objects as metaphors (balloon, stopwatch, scales), hand-drawn charts | Same idea with science props: thermometers, rulers, coins, scale diagrams |
-| Pacing | Black cards with a handwritten question between sections | Keep: one black question card per chapter |
-| Labels | Hand-lettered white text | Same |
+## Make it entertaining, not a lesson (feedback on video 001)
 
-Not yet tested: I have not generated any frames in this style. The next step is a test of 3 or 4 frames from script 001 so you can approve the look before a full video is built.
+Video 001 was called "good but too educational". The fixes, in order of impact:
 
-## Weekly output
-
-| Slot | What | Length |
-|---|---|---|
-| Long video A | News: "what did they actually find?" on that week's biggest space or tech story | 8 to 15 min |
-| Long video B | Evergreen: "could we live there?", "how does it work?", "why haven't we...?" | 8 to 15 min |
-| Shorts | 4 a day: 2 cut from the long videos, 1 on the day's news, 1 standalone fact | 35 to 45 sec |
-
-The 4-a-day Shorts schedule is your test. Paper Billions posts none, so there is no benchmark for it from that channel.
+1. **Script as a story, not a lecture.** Cold open with stakes in the first 10 seconds. One question carries the video; every chapter ends on a hook into the next.
+2. **A second voice.** The narrator plus a character who interrupts, asks the dumb question, jokes ("A birthday every week? I'm not buying cake."). Two ElevenLabs voices. This is what Paper Billions does and what 001 lacks.
+3. **A joke or surprise at least every 30 seconds.**
+4. **Characters that act.** Mouths move when they speak, they react, point, panic. No one just stands there.
+5. **Point-of-view shots.** Standing on Venus with heat haze, the view from inside the spacecraft, not only diagrams from outside.
+6. **Music and sound effects** on every video: music under the voice, a whoosh on every cut, a pop on every label, a slam or a music dropout on the punchlines.
+7. **Less on screen at once,** faster cuts (every 2 to 4 seconds).
 
 ## Script rules
 
-1. One narrator, explaining to a smart friend.
-2. Open on a claim the viewer has already heard, then promise the catch.
-3. One question carries the whole video; each chapter answers a smaller one.
-4. Every number gets an everyday comparison.
-5. Every factual claim has a source listed at the bottom of the script. Anything I calculated myself is marked as calculated.
-6. Say plainly when scientists don't know yet. That is the channel's selling point.
-7. End on what it means for the viewer, not on a summary.
+1. Different story shape every video (road trip, courtroom, detective case, mystery, POV ride, build-and-break).
+2. Every number gets an everyday comparison.
+3. Every factual claim has a source listed at the bottom of the script; anything calculated is marked as calculated.
+4. Say plainly when scientists don't know yet.
+5. End on what it means for the viewer.
 
-## First six long videos
+## First 12 long videos (ideas, not yet researched)
 
-| # | Title | Type | Status |
+| # | Area | Title | Thumbnail |
 |---|---|---|---|
-| 1 | Can Humans Actually Live on "Earth 2.0"? | Evergreen with a fresh news hook | Script written |
-| 2 | Voyager 1 Is Now One Light-Day Away | News (NASA event this month) | To research |
-| 3 | Did We Really Find Signs of Alien Life? (K2-18b) | Evergreen | To research |
-| 4 | What NASA Actually Found on Mars | Evergreen | To research |
-| 5 | Webb Keeps Finding Things That Shouldn't Exist | Evergreen | To research |
-| 6 | How Do You Power a Base on the Moon? | Technology | To research |
+| 1 | Space | Can Humans Actually Live on Earth 2.0? (done) | EARTH 2.0? |
+| 2 | Space | Voyager 1 Is Now One Light-Day Away | 49 YEARS. 1 DAY. |
+| 3 | Biology | What Fear Does to Your Body | 0.1 SECONDS |
+| 4 | Chemistry | This Chemical Was in Everyone's Fuel | BANNED |
+| 5 | Space | Did We Just Find Alien Life? | LIFE? |
+| 6 | Biology | What Happens If You Don't Sleep | DAY 3 |
+| 7 | Chemistry | The Paint That Glowed in the Dark | IT GLOWED |
+| 8 | Space | What NASA Found in a Mars Rock | ON MARS |
+| 9 | Technology | Does Your Phone Know You Better Than You Do? | IT KNOWS |
+| 10 | Chemistry | The Gas That Made a Hole in the Sky | THE HOLE |
+| 11 | Biology | How Does Diarrhea Happen? | WHY NOW? |
+| 12 | Space | The Comet From Another Star | NOT FROM HERE |
 
-Titles 2 to 6 are ideas, not researched scripts. Each gets checked against current sources before writing.
+## Storage
 
-## Channel name ideas
-
-- Second Sky
-- Light Years Later
-- The Honest Telescope
+The repo holds scripts, code, narration, music and thumbnails. Finished video files are too big for it: later they go on the SD card through the laptop (Claude desktop app, Remote Control folder).
 
 ## Risks
 
-- **Monetisation.** YouTube can refuse ads on channels it judges mass-produced. 28 Shorts a week from an AI pipeline raises that risk; each one needs its own angle and real facts.
-- **Accuracy.** Space audiences correct errors loudly. Sources go in every description.
-- **Visual cost.** Generating a 10-minute video's worth of frames uses paid credits on the image and video tools. I'll quote the cost before generating a full video.
+- **Monetisation.** YouTube can refuse ads on channels it judges mass-produced. Every video and Short needs its own angle and real research.
+- **Accuracy.** Sources go in every description.
+- **AI voice.** Disclose it in YouTube's "altered or synthetic content" setting.
