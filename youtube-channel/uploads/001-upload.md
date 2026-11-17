@@ -36,7 +36,7 @@ Sources
 - NASA, Voyager 1 one light-day: https://www.nasa.gov/news-release/nasa-invites-media-public-to-join-voyager-1-one-light-day-activities/
 
 Music by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0 (http://creativecommons.org/licenses/by/4.0/):
-"Investigations", "Sneaky Snitch", "Mesmerizing Galaxy Loop", "Floating Cities", "Inspired"
+"Unwritten Return", "Odyssey", "Hypnothis", "Impact Lento", "Dreams Become Real"
 
 #space #science #exoplanets
 ---

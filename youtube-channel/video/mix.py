@@ -18,13 +18,14 @@ st = lambda i: T[i]['start']
 
 # ---------- music bed ----------
 def rms(x): return float(np.sqrt(np.mean(x.astype(np.float64) ** 2)) + 1e-12)
-sections = [('Investigations', 0, cut(34)), ('Sneaky Snitch', cut(34), cut(55)), ('Mesmerizing Galaxy Loop', cut(55), cut(95)),
-            ('Floating Cities', cut(95), cut(124)), ('Inspired', cut(124), N / SR)]
+# (track, start, end, seconds to skip into the track) — space-toned picks after the first mix felt off-tone
+sections = [('Unwritten Return', 0, cut(34), 8), ('Odyssey', cut(34), cut(55), 10), ('Hypnothis', cut(55), cut(95), 0),
+            ('Impact Lento', cut(95), cut(124), 6), ('Dreams Become Real', cut(124), N / SR, 44)]
 bed = np.zeros((N, 2), np.float32)
 XF = 2.0
-for name, a, b in sections:
-    tr = decode(f'music/{name}.mp3', 2)
-    tr /= rms(tr)
+for name, a, b, off in sections:
+    tr = decode(f'music/{name}.mp3', 2)[int(off * SR):]
+    tr /= rms(tr[:int((b - a + XF) * SR)])
     need = int((b - a + XF) * SR)
     seg = tr.copy(); lx = int(3 * SR)
     while len(seg) < need:  # loop with a 3 s crossfade
