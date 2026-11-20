@@ -1,0 +1,135 @@
+Look at a strawberry. What colour is it?
+
+Red. Obviously. You'd say red. I'd say red. Everyone you've ever met would say red.
+
+But here's a question that sounds simple and has kept people arguing for more than three hundred years.
+
+When you look at that strawberry, is the red inside your head the same as the red inside mine?
+
+What if, for you, it looks the way grass looks to me? You'd still call it red. You've called it red your whole life. You'd still stop at red lights, and you'd still pick the ripe ones. We would agree on every single word. And we would never, ever find out.
+
+So is that actually possible? And if it is, can science even check?
+
+In 2025, scientists got closer than ever before. And on the way, they showed a handful of people a colour no human had ever seen.
+
+But first, a confession. Colour doesn't really exist. At least, not out there.
+
+Light is just energy, travelling in waves. Some waves are longer, some are shorter. A strawberry soaks up most of the light that hits it, and bounces back mostly the longer waves.
+
+None of those waves are red. They're just waves.
+
+The red happens in you.
+
+At the back of your eye, you have three kinds of colour sensors, called cones. One kind reacts most to long waves, one to medium waves, and one to short waves. People often call them the red, green and blue cones, though that's not quite what they measure.
+
+Your brain never sees the light itself. It just compares how hard each kind of cone is firing. Lots from the long ones, less from the others? That pattern, your brain turns into red.
+
+So colour isn't something you see. It's something your brain works out.
+
+And that's where the trouble starts.
+
+In 1689, the philosopher John Locke wrote down exactly this worry. What if a violet, he asked, produced in one man's mind the idea that a marigold produces in another's? And the other way round?
+
+Locke's point was that you could never catch it. You learned the word blue by people pointing at blue things. Whatever that looked like inside your head, you were taught to call it blue. Everyone's labels line up perfectly, even if the colours behind them don't.
+
+For centuries, that was where it stopped. A good question for a late night, and nothing else.
+
+Except, we can now measure that people really don't all see the same colours. Here are four clues.
+
+Clue number one. About one in twelve men are colour blind.
+
+Most of them find it hard to tell certain reds from certain greens. The genes for those cones sit on the X chromosome. Men only get one X, so if it carries a faulty version, there's no backup. Women get two, so it's much rarer.
+
+So for millions of people, the strawberry and the leaves around it really are much closer in colour than they are for you. Their red is not your red. And we know it, because we can test it.
+
+Clue number two goes the other way. Some people might see more colours than you.
+
+Because women carry two X chromosomes, some carry two slightly different versions of the gene for one cone type. That could give them four kinds of cones instead of three.
+
+One estimate says perhaps twelve percent of women might have four distinct cones. But having the cone isn't the same as using it.
+
+Scientist Gabriele Jordan, at Newcastle University, spent years looking for someone whose brain actually used a fourth cone. Her test was clever. She showed people colour mixtures that look like exactly the same olive green to almost everyone. Different recipes, same colour.
+
+In 2010, she found a woman, known in the research as cDa29, who could tell them apart. Every time.
+
+To her, those identical greens were not identical.
+
+Clue number three. You've probably already taken part in this one. The dress.
+
+In 2015, one photo of a striped dress split the internet. Was it blue and black, or white and gold?
+
+When scientists asked over a thousand people, fifty-seven percent saw blue and black. Thirty percent saw white and gold. And about one in ten saw blue and brown.
+
+Same photo. Same screen. Completely different colours.
+
+So what was going on? Remember, your brain doesn't just read the light. It also tries to remove the lighting, so that a white shirt still looks white in sunlight and under a yellow lamp.
+
+The dress photo is ambiguous. Nobody can tell what light it was taken in. So your brain guesses.
+
+If your brain guesses bluish daylight, it subtracts the blue, and you see white and gold. If it guesses warm indoor light, it subtracts the yellow, and you see blue and black.
+
+One study even found that early risers were more likely to see white and gold. Night owls, more likely to see blue and black. People who spend more time under artificial light seem to assume artificial light.
+
+So even with identical eyes, your brain's guess changes what you see.
+
+Clue number four. The words you speak.
+
+In English, there's one word for all of these. Blue. Light or dark, it's all blue.
+
+In Russian, there isn't. Light blue is goluboy. Dark blue is siniy. They're treated as two different colours, the way we treat pink and red.
+
+In 2007, researchers asked English and Russian speakers to tell apart shades of blue as fast as they could. The Russian speakers were faster when the two shades fell on different sides of their goluboy-siniy line.
+
+Same eyes. Same blues. But having two words seems to help the brain split them.
+
+So, four clues. Genes. Extra cones. The brain's guesses. Even language.
+
+People really do see colour differently.
+
+But that still isn't Locke's question. Locke wasn't asking whether some people see the strawberry differently. He was asking about you and me, two ordinary people who agree on everything. Could our reds be secretly swapped, without either of us ever noticing?
+
+Philosophers have found a catch.
+
+Colours aren't arranged in a perfect, even circle. Yellow is the lightest of the bright colours. Bright blues are much darker. And there are more shades you can tell apart between blue and red than between yellow and green.
+
+So if your colours were simply flipped, you'd give yourself away. Your brightest bright colour wouldn't be the one everyone else calls yellow. You'd judge the wrong colours as lighter or darker. A simple swap, like Locke imagined, would show up in a test.
+
+To hide perfectly, your colours would have to be swapped in a way that keeps every relationship the same. Every light and dark. Every near and far. Nobody knows if that's even possible.
+
+So scientists tried a different route. Skip the words. Look straight at the brain.
+
+In 2025, Michael Bannert and Andreas Bartels at the University of Tübingen scanned people's brains while they looked at different colours.
+
+Then they did something new. Using the brain activity of one group of people, they predicted what colour a completely different person was looking at.
+
+And it worked. The pattern your brain makes for a colour is similar enough to the pattern in a stranger's brain, that a computer can match them up.
+
+So, is your red the same as mine?
+
+Their own answer is careful. We can't say that one person's red looks the same as another person's red.
+
+The brain patterns line up. Whether the experience does, still nobody can say.
+
+And then, in April 2025, researchers at the University of California, Berkeley, did something that sounds like science fiction.
+
+Remember the three kinds of cones? Their sensitivities overlap. Any light that tickles your medium cones also tickles the others a bit. So there's no light in nature that can switch on only one kind.
+
+The Berkeley team built a system that tracks the eye and fires a laser at individual cone cells. Not light in general. Individual cells. One at a time.
+
+When they switched on only the medium cones, five people saw something they'd never seen before. They described it as a blue-green of unprecedented saturation. More intense than any colour in the real world.
+
+They named it olo.
+
+I'd love to show it to you. But I can't. Your screen can't make it. No paint can make it. Some scientists even argue about whether it counts as a new colour at all.
+
+And even if your screen could show it, we'd be right back where we started. You'd see your olo. I'd see mine. And we'd have no way to compare.
+
+So here's where the science leaves us.
+
+Your colours are shaped by your genes, your eyes, your brain's guesses about the light, and maybe even the language you grew up with. Your red is very probably close to mine. But not identical. Nobody's is.
+
+And whatever the red inside your head really looks like, you are the only person in the universe who will ever see it.
+
+So the next time someone points at a strawberry and says red, and you say red back?
+
+You might be agreeing on a word. Not a colour.

@@ -1,0 +1,133 @@
+Let's send a message to the farthest thing humans have ever built.
+
+Type hello. Press send.
+
+Now wait.
+
+Keep waiting.
+
+Your reply will arrive the day after tomorrow.
+
+On the eighteenth of November 2026, at sixteen minutes past five in the morning, New York time, a spacecraft called Voyager 1 crossed a line that nothing made by humans had ever crossed. It's now so far away that light, the fastest thing in the universe, needs a whole day to reach it.
+
+One light-day. About twenty-six billion kilometres from home.
+
+And it's still talking to us. Barely. With less memory than one photo on your phone, a power supply that's running out, and a voice so faint it's amazing anyone can hear it. A few weeks before the milestone, it went completely silent for two days. And nobody's sure why.
+
+So let's go and check on it. We're going to ride along with our hello, all the way out. It's a twenty-four hour trip, and I'll tell you Voyager's whole story on the way.
+
+Our message leaves Earth from a giant dish antenna. NASA has dishes like this in three places around the world, and together they're called the Deep Space Network. Think of them as the only phones on Earth with Voyager's number.
+
+One point three seconds. We just passed the Moon.
+
+The Artemis Two astronauts took about three days to get there. We did it in less time than it took me to say that.
+
+Eight minutes and twenty seconds. We're now as far from Earth as the Sun is.
+
+Good moment to meet our passenger.
+
+Voyager 1 launched on the fifth of September 1977. It was built for a five-year trip, to visit two planets, Jupiter and Saturn.
+
+That was forty-nine years ago. Somebody should tell it the trip is over.
+
+The timing was no accident. In the late 1970s, the giant outer planets lined up in a way that only happens about once every hundred and seventy-five years. Fly close to one, and its gravity flings you on to the next. Like pinball, except the flippers are planets.
+
+Fun fact. Voyager 1 didn't even leave first. Its twin, Voyager 2, launched two weeks earlier. But Voyager 1 was on a faster path, and overtook it.
+
+About forty minutes. We're now as far out as Jupiter.
+
+When Voyager 1 flew past Jupiter in 1979, it spotted something nobody expected. On the moon Io, there were volcanoes. Erupting. The first active volcanoes anyone had ever seen on another world.
+
+About an hour and twenty minutes. Saturn.
+
+Voyager 1 swept past Saturn in 1980, and made a close pass of its biggest moon, Titan, wrapped in a thick orange haze. That flyby bent its path up and away from the planets. After Titan, there were no more stops on the list. Just out.
+
+So, while we cruise, let's look inside.
+
+Voyager has six computers. All six together have about sixty-eight kilobytes of memory.
+
+One photo on your phone is dozens of times bigger than that.
+
+Together, they run about eight thousand instructions a second. Your phone does billions. Voyager is basically a very brave calculator.
+
+Five and a half hours. We're now six billion kilometres from the Sun.
+
+This is about where, on Valentine's Day 1990, Voyager 1 turned its camera around, and took a picture of home.
+
+In that photo, Earth is a speck in a beam of scattered sunlight. It isn't even one pixel. It's about an eighth of a pixel.
+
+Everyone you've ever loved is in that picture. You just can't see them.
+
+Shortly after, the cameras were switched off for good, to save power. That picture is one of the last Voyager 1 ever took.
+
+About seventeen hours. Here, we leave the Sun's bubble.
+
+The Sun doesn't just shine. It blows out a wind of charged particles in every direction, and that wind carves a giant bubble around all the planets. Outside it is interstellar space. The space between the stars.
+
+Voyager 1 crossed that edge in August 2012, the first human-made object ever to make it out. Scientists then spent about a year arguing over whether it had really left. It's the only time anyone has needed a year to work out whether they'd left the house.
+
+And out here, things start to break.
+
+Voyager doesn't use solar panels. Out here, the Sun is just a very bright star. Instead, it runs on plutonium. As the plutonium slowly decays, it gives off heat, and that heat gets turned into electricity.
+
+At launch, that was four hundred and seventy watts. About what a blender uses. But it loses around four watts every year. Now, it's down to about two hundred and ten.
+
+So the team keeps switching things off, to keep the rest alive. Voyager 1 left Earth with ten science instruments. Two are still running.
+
+In 2026, they tried something so risky they nicknamed it the Big Bang. All at once, they switched off three power-hungry devices that keep the spacecraft warm, and switched on three that use less. Get the balance wrong, and the fuel lines could freeze. Seven of the commands had never been used in flight. Not once in forty-nine years.
+
+It worked. It saved ten watts, which buys about two and a half more years. The mission manager called it pulling a rabbit out of a hat.
+
+And that wasn't even the scariest repair.
+
+In November 2023, Voyager 1 suddenly started sending home nonsense. It could still hear commands. It just couldn't make sense back.
+
+After months of detective work, the team found the cause. A single memory chip had died. And you can't exactly fly out and replace it.
+
+So they did something wild. They cut the broken code into pieces, and squeezed each piece into a different spare corner of the memory. Like packing a suitcase that's slightly too small.
+
+They sent the fix on the eighteenth of April 2024. Then they waited. Two days later, the reply came in. It worked.
+
+A software update, sent twenty-four billion kilometres, with no undo button.
+
+Then, in October 2026, Voyager 1 went quiet. For two days, the giant dishes heard nothing at all. On the twentieth, it was back. One set of its thrusters, the little jets that keep it pointed at Earth, had stopped, and the spacecraft had switched to its backups all by itself.
+
+Why did they stop? When NASA last reported, nobody knew.
+
+Twenty-four hours. We've arrived.
+
+There's no sign out here. No finish line. Voyager didn't feel a thing when it crossed one light-day. The milestone only means something to us.
+
+But it hears our hello. And it answers.
+
+Now the reply has to make the whole trip back. By the time it reaches those giant dishes, Voyager's signal is twenty billion times weaker than the power a digital watch needs.
+
+And it's slow. About a hundred and sixty bits per second. At that speed, a one-minute video from your phone would take about two months to come through.
+
+One day out. One day back. Voyager's project manager, Suzanne Dodd, put it simply. If you want to say hello to Voyager, you send your message, go home, and wait two days.
+
+So how long has it got left?
+
+Honestly, nobody knows. For decades, the team has said three to five more years. And for decades, Voyager has kept going anyway. The giant dishes should be able to hear it until around 2036, if it still has the power to speak up. Its twin, Voyager 2, should reach one light-day in November 2035. Whether either of them will still be talking by then, nobody can say.
+
+But even when it goes silent, it won't stop moving. In about forty thousand years, Voyager 1 will pass a star called Gliese four forty-five, at a distance of about one point seven light-years. In space, that counts as a near miss.
+
+And it's carrying a message. A gold-plated record, with greetings in fifty-five languages, music, sounds of Earth, and more than a hundred pictures. Plus instructions for how to play it. Which is thoughtful, because whoever finds it probably doesn't own a record player.
+
+One of those greetings is a six-year-old boy called Nick Sagan, saying: hello from the children of planet Earth.
+
+So here's what I can't stop thinking about.
+
+It took Voyager forty-nine years to travel as far as light goes in one day. Every single thing humans have ever launched is inside that one day.
+
+The nearest star is about fifteen hundred light-days away. At Voyager's speed, getting there would take about seventy-five thousand years.
+
+One day, out of fifteen hundred. That's as far as we've got.
+
+And still. A machine with less memory than one photo, running on the power of a blender, has been calling home for almost half a century. And every single day, there are people on Earth listening for it.
+
+By the way, in real life, the hello we sent at the start of this video has only just made it about as far as the Sun. Give it time.
+
+So the next time a message takes a few seconds to send, and you're shaking your phone, remember. Somewhere out there is a phone call that takes two days.
+
+And somebody still picks up.
