@@ -8,24 +8,36 @@ const svg = (w, h, inner, grain = .14) => '<svg xmlns="http://www.w3.org/2000/sv
   inner + '<rect width="' + w + '" height="' + h + '" fill="url(#vg2)"/><rect width="' + w + '" height="' + h + '" filter="url(#grain)" opacity="' + grain + '" style="mix-blend-mode:multiply"/></svg>';
 const sky = (w, h, n, seed) => { let s = '<rect width="' + w + '" height="' + h + '" fill="#070b1a"/>'; for (let i = 0; i < n; i++) { const x = rnd(i + seed) * w, y = rnd(i + seed + 100) * h, r = 1 + rnd(i + seed + 200) * 3; s += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="#fff8e7" opacity="' + (.35 + .6 * rnd(i + seed + 300)).toFixed(2) + '"/>'; } return s; };
 const big = (x, y, str, size, fill, rot = 0) => text(x, y, str, size, fill, { font: 'Brush', stroke: C.ink, sw: size * .13, rot });
+// --- science icons (paper style) ---
+const ink = C.ink;
+const atomRings = (cx, cy, rx, ry, sw, cols, t = 0) => cols.map((c, i) => '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" fill="none" stroke="' + c + '" stroke-width="' + sw + '" transform="rotate(' + (i * 60 - 30) + ' ' + cx + ' ' + cy + ')"/>').join('');
+const electrons = (cx, cy, rx, ry, r, cols) => cols.map((c, i) => { const a = (i * 60 - 30) * Math.PI / 180, ang = [0.15, Math.PI + 0.15, 0.12][i], x = rx * Math.cos(ang), y = ry * Math.sin(ang); return '<circle cx="' + (cx + x * Math.cos(a) - y * Math.sin(a)).toFixed(1) + '" cy="' + (cy + x * Math.sin(a) + y * Math.cos(a)).toFixed(1) + '" r="' + r + '" fill="' + c + '" stroke="' + ink + '" stroke-width="' + r * .35 + '"/>'; }).join('');
+const brain = (x, y, s) => g('<path d="M-70 10 C-95 -40 -55 -85 -10 -75 C10 -100 70 -95 80 -50 C115 -30 105 30 70 45 C60 80 10 85 -5 65 C-40 85 -95 60 -70 10z" fill="#f7a8c4" stroke="' + ink + '" stroke-width="8"/><path d="M0 -70 C-10 -30 15 0 0 60 M-50 -30 q20 10 15 35 M40 -55 q-15 25 10 45 M-45 30 q20 -5 30 15 M45 20 q-10 15 5 30" fill="none" stroke="#c4577e" stroke-width="7" stroke-linecap="round"/>', at(x, y, s));
+const dna = (x, y, s) => { let d1 = '', d2 = '', rungs = ''; for (let i = 0; i <= 40; i++) { const yy = -120 + i * 6, xx = 30 * Math.sin(i * .32); d1 += (i ? 'L' : 'M') + xx.toFixed(1) + ' ' + yy; d2 += (i ? 'L' : 'M') + (-xx).toFixed(1) + ' ' + yy; if (i % 4 === 2) rungs += '<line x1="' + xx.toFixed(1) + '" y1="' + yy + '" x2="' + (-xx).toFixed(1) + '" y2="' + yy + '" stroke="' + ['#ffd166', '#5ec8e5', '#f78c6b', '#9be38a'][i % 4 === 2 ? (i / 4 | 0) % 4 : 0] + '" stroke-width="7"/>'; } return g(rungs + '<path d="' + d1 + '" fill="none" stroke="' + ink + '" stroke-width="10"/><path d="' + d1 + '" fill="none" stroke="#7ad0f0" stroke-width="5"/><path d="' + d2 + '" fill="none" stroke="' + ink + '" stroke-width="10"/><path d="' + d2 + '" fill="none" stroke="#f7a8c4" stroke-width="5"/>', at(x, y, s, 18)); };
+const flask = (x, y, s) => g('<path d="M-22 -110 h44 v60 l60 120 q8 22 -14 22 h-136 q-22 0 -14 -22 l60 -120z" fill="#e8f4fa" stroke="' + ink + '" stroke-width="8" stroke-linejoin="round"/><path d="M-50 10 h100 l32 62 q6 12 -8 12 h-148 q-14 0 -8 -12z" fill="#6bd66b"/><circle cx="-10" cy="40" r="9" fill="#c9f7c9"/><circle cx="18" cy="58" r="6" fill="#c9f7c9"/><circle cx="4" cy="-20" r="8" fill="#9be38a" stroke="' + ink + '" stroke-width="4"/><circle cx="-6" cy="-60" r="6" fill="#9be38a" stroke="' + ink + '" stroke-width="4"/><rect x="-30" y="-122" width="60" height="16" rx="6" fill="#aab2c0" stroke="' + ink + '" stroke-width="7"/>', at(x, y, s, -8));
+const chip = (x, y, s) => { let p = ''; for (let i = -2; i <= 2; i++) p += '<rect x="' + (i * 26 - 6) + '" y="-92" width="12" height="22" fill="#d7dde6" stroke="' + ink + '" stroke-width="4"/><rect x="' + (i * 26 - 6) + '" y="70" width="12" height="22" fill="#d7dde6" stroke="' + ink + '" stroke-width="4"/><rect x="-92" y="' + (i * 26 - 6) + '" width="22" height="12" fill="#d7dde6" stroke="' + ink + '" stroke-width="4"/><rect x="70" y="' + (i * 26 - 6) + '" width="22" height="12" fill="#d7dde6" stroke="' + ink + '" stroke-width="4"/>'; return g(p + '<rect x="-72" y="-72" width="144" height="144" rx="14" fill="#2b3359" stroke="' + ink + '" stroke-width="8"/><rect x="-36" y="-36" width="72" height="72" rx="8" fill="#5ec8e5" stroke="' + ink + '" stroke-width="6"/><path d="M-36 0 h-22 M36 -18 h22 M0 36 v22" stroke="#5ec8e5" stroke-width="6"/>', at(x, y, s, 8)); };
+const heart = (x, y, s) => g('<path d="M0 60 C-90 0 -80 -70 -30 -70 C-10 -70 0 -55 0 -45 C0 -55 10 -70 30 -70 C80 -70 90 0 0 60z" fill="#e5484d" stroke="' + ink + '" stroke-width="8"/><path d="M-40 -40 q-10 15 0 30" fill="none" stroke="#ff9a9e" stroke-width="7" stroke-linecap="round"/>', at(x, y, s, -10));
 const profile = () => {
-  let s = sky(800, 800, 90, 11) + glow(400, 400, 420, 'gBlue', 1);
-  s += '<ellipse cx="400" cy="400" rx="330" ry="110" fill="none" stroke="' + C.yellow + '" stroke-width="16" transform="rotate(-22 400 400)" opacity=".95"/>';
-  s += earth2(400, 400, 235, 4, { glow: 0, sw: 12 });
-  s += '<path d="M 76.8 470.6 A 330 110 0 0 0 723.2 329.4" fill="none" stroke="' + C.yellow + '" stroke-width="16" transform="rotate(-22 400 400)"/>';
-  s += tp(690, 250, 52, 4, { sw: 8 });
+  const cols = ['#ffd166', '#5ec8e5', '#f78fb3'];
+  let s = sky(800, 800, 80, 11) + glow(400, 400, 430, 'gBlue', .9);
+  s += earth2(400, 400, 190, 4, { glow: 0, sw: 12 });
+  s += atomRings(400, 400, 330, 112, 18, cols.map(() => C.ink));
+  s += atomRings(400, 400, 330, 112, 10, cols);
+  s += electrons(400, 400, 330, 112, 28, cols);
   return svg(800, 800, s, .1);
 };
 const banner = (name, tagline) => {
   const W2 = 2560, H2 = 1440;
-  let s = sky(W2, H2, 420, 21);
-  s += glow(330, 720, 700, 'gBlue', .9) + earth2(330, 720, 330, 2, { glow: 0, sw: 12 });
-  s += glow(2280, 640, 520, 'gRed', .8) + rstar(2300, 600, 170, 2, { sw: 10 }) + tp(2060, 860, 70, 2, { sw: 8 });
-  // safe area (all devices): 1546 x 423, centred
-  const [first, ...rest] = name.split(' '), second = rest.join(' ');
+  let s = sky(W2, H2, 380, 21);
+  s += glow(330, 520, 520, 'gRed', .55) + glow(330, 980, 520, 'gBlue', .5) + glow(2230, 520, 520, 'gBlue', .6) + glow(2230, 980, 520, 'gWarm', .45);
+  s += brain(300, 560, 1.6) + dna(560, 960, 1.4) + heart(170, 1000, 1.1);
+  s += flask(2280, 1000, 1.5) + chip(2010, 560, 1.15);
+  const cols = ['#ffd166', '#5ec8e5', '#f78fb3'];
+  s += atomRings(2330, 470, 150, 54, 10, cols.map(() => C.ink)) + atomRings(2330, 470, 150, 54, 5, cols) + earth2(2330, 470, 70, 2, { glow: 0, sw: 7 });
+  s += tp(520, 330, 60, 2, { sw: 7 });
   s += big(1280, 700, name.toUpperCase(), 170, C.white, -2);
   s += text(1280, 800, tagline, 64, C.yellow, { font: 'Brush' });
-  s += text(1280, 880, 'space  ·  the human body  ·  technology  ·  chemistry', 44, C.cream, { font: 'Hand' });
+  s += text(1280, 880, 'the human body  ·  chemistry  ·  technology  ·  space', 44, C.cream, { font: 'Hand' });
   return svg(W2, H2, s, .1);
 };
 const endscreen = () => {
