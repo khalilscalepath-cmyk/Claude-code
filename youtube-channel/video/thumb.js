@@ -25,12 +25,19 @@ const Cc = () => {
   s += big(300, 250, 'THE', 150, C.white, -5) + big(320, 420, 'CATCH', 190, C.yellow, -5);
   return s;
 };
-window.render = k => { document.getElementById('s').innerHTML = frame((k === 'A' ? A : k === 'B' ? B : Cc)(), 0, { noWobble: true, vig: .8, grain: .12 }); };`;
+const D = () => {
+  let s = space(3, 17, '#060a18', 150) + glow(860, 400, 560, 'gBlue', .9);
+  s += tp(860, 400, 255, 1, { air: 1, lock: -30, face: 'flat' });
+  s += g('<line x1="0" y1="-150" x2="0" y2="-20" stroke="' + C.cream + '" stroke-width="5"/><path d="M-200 -20 L-160 -80 H200 V80 H-160z" fill="' + C.cream + '" stroke="' + C.ink + '" stroke-width="7"/><circle cx="-168" cy="0" r="11" fill="#06121f" stroke="' + C.ink + '" stroke-width="5"/>' + text(20, -14, 'TRIP THERE:', 40, C.ink, { font: 'Brush' }) + text(20, 52, '700,000 YRS', 62, C.red, { font: 'Brush' }), 'translate(700 560) rotate(-8)');
+  s += big(300, 250, 'EARTH', 170, C.white, -5) + big(320, 440, '2.0?', 230, C.yellow, -5);
+  return s;
+};
+window.render = k => { document.getElementById('s').innerHTML = frame((k === 'A' ? A : k === 'B' ? B : k === 'D' ? D : Cc)(), 0, { noWobble: true, vig: .8, grain: .12 }); };`;
 (async () => {
   const html = `<style>@font-face{font-family:Hand;src:url(data:font/ttf;base64,${b64('PatrickHand.ttf')})}@font-face{font-family:Brush;src:url(data:font/ttf;base64,${b64('CaveatBrush.ttf')})}html,body{margin:0;background:#000}</style><div id="s"></div><script>const TIMING=[];${fs.readFileSync(path.join(dir, 'lib.js'), 'utf8')}\n${THUMBS}</script>`;
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1280, height: 720 } });
   p.on('pageerror', e => console.error('ERR', e.message));
   await p.setContent(html); await p.evaluate(() => document.fonts.ready);
-  for (const k of ['A', 'B', 'C']) { await p.evaluate(k => window.render(k), k); await p.screenshot({ path: path.join(dir, '..', 'thumbnails', `001-thumb-${k}.png`) }); }
+  for (const k of ['A', 'B', 'C', 'D']) { await p.evaluate(k => window.render(k), k); await p.screenshot({ path: path.join(dir, '..', 'thumbnails', `001-thumb-${k}.png`) }); }
   await b.close();
 })();
