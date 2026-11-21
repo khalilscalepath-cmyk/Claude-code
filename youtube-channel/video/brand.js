@@ -40,6 +40,14 @@ const banner = (name, tagline) => {
   s += text(1280, 880, 'the human body  ·  chemistry  ·  technology  ·  space', 44, C.cream, { font: 'Hand' });
   return svg(W2, H2, s, .1);
 };
+const mark = () => {
+  const cols = ['#ffd166', '#5ec8e5', '#f78fb3'];
+  let s = '<circle cx="400" cy="400" r="385" fill="#070b1a" opacity=".7" stroke="#ffffff" stroke-width="14" stroke-opacity=".85"/>';
+  s += earth2(400, 400, 190, 4, { glow: 0, sw: 14 });
+  s += atomRings(400, 400, 330, 112, 34, cols.map(() => C.ink)) + atomRings(400, 400, 330, 112, 22, cols);
+  s += electrons(400, 400, 330, 112, 34, cols);
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800"><defs>' + DEFS + '</defs>' + s + '</svg>';
+};
 const endscreen = () => {
   let s = sky(1280, 720, 140, 31) + glow(640, 360, 600, 'gBlue', .35);
   s += big(640, 110, 'WHAT SHOULD WE EXPLAIN NEXT?', 64, C.white, -1);
@@ -49,13 +57,14 @@ const endscreen = () => {
   s += '<circle cx="640" cy="625" r="64" fill="#0d1530" stroke="#2a3a6a" stroke-width="4" stroke-dasharray="14 10"/>';
   return svg(1280, 720, s, .1);
 };
-window.go = (k, a, b) => { document.getElementById('s').innerHTML = k === 'profile' ? profile() : k === 'end' ? endscreen() : banner(a, b); };`;
+window.go = (k, a, b) => { document.getElementById('s').innerHTML = k === 'mark' ? mark() : k === 'profile' ? profile() : k === 'end' ? endscreen() : banner(a, b); };`;
 (async () => {
-  const html = '<style>@font-face{font-family:Hand;src:url(data:font/ttf;base64,' + b64('PatrickHand.ttf') + ')}@font-face{font-family:Brush;src:url(data:font/ttf;base64,' + b64('CaveatBrush.ttf') + ')}html,body{margin:0;background:#000}</style><div id="s"></div><script>const TIMING=[];' + fs.readFileSync(path.join(dir, 'lib.js'), 'utf8') + '\n' + ART + '</script>';
+  const html = '<style>@font-face{font-family:Hand;src:url(data:font/ttf;base64,' + b64('PatrickHand.ttf') + ')}@font-face{font-family:Brush;src:url(data:font/ttf;base64,' + b64('CaveatBrush.ttf') + ')}html,body{margin:0;background:transparent}</style><div id="s"></div><script>const TIMING=[];' + fs.readFileSync(path.join(dir, 'lib.js'), 'utf8') + '\n' + ART + '</script>';
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 2560, height: 1440 } });
   p.on('pageerror', e => console.error('ERR', e.message));
   await p.setContent(html); await p.evaluate(() => document.fonts.ready);
-  const shot = async (k, a, bb, w, h, file) => { await p.setViewportSize({ width: w, height: h }); await p.evaluate(([k, a, bb]) => window.go(k, a, bb), [k, a, bb]); await p.screenshot({ path: path.join(out, file), clip: { x: 0, y: 0, width: w, height: h } }); };
+  const shot = async (k, a, bb, w, h, file, transparent = false) => { await p.setViewportSize({ width: w, height: h }); await p.evaluate(([k, a, bb]) => window.go(k, a, bb), [k, a, bb]); await p.screenshot({ path: path.join(out, file), clip: { x: 0, y: 0, width: w, height: h }, omitBackground: transparent }); };
+  await shot('mark', '', '', 800, 800, 'watermark-800.png', true);
   await shot('profile', '', '', 800, 800, 'profile-800.png');
   await shot('banner', 'Earth to Science', 'Big science questions. Honest answers.', 2560, 1440, 'banner-earth-to-science.png');
   await shot('banner', 'Science to Earth', 'Big science questions. Honest answers.', 2560, 1440, 'banner-science-to-earth.png');

@@ -15,6 +15,7 @@ Backups if you want something else: handles @SciencetoEarthTV and @SciencetoEart
 |---|---|
 | `profile-800.png` | Customisation → Branding → Picture (800 × 800; YouTube crops it to a circle) |
 | `banner-earth-to-science.png` or `banner-science-to-earth.png` | Customisation → Branding → Banner image (2560 × 1440; the text sits inside the area every device shows) |
+| `watermark-150.png` | Customisation → Branding → Video watermark (150 × 150, transparent). Display time: **Entire video**. It becomes a subscribe button in the corner of every video. |
 | `endscreen-1280x720.png` | Not uploaded on its own: add it as the last 15 seconds of each video in your editor, then place YouTube's end-screen elements over the dashed boxes (two videos + subscribe) |
 
 ## Channel description (Customisation → Basic info → Description)
