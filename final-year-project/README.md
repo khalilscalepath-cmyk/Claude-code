@@ -16,6 +16,7 @@ This folder is the single home for the project: the proposal, the code, the data
 | --- | --- |
 | `proposal/miu-connect-proposal.docx` | The project proposal as a Word file (Times New Roman 12, 1.5 spacing), ready to print or submit |
 | `proposal/miu-connect-proposal.md` | The same proposal as text, for editing and tracking changes |
+| `proposal/miu-connect-proposal-3-pages.pdf` / `.docx` | Short 3-page version for submission (single spacing, 11 pt, 1 inch margins) |
 | `proposal/images/` | Figure 1, the system architecture diagram |
 | `coordinator-exercise/` | The separate class exercise: a proposal for the Project Coordinator Unit's project coordination system (MIU ProjectHub) |
 
